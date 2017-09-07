@@ -1,4 +1,7 @@
-<h4><%= @annotation.member.full_name %></h4>
+<h4>
+  <%= @annotation.member.full_name %>
+  <%= image_tag @annotation.member.avatar.url(:thumb), class: "float-right rounded", style: "min-width: 36px; max-width: 36px;" if @annotation.member and @annotation.member.avatar.exists? %>
+</h4>
 <hr>
 <div class="row">
   <div class="col-md-5 mb-3">
