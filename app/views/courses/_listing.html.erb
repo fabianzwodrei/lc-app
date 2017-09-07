@@ -1,0 +1,11 @@
+<div id="courses_list">
+  <% for course in @courses %>
+    <div class="card mb-3">
+      <div class="card-block p-3">
+        <%= render partial: "courses/course", formats: [:html],  locals: { event: course, hide_attendance_actions: true } %>
+      </div>
+    </div>
+  <% end -%>
+</div>
+
+

@@ -1,0 +1,1 @@
+<%= render partial: @event.class.to_s.pluralize.downcase  + "/" + @event.class.to_s.downcase, formats: [:html], locals: { event: @event} %>

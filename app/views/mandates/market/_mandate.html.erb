@@ -1,0 +1,26 @@
+<div class="card">
+	<div class="card-header" data-parent="#<%= id_attribute %>" data-target="#<%= id_attribute %>-mandate-<%= mandate.id %>" data-toggle="collapse" style="background-color: white" role="tab" id="mandate-<%= mandate.id %>-heading">
+    <%= render 'mandates/market/heading', mandate: mandate %>
+	</div>
+
+	<div id="<%= id_attribute %>-mandate-<%= mandate.id %>" class="collapse bg-faded" role="tabpanel" aria-labelledby="mandate-<%= mandate.id %>-heading">
+		<div class="card-block">
+
+      <% if mandate.is_assigned_to(current_member) %>
+          <%= link_to "Anzeigen",  mandate_path(mandate), class: "btn btn-primary btn-sm float-right" %>
+      <% else %>
+        <% if mandate.attended_by(current_member) %>
+            <p align="right"><a href="<%= mandate_unapply_path(mandate)  %>" data-method="PATCH" class="btn btn-primary btn-sm float-right"><%= t 'assignment.unapply' %></a></p>
+        <% else %>
+            <p align="right"><a href="<%= mandate_apply_path(mandate)  %>" data-method="PATCH" class="btn btn-primary btn-sm float-right"><%= t 'assignment.apply' %></a></p>
+        <% end %>
+      <% end %>
+
+      <p><b>Beschreibung</b><br><%= simple_format mandate.description %></p>
+
+		</div>
+	</div>
+</div>
+
+
+

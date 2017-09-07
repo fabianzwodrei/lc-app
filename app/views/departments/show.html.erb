@@ -1,0 +1,53 @@
+
+<h2><%= DEPARTMENT_TITLES[@department_id] %></h2>
+<div class="row">
+	<div class="col-md-6 mb-3">
+    	<%= render "tasks/widget", tasks: Task.where(department_id: @department_id).undone, filter: { department_id: @department_id }  %>
+    	<div class="card">
+			<div class="card-header h6">
+				Mitglieder des Ressorts
+			</div>
+			<ul class="list-group list-group-flush">
+		    	<% for member in Member.in_department(@department_id) %>
+			    	<li class="list-group-item"><%= member.full_name %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="card mb-3">
+			<div class="card-header h6">
+				Ressort-Projekte
+				<span class="badge badge-primary float-right">
+			        <a class="text-white" href="/projects/new?preselect=<%= @department_id %>">Neu</a>
+			    </span>
+			</div>
+			<ul class="projects_department_only list-group list-group-flush">
+				<% for p in Project.active.by_department @department_id %>
+					<%= render "projects/list_group_item", project: p %>
+				<% end %>
+			</ul>
+		</div>
+			
+		<div class="card mb-1">
+			<div class="card-header h6">
+				Projekte mit anderen Ressorts
+				<span class="badge badge-primary float-right">
+			        <a class="text-white" href="/projects/new">Neu</a>
+			    </span>
+			</div>
+			<ul class="list-group list-group-flush projects_department_shared">
+				<% for p in Project.active.shared_by_departments([@department_id]) %>
+					<%= render "projects/list_group_item", project: p %>		
+				<% end %>
+			</ul>
+		</div>
+		<p align="right" class="mb-3">
+			<small>
+				<a href="/projects/archived">Alle archivierten Projekte</a>
+			</small>
+		</p>
+			
+			
+	</div>
+</div>

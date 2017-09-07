@@ -1,0 +1,9 @@
+<% if not assignment.approved %>
+    <span class="float-right">
+          <a class="assignment_action" href="<%=  mandate_assignment_path(assignment.mandate, assignment) %>" data-method="PATCH" >Zulassen</a>
+        </span>
+<% else %>
+    <span class="float-right">
+      <a class="text-danger assignment_action" href="<%=  mandate_assignment_path(assignment.mandate, assignment) %>" data-method="DELETE"  data-confirm="Hier klicken, um die Zuweisung unwiderruflich zu entfernen">Zuweisung entfernen</a>
+    </span>
+<% end %>

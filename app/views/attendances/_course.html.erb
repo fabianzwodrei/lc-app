@@ -1,0 +1,29 @@
+<%
+  pars = from ? {from:from} : {}
+%>
+
+<div class="col attendee_full_name"><%= attendance.member.full_name %></div>
+
+<% if not public_mode %>
+	<% if !attendance.permitted %>
+		<div class="col small" align="right">
+		  <a href="<%= permit_attendance_path(attendance) %>" data-method="PATCH">Zur Teilnahme zulassen</a>
+		</div>
+	<% else %>
+		<% unless attendance.passed %>
+			<div class="col small" align="right">
+			  <a href="<%= remove_member_from_event_path(id:attendance.event_id,member_id:attendance.member_id,params:pars) %>" data-confirm="Sicher?" data-method="POST">Teilnahme aufheben</a>
+			</div>
+			<div class="col small" align="right">
+			 	<a class="course_award_action" href="<%= award_attendance_path(attendance,params:pars) %>" data-method="PATCH">Kurs bestanden</a>
+			</div>
+		<% else %>
+		  	<div class="col small" align="right">
+		  		<span class="course_passed_notice text-success">Kurs bestanden</span>
+		  	</div>
+		  	<div class="col small" align="right">
+		  		<a class="course_unaward_action" href="<%= unaward_attendance_path(attendance,params:pars)  %>" data-method="PATCH" data-confirm="Sicher?">zurücknehmen</a>
+		  	</div>
+		<% end %>
+	<% end %>
+<% end %>

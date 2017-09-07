@@ -1,0 +1,60 @@
+<div class="card">
+      <div class="card-header" data-parent="#inquiries_list" data-target="#inquiry-<%= inquiry.id %>" data-toggle="collapse" style="background-color: white" role="tab" id="inquiry-<%= inquiry.id %>-heading">
+        
+
+        <div class="h6 mb-0" >
+          <span class="oi oi-double-quote-serif-right mr-2 text-info"></span>
+          <% if inquiry.done %><span class="oi oi-check text-success mr-2"></span><% end %>
+          <%= inquiry.title %></div>
+        
+       
+      </div>
+
+      <div id="inquiry-<%= inquiry.id %>" class="collapse bg-faded" role="tabpanel" aria-labelledby="inquiry-<%= inquiry.id %>-heading">
+        <div class="card-block">
+          <div class="row mb-1" align="right">
+            <div class="col-12"><%= render "common/pencil", path: inquiry_path(inquiry.id) %></div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-5">
+              <p>
+                <small class="bold">Zuweisung</small><br>
+                <% if inquiry.member_id? %>
+                  <%= inquiry.member.full_name %>
+                <% else %>
+                  Niemand
+                <% end %>
+              </p>
+
+              <p>
+                <small class="bold">Mandant*in</small><br>
+                <% if inquiry.client %>
+                  <%= inquiry.client.name %>
+                <% else %>
+                  Niemand
+                <% end %>
+              </p>
+            </div>
+
+            <div class="col-md-5">
+              <p>
+                <small class="bold">Letzte Änderung</small><br>
+                <%= l inquiry.updated_at.localtime, format: :long %>
+              </p>
+
+              <p>
+                <small class="bold">Erstellung</small><br>
+                <%= l inquiry.created_at.localtime, format: :long %>
+              </p>
+
+              
+            </div>
+          </div>
+          
+          <p>
+            <h6>Beschreibung:</h6>
+            <%= inquiry.description %>
+          </p>
+        </div>
+      </div>
+    </div>

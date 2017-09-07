@@ -1,0 +1,111 @@
+<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <% if not current_member %>
+
+      <%= link_to LAW_CLINIC_NAVBAR_TITLE, ( new_member_session_path), method: "GET", class: "navbar-brand" %>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto"></ul> <!-- needed for float-right to work -->
+        <ul class="navbar-nav">
+          <li><a class="nav-link" href="<%= window_path %>" aria-haspopup="true" aria-expanded="false">Mandantenfenster</a></li>
+        </ul>
+      </div>
+
+  <% else %>
+      <a class="navbar-brand" href="/"><%= LAW_CLINIC_NAVBAR_TITLE %></a>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+        <ul class="navbar-nav mr-auto"></ul> <!-- needed for float-right to work -->
+
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown float-right">
+            <a class="nav-link dropdown-toggle" href="" id='dropdown_allgemein' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Allgemein
+            </a>
+            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby='dropdown_allgemein'>
+              <a class="dropdown-item" href="<%= calendar_events_path %>">Kalender</a>
+              <a class="dropdown-item" href="<%= public_mandates_path %>">Mandatsbörse</a>
+              <a class="dropdown-item" href="<%= bibliographies_path %>">Dokumente</a>
+              <a class="dropdown-item" href="<%= public_people_path %>"><%= t 'domain_model.people'%></a>
+              <a class="dropdown-item" href="<%= public_members_path %>">Mitglieder</a>
+            </div>
+          </li>
+
+          <!-- BEGIN member in the role of a member of departments -->
+          <% if current_member.departments.count > 0 %>
+              <% for department_id in current_member.departments %>
+                  <li class="nav-item dropdown float-right">
+                    <a class="nav-link dropdown-toggle" style="color:white" href="" alt="<%= department_id %>" id='<%= "dropdown_department_#{DEPARTMENT_TITLES[department_id]}" %>' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= DEPARTMENT_TITLES[department_id] %>
+                    </a>
+                    <div class="dropdown-menu  dropdown-menu-right" aria-labelledby='<%= "dropdown_department_#{DEPARTMENT_TITLES[department_id]}" %>'>
+
+                      <a class="dropdown-item" href="<%= departments_path(department_id) %>">Übersicht</a>
+                      
+                      <% if department_id == MANDATSVERWALTUNG %>
+                          <a class="dropdown-item" href="<%= inquiries_path %>"><%= t 'domain_model.inquiries' %></a>
+                          <a class="dropdown-item" href="<%= mandates_path %>"><%= t 'domain_model.mandates' %></a>
+                          <a class="dropdown-item" href="<%= annotations_members_path %>"><%= t 'domain_model.members'%></a>
+                          <a class="dropdown-item" href="<%= people_path(params:{department_id:department_id}) %>"><%= t 'domain_model.people'%></a>
+                      <% end %>
+                      <% if department_id == ORGANISATION %>
+                          <a class="dropdown-item" href="<%= members_path(params:{department_id:department_id}) %>"><%= t 'domain_model.members'%></a>
+                      <% end %>
+                      <% if department_id == FINANZEN %>
+                          <a class="dropdown-item" href="<%= fee_payments_path(params:{department_id:department_id}) %>"><%= 'Zahlungsübersicht' %></a>
+                      <% end %>
+                      <% if department_id == SCHULUNGEN %>
+                          <a class="dropdown-item" href="<%= courses_path %>">Schulungen</a>
+                      <% end %>
+                      <% if department_id == SPRECHSTUNDE %>
+                          <a class="dropdown-item" href="<%= consultations_path %>">Sprechstunden</a>
+                          <a class="dropdown-item" href="<%= new_mandate_path(params:{department_id:department_id})%>">Mandat anlegen</a>
+                          <a class="dropdown-item" href="<%= new_inquiry_path(params:{department_id:department_id})%>">Sachstandsanfrage anlegen</a>
+                          <a class="dropdown-item" href="<%= qualifications_members_path %>"><%= t 'domain_model.members'%></a>
+
+                      <% end %>
+                      <% if [SCHULUNGEN, OEFFENTLICHKEIT, NETZWERK, FINANZEN].include? department_id %>
+                          <a class="dropdown-item" href="<%= people_path(params:{department_id:department_id}) %>"><%= t 'domain_model.people' %></a>
+                      <% end %>
+                      <% if department_id == RECHTE %>
+                          <a class="dropdown-item" href="<%= members_rights_path(params:{department_id:department_id}) %>"><%= 'Rechteverwaltung' %></a>
+                      <% end %>
+                      <% if department_id == VORSTAND %>
+                          <a class="dropdown-item" href="<%= departments_members_path %>"><%= 'Mitglieder / Ressorts' %></a>
+                      <% end %>
+
+                      <a class="dropdown-item" href="<%= bibliographies_path(department_id: department_id) %>">Dokumente</a>
+                    </div>
+                  </li>
+              <% end %>
+          <% end %>
+          <!-- END member in the role of a member of departments -->
+
+          
+          <!-- BEGIN member specific actions -->
+          <li class="nav-item dropdown float-right">
+
+            <a class="nav-link dropdown-toggle" href="" id="userDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_member.first_name %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropDown">
+              <%= link_to "Nachrichten", conversations_path(), class: "dropdown-item" %>
+              <%= link_to "Termine", events_path(), class: "dropdown-item" %>
+              <a href="/projects/archived" class="dropdown-item">Archivierte Projekte</a>
+              <%= link_to "Profil", member_path(current_member.id), class: "dropdown-item" %>
+              <%= link_to "Logout", destroy_member_session_path, method: "DELETE", class: "dropdown-item" %>
+            </div>
+          </li>
+          <!-- END member specific actions -->
+        </ul>  <!-- END - SECOND navbar-nav (right-floating) -->
+      </div>  <!-- END collapse navbar-collapse -->
+  <% end %>
+
+
+
+</nav>

@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= render "common/pencil", path: edit_member_path(@member) %>
+    <h2>Dein Profil</h2>
+
+    <%= image_tag @member.avatar.url, class: " d-flex mr-3 rounded", style: "max-width: 120px;" %><br>
+
+    <%= render 'core_data', member: @member, show_extras: true %>
+
+    <br>
+    <br>
+
+    <%= render file: 'members/qualification', formats: [:htmlp], locals: { member: @member } %>
+  </div>
+</div>

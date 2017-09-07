@@ -1,0 +1,9 @@
+<%
+  department_id ||= nil
+  dept_sfx = ''
+  if department_id
+    dept_sfx = '?department_id='+department_id.to_s
+  end
+%>
+
+<div align="center"><%= link_to "Offene anzeigen", path+dept_sfx, class: "btn btn-secondary btn-sm" %></div>

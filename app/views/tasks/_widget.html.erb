@@ -1,0 +1,75 @@
+<div class="card">
+  <div class="card-header h6">
+      <span class="badge badge-default float-right">
+        <% if defined? filter %>
+          <%= "Für dieses Mandat" unless filter[:mandate_id].blank? %>
+          <%= "Für dieses Ressort" unless filter[:department_id].blank? %>
+        <% else %>
+          Alle Meine
+        <% end -%>
+      </span>
+
+      Aufgaben
+  </div>
+  <div class="card-block p-2">
+    <form href="#" id="new_task_form" name="new_task_form" style="position: relative;" class="m-0">
+          <button type="submit" class="btn btn-secondary btn-sm" style="position: absolute; right:0px;" ><span class="oi oi-action-redo"></span></button>
+          <input name="task[title]" id="task_title" type="text" class="form-control " style="border:none; border-bottom: #0275d8 solid 1px; border-radius:0px" placeholder="Neue Aufgabe" autocomplete="off">
+          <% if defined? filter %>
+            <% filter.each do |key, value|  %>
+              <input name="task[<%= key %>]" id="task[<%= key %>]" type="hidden " value="<%= value %>" class="form-control " style="display:none;" autocomplete="off">
+            <% end %> 
+          <% end %>
+    </form>
+  </div>
+  <div id="tasks_widget_listing"><%= render "tasks/listing", tasks: tasks %></div>
+</div>
+<p align="right" class="mb-3"><small>
+  <% done_url = "/tasks/done" 
+    if defined? filter.first
+      done_url += "?filter[" + filter.first[0].to_s + "]=" + filter.first[1].to_s
+    end 
+  %>
+  <a href="<%= done_url %>">Erledigte anzeigen</a></small>
+</p>
+<script type="text/javascript">
+
+  <%-# INFO - Die Filter-Variable aus Rails, bezieht sich auf die Filterung der Tasks die vom Server kommen, nachdem der User Tasks bearbeitet %>
+  
+  $('#new_task_form').submit(function(e) {
+    e.preventDefault();
+    var form = {
+      <% if defined? filter %>
+        "filter":<%= raw(filter.to_json)  %>
+      <% end %>
+    };
+    $.each($(this).serializeArray(), function (i, field) { form[field.name] = field.value || ""; });
+    $('#tasks_widget_listing').load('/tasks.htmlp', form, function(){  $('#task_title').val("") });
+  });
+
+  var close_task = function (el) {
+    if (confirm("Aufgabe erledigt?")) {
+      $('#tasks_widget_listing').load('/tasks/' + $(el).data().taskId + '/close.htmlp', {
+        <% if defined? filter %>"filter":<%= raw(filter.to_json)  %><% end %>
+      });
+    } else {
+      el.checked = false;
+    }
+  }
+
+  var set_deadline = function (el) {
+    if (el.value.length < 9) return;
+
+    $.ajax('/tasks/' + $(el).data().taskId + '.htmlp', {
+      method: "PUT",
+      data: {
+        task: {"deadline_string": el.value}
+        <% if defined? filter %>,"filter":<%= raw(filter.to_json)  %><% end %>
+      },
+      success: function (data) {
+        $('#tasks_widget_listing').html(data);
+      }
+    });
+  }
+ 
+</script>

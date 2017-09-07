@@ -1,0 +1,12 @@
+<%= render 'common/back', text: ' Zurück zur Übersicht', path: courses_path %>
+<%= render "form" %>
+
+<div class="row">
+	<div class="col-md-6 my-4 card">
+		<div class="card-block">
+		<h5>Löschen</h5>
+		<p>Eine Schulung kann nur gelöscht werden, wenn keine Teilnahmen mehr verbunden sind - egal in welchem Zustand (<i>Bewerbung, Teilnahme, Bestanden</i>)</p>
+		<%= link_to "Schulung löschen", course_path(@course), method: "DELETE", data: {confirm: "Löschen bestätigen"}, class: "btn btn-danger btn-sm mt-4" if can? :destroy, @course  %>
+		</div>
+	</div>
+</div>

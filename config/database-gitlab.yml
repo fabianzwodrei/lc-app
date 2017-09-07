@@ -1,0 +1,8 @@
+test:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  host: localhost
+  database: lc_test
+  user: lcuser
+  password: lcuserpassword

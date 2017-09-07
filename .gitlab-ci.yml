@@ -1,0 +1,19 @@
+
+services:
+  - postgres:latest
+  - redis:latest
+
+variables:
+  POSTGRES_DB: lc_test
+  POSTGRES_USER: lcuser
+  POSTGRES_PASSWORD: "lcuserpassword"
+
+before_script:
+  - bundle install
+
+# run tests
+test:
+  script:
+    - cp config/database-gitlab.yml config/database.yml
+    - bundle exec rake db:test:prepare RAILS_ENV=test
+    - bundle exec rake test

@@ -1,0 +1,27 @@
+<h5>Termin</h5>
+<hr>
+<div class="row">
+  <div class="col-sm-7">
+      <div class="row mb-2">
+        <div class="small bold col-md-4">Wann:</div>
+        <div class="col-md-6"><%= print_dates event.dates %></div>
+      </div>
+      <% if event.department_id %>
+        <div class="row mb-2">
+          <div class="small bold col-md-4">Organisiert durch:</div>
+          <div class="col-md-6"><%= DEPARTMENT_TITLES[event.department_id] %></div>
+        </div>
+      <% end -%>
+      <div class="row mb-2">
+        <div class="small bold col-md-4">Wo:</div>
+        <div class="col-md-6"><%= event.where %></div>
+      </div>
+      <div class="row mb-2">
+        <div class="small bold col-md-4">Beschreibung:</div>
+        <div class="col-md-6"><%= simple_format event.description %></div>
+      </div>
+    </div>
+    <div class="col-sm-5"><%= render partial:'events/actions', formats: [:html], locals: { event: event } %></div>
+      
+
+</div>

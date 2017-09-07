@@ -1,0 +1,16 @@
+<%= render 'common/back', text: ' Alle Ordner', path: bibliographies_path(department_id: (@bibliography.department_id if @bibliography.department_id)) %>
+
+<h2>
+	<small>Ordner</small><br>
+	<%= @bibliography.title %>		
+</h2>
+<div class="row">
+	<div class="col-12 col-md-8 mb-3"><%= render @bibliography.documents %></div>
+	<div class="col-12 col-md-4 mb-3">
+		<div class="list-group">
+			<%= link_to "Dokument hinzufügen", new_bibliography_document_path(@bibliography), class: "list-group-item list-group-item-action" if can? :create, Document  %>
+			<%= link_to "Ordner bearbeiten", edit_bibliography_path(@bibliography), class: "list-group-item list-group-item-action" if can? :edit, Bibliography  %>
+			<%= link_to "Ordner löschen", bibliography_path(@bibliography), method: "DELETE", data: {confirm: "Löschen bestätigen"}, class: "list-group-item list-group-item-action" if can? :destroy, Bibliography  %>
+		</div>
+	</div>
+</div>

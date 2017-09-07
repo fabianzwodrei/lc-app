@@ -1,0 +1,27 @@
+
+<%= render "common/validation_msg_box", resource: member %>
+
+<div class="row">
+  <div class="col col-6">
+    <%= form_for member, :url => {:action => "update_right", :member_id => member.id} do |f| %>
+
+        <% if can? :update_right, Member %>
+
+            <div class="card">
+              <div class="card-header">
+                Ressorts
+              </div>
+              <div class="card-block">
+                <%= render "departments/select", f:f %>
+              </div>
+            </div>
+
+        <% end %>
+
+        <% if @department_id %>
+          <%= hidden_field_tag(:department_id, @department_id) %>
+        <% end %>
+        <%= f.submit "Speichern", class: "btn btn-primary mt-4" %>
+    <% end %>
+  </div>
+</div>

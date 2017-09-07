@@ -1,0 +1,11 @@
+<%= render 'common/back', text: ' Zurück zur Übersicht', path: inquiries_path %>
+<br>
+<br>
+
+
+<div class="row">
+  <div class="col s12">
+    <h2><%= @inquiry.title %></h2>
+    <%= render "form", inquiry: @inquiry %>
+  </div>
+</div>

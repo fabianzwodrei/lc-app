@@ -1,0 +1,53 @@
+<div class="card">
+
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" role="tab" id="client-tab-link" href="#the-client-details">
+          Mandant
+        </a>
+      </li>
+
+      <% if can? :create, Mandate %>
+        <li class="nav-item">
+          <a href="#seach-client-tab" data-toggle="tab" role="tab" class="nav-link search-client-tab-link">
+            <% if owner.client and owner.client.persisted? %>
+                Ändern
+            <% else %>
+                Mandant suchen
+            <% end %>
+          </a>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+  <div class="card-block">
+    <div class="tab-content">
+       <div class="tab-pane active" id="the-client-details" role="tabpanel">
+        <% if owner.client and owner.client.persisted? %>
+          <h4 class="person-name"><%= owner.client.name %></h4>
+          <%= render "people/details", person: owner.client %>
+        <% else %>
+          <%= parent_form.fields_for :client, owner.client ||= Person.new do |pf| %>
+            <%= render "people/inputs", form: pf, person: owner.client, hide_extras: true %>
+          <% end %>
+        <% end %>
+      </div>
+      <% if can? :create, Mandate %>
+        <div class="tab-pane" id="seach-client-tab" role="tabpanel">
+            <%= render "people/suggest", placeholder: "Name", button_text: "Auswählen", callback: "apply_new_person_id", role: "client" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    var apply_new_person_id  = function(client_id) {
+      $('#the-client-details').load('/people/'+client_id+'.htmlp', function () {
+        $(this).append('<input name="<%= owner.class.to_s.downcase %>[client_id]" id="<%= owner.class.to_s.downcase %>_client_id" type="hidden" value="'+client_id+'">')
+      });
+      $('#client-tab-link').click();
+    }
+  </script>

@@ -1,0 +1,19 @@
+<div class="col-md-6">
+<%= render 'common/back', text: ' Zurück zur Übersicht', path: fee_payments_path %>
+<br>
+<br>
+<br>
+
+  <h2>Zahlungsdaten zurücksetzen</h2>
+  <p>
+    Hier kannst du sämtliche Zahlungsdaten zurücksetzen.
+    Alle Mitglieder erhalten dann wieder den Zahlungsstatus 'nicht bezahlt'.
+    Beachte, dass die Aktion nicht mehr rückgängig gemacht werden kann.
+  </p>
+
+  <br>
+
+  <%= button_to "Sämtliche Zahlungsdaten jetzt zurücksetzen",
+                { :action => "reset_all", }, class: 'btn btn-primary',
+                method: :delete, data: {confirm: "Sicher?"} %>
+</div>

@@ -1,0 +1,44 @@
+yasemin:
+  id: 1
+  first_name: "Yasemin"
+  last_name: "Person"
+  role: "client"
+  department_id: 0
+hossein:
+  id: 2
+  first_name: "Hossein"
+  last_name: "Person"
+  email: "hossein@hossein.com"
+  role: "client"
+  department_id: 0
+netzwerk_ressort_contact:
+  id: 3
+  first_name: "Dave"
+  last_name: "Person"
+  email: "Dave"
+  department_id: 2
+  role: "contact"
+schulungen_ressort_contact:
+  id: 4
+  first_name: "Ruby"
+  last_name: "Person"
+  department_id: 4
+  role: "contact"
+oeffentlichkeit_ressort_contact:
+  id: 5
+  first_name: "Lauren"
+  last_name: "Person"
+  department_id: 3
+  role: "contact"
+finanzen_ressort_contact:
+  id: 6
+  first_name: "Tobi"
+  last_name: "Person"
+  department_id: 5
+  role: "contact"
+wenjun:
+  id: 7
+  first_name: "Wenjun"
+  last_name: "Person"
+  role: "consultant"
+  department_id: 0

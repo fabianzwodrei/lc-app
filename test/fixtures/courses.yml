@@ -1,0 +1,78 @@
+course_1:
+  id: 1
+  type: "Course"
+  title: "Vorlesung Modul 1"
+  module: "module-1-lecture"
+  dates: ["2017-02-02"]
+  where: "There"
+  archive: false
+course_limited:
+  id: 2
+  type: "Course"
+  title: "Veranstaltung Modul 2 mit maximaler Teilnehmeranzahl"
+  module: "module-2"
+  dates: ["2017-02-02"]
+  where: "There"
+  limit: 1
+  archive: false
+  qualification_date: <%= Date.yesterday %>
+course_limited_and_permission_required:
+  id: 3
+  type: "Course"
+  title: "Veranstaltung Modul 2 mit maximaler Teilnehmeranzahl und Notwendigkeit der Freischaltung"
+  module: "module-2"
+  dates: ["2017-02-02"]
+  where: "There"
+  limit: 1
+  permission_required: true
+  archive: false
+  qualification_date: <%= Date.yesterday %>
+course_4:
+  id: 4
+  type: "Course"
+  title: "Modul 1 Workshop"
+  module: "module-1-workshop"
+  dates: ["2017-02-02"]
+  where: "There"
+course_permission_required:
+  id: 5
+  type: "Course"
+  title: "Veranstaltung Modul 2 mit Notwendigkeit der Freischaltung"
+  module: "module-2"
+  dates: ["2017-02-02"]
+  where: "There"
+  permission_required: true
+  archive: false
+  qualification_date: <%= Date.yesterday %>
+course_tim_1:
+  id: 6
+  type: "Course"
+  title: "Tim1"
+  module: "module-1-lecture"
+  dates: ["2017-02-02"]
+  where: "There"
+course_tim_2:
+  id: 7
+  type: "Course"
+  title: "Tim2"
+  module: "module-2"
+  qualification_date: <%= Date.yesterday %>
+  dates: ["2017-02-02"]
+  where: "There"
+  limit: 1
+  archive: false
+course_tim_3:
+  id: 8
+  type: "Course"
+  title: "Tim3"
+  module: "module-2"
+  qualification_date: <%= Date.yesterday %>
+  dates: ["2017-02-02"]
+  where: "There"
+course_tim_4:
+  id: 9
+  type: "Course"
+  title: "Tim4"
+  module: "module-1-workshop"
+  dates: ["2017-02-02"]
+  where: "There"

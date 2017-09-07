@@ -1,0 +1,15 @@
+<% if @department_id %>
+  <%= render 'common/back', text: ' Zurück zur Übersicht', path: members_rights_path(params:{department_id:@department_id}) %>
+  <br>
+  <br>
+  <h2>Rechteverwaltung für ein Mitglied</h2>
+<% else %>
+  <%= render 'common/back', text: ' Zurück', path: edit_member_path(@member) %>
+  <br>
+  <br>
+  <h2>Rechteverwaltung für ein Vorstandsmitglied</h2>
+<% end %>
+
+<%= @member.email %>
+
+<%= render 'rights_form', member: @member %>

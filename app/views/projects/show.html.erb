@@ -1,0 +1,41 @@
+
+<div class="row">
+	<div class="col-12">
+		<%= render 'common/back', text: ' Alle Projekte', path: projects_path if can? :index, Project %>
+		<h4><small>Projekt</small><br><%= @project.title %></h4></div>
+
+</div>
+<div class="row">
+	<div class="col-md-8 mb-3">
+    	<%= render "conversations/protocol", conversation: @project.conversation if @project.conversation %>
+
+	</div>
+	<div class="col-md-4 mb-3">
+		<% if can? :edit, @project %><a href="<%= edit_project_path(@project) %>" class="btn btn-sm btn-secondary mb-3">Projekt bearbeiten</a><% end -%>
+
+		<% unless @project.description.blank? %>
+			<h6>Beschreibung</h6>
+			<p class="mb-3">
+				<%= @project.description %>		
+			</p>
+		<% end -%>
+		<h6>Ressorts</h6>
+		<p class="mb-3">
+			<%= departments_to_string @project.departments %>		
+		</p>
+		<h6>Gesondert Geladene</h6>
+		<p class="mb-3">
+			<%= @project.invitees.map { |m| m.full_name  }.join(', ') %>		
+		</p>
+		<h6>Für Infoboard genutzt</h6>
+		<p class="mb-3">
+			<%= @project.use_for_infoboard ? "Ja" : "Nein" %>		
+		</p>
+		<% if @project.archived %>
+			<h6 class="text-danger">Archiviert/Beendet</h6>
+			<p class="mb-3">
+				Ja		
+			</p>
+		<% end -%>
+	</div>
+</div>

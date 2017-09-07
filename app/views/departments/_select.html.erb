@@ -1,0 +1,8 @@
+<%= f.collection_check_boxes(:departments, DEPARTMENTS.map { |e| [ e, DEPARTMENT_TITLES[e]  ]}, :first, :second) do |b| %>
+    <div class="form-check">
+      <%= b.label class: "form-check-label" do %>
+          <%= b.check_box class:"form-check-input", autocomplete: "off" %>
+          <%= b.text %>
+      <% end -%>
+    </div>
+<% end %>

@@ -1,0 +1,96 @@
+
+    <%= render "common/validation_msg_box", resource: @course %>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <h4>Schulung</h4>
+
+        <%= form_for @course do |f| %>
+          <%= render 'events/form_core', f: f %>
+
+          <div class="form-group">
+            <%= f.label :dates, "Daten" %> <small class="text-muted">Format: 01.01.2017 - 13:30 (Mehrere Daten mit Kommata voneinander trennen)</small>
+            <%= f.text_field :dates_string, value: print_dates(@course.dates), class:"form-control" %>
+          </div>
+
+          <!--
+            this is to check if this is a new record
+            the field should not be editable afterward
+            though everything should work fine from a technical
+            perspective, the resulting behaviour might be confusing,
+            especially if there are already members who passed the course
+          --><% if ! @course.id %>
+          <div class="form-group">
+            <%= f.label :module, "Veranstaltungstyp", data: {toggle:"tooltip"}, title:"Der Veranstaltungstyp bestimmt die Qualifikation, die ein Mitglied durch erfolgreiche Teilnahme erwerben kann. Sobald die Evaluierungsphase offen ist, kann die angegebene Qualifikation an erfolgreiche Kursteilnehmer vergeben werden. Beachte, dass diese Einstellung nicht mehr im Nachhinein verändert werden kann." %>
+            <%= f.select(:module, @course.types.map {|type| [t('@course.type.'+type),type]}, :prompt => 'Select', class:"form-control") %>
+          </div>
+          <% else %>
+            Veranstaltungstyp: <%= t 'course.module.'+@course.module %>
+            <br>
+            <br>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :qualification_date, "Qualifikationsdatum", data: {toggle:"tooltip"}, title:"Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation (nur Modul 2) aktiv wird. Modul 2 Qualifikationen bleiben jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden." %> <small class="text-muted">Nur bei Modul 2. Format: 01.01.2017</small>
+            <%= f.text_field :qualification_date, value: (l @course.qualification_date if @course.qualification_date), class:"form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description, "Beschreibung" %>
+            <%= f.text_area :description, class:"form-control" %>
+          </div>
+
+          <!--
+            this is to check if this is a new record
+            the field should not be editable afterward
+            don't change this unless a proper solution for
+            attendances waiting for permission gets implemented
+          --><% if ! @course.id %>
+            <div class="form-group">
+              <%= f.label :permission_required, "Anmeldung erfordert Freischaltung durch das Ressort Schulungen", data: {toggle:"tooltip"}, title:"Ist das Häkchen gesetzt, können sich Mitglieder für eine Kursteilnahme anmelden, werden jedoch nicht automatisch zugelassen. Eine Freischaltung durch das Ressort Schulungen ist dann notwendig. Beachte, dass diese Einstellung nicht mehr im Nachhinein verändert werden kann." %>
+              <%= f.check_box :permission_required, class:"checkbox" %>
+            </div>
+          <% end %>
+
+
+          <div class="form-group">
+            <%= f.label :limit, "Maximale Teilnehmerzahl", data: {toggle:"tooltip"}, title:"Das Feld kann frei gelassen werden, falls es keine Teilnehmerbegrenzung geben soll." %>
+            <%= f.number_field :limit, class:"form-control" %>
+          </div>
+
+          <% if @course.id %>
+            <div class="form-group">
+              <%= f.label :archive, "Archiviert", data: {toggle:"tooltip"}, title:"Häkchen setzen, um den Kurs nach Abschluss zu archivieren. Mitglieder sehen ihn nicht mehr in der öffentlichen Kursübersicht." %>
+              <%= f.check_box :archive, class:"checkbox" %>
+            </div>
+          <% end %>
+          <%= f.submit "Speichern", class: "btn btn-primary float-right" %>
+        <% end %>
+      </div>
+
+      <div class="col-md-6">
+        <% unless @course.new_record? %>
+
+          <div class="card mt-4">
+            <div class="card-header h6">
+              Email an alle Teilnehmer
+            </div>
+            <div class="card-block p-2">
+              
+              <%= render "emails/form", action: email_course_path(@course) %>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header h6">
+              Teilnehmer
+            </div>
+            <div class="card-block p-3">
+              <%= render partial: 'courses/attendees', formats: [:html], locals: {course: @course, admin_mode: true } %>
+            </div>
+          </div>
+
+
+        <% end %>
+      </div>
+    </div>

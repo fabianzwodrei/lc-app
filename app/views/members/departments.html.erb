@@ -1,0 +1,17 @@
+<h2>Mitglieder / Ressorts</h2>
+
+<% (0...DEPARTMENT_TITLES.length).each do |i| %>
+    <div id="department-<%= i %>">
+      <h5><%= DEPARTMENT_TITLES[i] %></h5>
+      
+      <ul>
+        <% Member.all.each do |member| %>
+          <% if member.departments.include? i %>
+            <li>
+              <span class="email"><%= member.email %></span>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+<% end %>

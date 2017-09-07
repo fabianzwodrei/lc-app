@@ -1,0 +1,12 @@
+<% if params[:department_id] %>
+	<small>Ressorteigene</small>
+<% end -%>
+<h2>Ordner</h2>
+<div class="row">
+	<div class="col-12 col-md-8 mb-3"><%= render @bibliographies %></div>
+	<div class="col-12 col-md-4 mb-3" align="right">
+		<div class="list-group">
+			<%= link_to "Neuen Ordner anlegen", new_bibliography_path(department_id: params[:department_id]), class:"list-group-item list-group-item-action" if can? :create, Bibliography %>
+		</div>
+	</div>
+</div>

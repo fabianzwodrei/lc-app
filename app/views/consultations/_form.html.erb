@@ -1,0 +1,58 @@
+<%= render "common/validation_msg_box", resource: @consultation %>
+
+    <div class="row">
+      <div class="col-md-6">
+        <%= form_for @consultation do |f| %>
+
+          <%= render 'events/form_core', f: f %>
+          
+          <div class="form-group">
+            <div class="form-group">
+              <%= f.label :dates, "Wann" %> <small class="text-muted">Format: 01.01.2017 - 13:30</small>
+              <%= f.text_field :dates_string, value: print_dates(@consultation.dates), class:"form-control" %>
+            </div>
+          </div>
+
+          <% if @consultation.id %>
+            <div class="form-group">
+              <%= f.label :archive, "Archiviert", data: {toggle:"tooltip"},
+                          title:"Häkchen setzen, um die Sprechstunde nach Abschluss zu archivieren. Mitglieder sehen sie nicht mehr in der öffentlichen Übersicht und es können keine neuen Mitglieder mehr hinzugefügt werden." %>
+              <%= f.check_box :archive, class:"checkbox" %>
+            </div>
+          <% end %>
+
+           <div class="actions">
+            <%= f.submit "Speichern", class: "btn btn-primary" %>
+            <% if @consultation.id %>
+              <a href="<%= consultation_path(@consultation) %>" data-method="DELETE" class="btn btn-danger" data-confirm="Sicher?">Löschen</a>
+            <% end %>
+          </div>
+
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <% unless @consultation.new_record? %>
+          <div class="card">
+            <div class="card-header h6">
+              Email an alle Teilnehmer
+            </div>
+            <div class="card-block p-2">
+              <%= render "emails/form", action: email_consultation_path(@consultation) %>
+            </div>
+          </div>
+
+
+          <div class="card mt-4">
+            <div class="card-header h6">
+              Teilnehmer
+            </div>
+            <div class="card-block p-3"><%= render partial: 'events/attendees', formats: [:html], locals: {event: @consultation, admin_mode: true } %>
+            </div>
+          </div>
+
+
+        <% end %>
+      </div>
+
+
+    </div>

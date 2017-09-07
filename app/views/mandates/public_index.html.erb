@@ -1,0 +1,23 @@
+<h2>Mandatsbörse</h2>
+
+Dein aktueller Status:&nbsp;
+<% if current_member.qualified %>
+    Voll qualifiziertes Mitglied
+<% else %>
+    Hospitant*in
+<% end %>
+
+<div id="mandate_market_your_mandates" class="mt-4">
+  <h5>Deine Mandate</h5>
+  <%= render "mandates/market/listing", id_attribute: "your_mandates_approved_undone", mandates: current_member.mandates.approved.undone + current_member.mandates.unapproved.undone %>
+</div>
+
+
+<div id="mandate_market_open" class="mt-4">
+  <h5><% if not (current_member.assignments.unapproved.blank? and current_member.mandates.approved.undone.blank? )  %>Weitere Mandate<% end %></h5>
+  <% if not @vacant_mandates.blank? %>
+      <%= render "mandates/market/listing", id_attribute: "mandates_unapproved", mandates: @vacant_mandates - current_member.mandates.unapproved - current_member.mandates.approved  %>
+  <% else %>
+      <br>Keine offenen Mandate vorhanden
+  <% end %>
+</div>

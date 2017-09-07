@@ -1,0 +1,89 @@
+tina:
+  id: 1
+  first_name: "tina"
+  last_name: "surname"
+  email: "tina@interneorga.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [1]
+tim:
+  id: 2
+  first_name: "tim"
+  last_name: "surname"
+  email: "tim@mitglieder.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: []
+sabine:
+  id: 3
+  first_name: "sabine"
+  last_name: "surname"
+  email: "sabine@mandatsverwaltung.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [0]
+  annotation_id: 1
+leif:
+  id: 4
+  first_name: "leif"
+  last_name: "surname"
+  email: "leif@finanzen.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [5]
+sonja:
+  id: 5
+  first_name: "sonja"
+  last_name: "surname"
+  email: "sonja@schulungen.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [4]
+leonie:
+  id: 6
+  first_name: "leonie"
+  last_name: "surname"
+  email: "leonie@netzwerk.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [2]
+tammy:
+  id: 7
+  first_name: "tammy"
+  last_name: "surname"
+  email: "tammy@oeffentlichkeit.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [3]
+svenja:
+  id: 8
+  first_name: "svenja"
+  last_name: "surname"
+  email: "svenja@mitglieder.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: []
+martha:
+  id: 9
+  first_name: "martha"
+  last_name: "surname"
+  email: "martha@sprechstunde.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [7]
+fatima:
+  id: 10
+  first_name: "fatima"
+  last_name: "surname"
+  email: "fatima@rechteverwaltung.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [8]
+olga:
+  id: 11
+  first_name: "olga"
+  last_name: "surname"
+  email: "olga@vorstand.com"
+  encrypted_password: "$2a$11$eNE5K82CoGJpHYb//o83TuA9OSErTup1R07z6O3F7P6G3ZLruxrFS"
+  did_confirm_privacy_clause: true
+  departments: [6]

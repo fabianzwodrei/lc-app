@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-9">
+    <h2>
+      Sprechstunden
+    </h2>
+  </div>
+  <div class="col-md-3">
+    <div class="mb-2" align="right"><%= render "common/plus", path: new_consultation_path %></div>
+  </div>
+</div>
+
+<% if not @from %>
+    <%= render 'common/show_archived', path: consultations_url %>
+<% else %>
+    <%= render 'common/show_open', path: consultations_url %>
+<% end %>
+&nbsp;
+
+<div id="consultations_list">
+  <% for consultation in @consultations %>
+    <div class="card mb-3">
+      <div class="card-block p-2">
+        <%= render partial: "consultations/consultation", formats: [:html],  locals: { event: consultation, admin_mode: true } %>
+      </div>
+    </div>
+  <% end -%>
+</div>
+
+
+<%= render 'common/load_more', path: consultations_url, from: @from, count: @count %>

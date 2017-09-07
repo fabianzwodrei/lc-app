@@ -1,0 +1,29 @@
+<%
+  show_extras ||= false
+%>
+
+<div class="row">
+  <div class="col-md-6">
+    <table class="table table-sm">
+      <tr><td class="small" align="right">Email Adresse</td><td><span class="right"><%= member.email %></span></td></tr>
+      <tr><td class="small" align="right">Name</td><td><span class="right"><%= member.full_name %></span></td></tr>
+      <tr><td class="small" align="right">Telefon</td><td><span class="right"><%= member.phone %></span></td></tr>
+
+      <% if show_extras %>
+        <tr><td class="small" align="right">Sprachen</td><td><span class="right"><%= member.languages %></span></td></tr>
+        <tr><td class="small" align="right">Studiengang</td><td><span class="right"><%= member.course_of_studies %></span></td></tr>
+        <tr><td class="small" align="right">Semesteranzahl</td><td><span class="right"><%= member.semester_count %></span></td></tr>
+        <tr><td class="small" align="right">Interessenfelder</td><td><span class="right"><%= member.hobbies %></span></td></tr>
+      <% end %>
+
+      <tr>
+       <% unless member.available %>
+            <td class="small" align="right">Status</td><td class="text-danger">Aktuell nicht verfügbar</td>
+       <% else %>
+            <td class="small" align="right">Status</td><td></span> Verfügbar</td>
+       <% end %>
+
+      </tr>
+    </table>
+  </div>
+</div>

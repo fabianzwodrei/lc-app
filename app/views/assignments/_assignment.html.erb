@@ -1,0 +1,38 @@
+<%
+  done ||= false 
+  admin_mode ||= false
+%>
+  <tr>
+    <td>
+      <b>
+        <%= assignment.member.full_name %>
+        <% if admin_mode %>
+          <% if not assignment.member.annotation.blank? %>
+            <button type="button" class="btn btn-link btn-sm" style="cursor: pointer;" data-toggle="modal" data-target="#theModal" data-href="/annotations/<%= assignment.member.annotation.id %>.htmlp"><span class="oi oi-magnifying-glass"></span></button>
+          <% end %>
+        <% end %>
+      </b>
+
+      
+    </td>
+    <td class="small">
+      <% if assignment.member.qualified %>
+        <span href="#" data-toggle="tooltip" title="Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen.">Voll qualifiziertes Mitglied</span>
+      <% else %>
+        <span href="#" data-toggle="tooltip" title="Hospitant*innen können voll qualifizierte Mitglieder bei der Mandatsbearbeitung unterstützen, können jedoch keine Änderungen am Mandatsstatus vornehmen.">Hospitant*in</span>
+      <% end %>
+    </td>
+
+    <td>
+      <span class="assignment_approved_value">
+          <%= assignment.approved ? "Zugewiesen" : "Beworben" %>
+      </span>
+    </td>
+
+
+    <td>
+      <% if admin_mode and done == false %>
+         <%= render 'assignments/actions', assignment: assignment %>
+      <% end %>
+    </td>
+  </tr>

@@ -1,0 +1,27 @@
+<div class="row mb-0">
+  <div class="col-8">
+    <small><%= "Ab " if course.dates.count > 1 %><%= print_dates [course.dates.first] %></small><br>
+    <span class="h5 course-title"><%= course.title %></span>
+
+  </div>
+  <div class="col-4" align="right">
+    <% if @public_mode %>
+      <% attendance = course.attendances.where('member_id' => current_member.id).first; if not attendance.blank? and attendance.passed %>
+        <span class="passed_notice badge badge-success">Bestanden</span>
+      <% else %>
+        <% if course.attendances.pluck(:member_id).include? current_member.id %>
+            <% if course.attendances.permitted.pluck(:member_id).include? current_member.id %>
+              <span class="permitted_notice badge badge-primary">Zugelassen</span>
+            <% else %>
+              <span class="waiting_for_permission_notice">Wartet auf Zulassung</span>
+            <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <small><%= course.attendances.permitted.length %> Teilnehmer</small>
+      <% if course.attendances.unpermitted.length > 0 %>
+        <h6><span class="open_permission_requests_notice badge badge-lg badge-warning">Offene Bewerbungen</span></h6>
+      <% end %>
+    <% end %>
+  </div>
+</div>

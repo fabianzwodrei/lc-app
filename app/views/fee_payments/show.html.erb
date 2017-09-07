@@ -1,0 +1,41 @@
+<%= render 'common/back', text: ' Zurück zur Übersicht', path: fee_payments_path %>
+<div class="my-3">
+  <%= render 'members/core_data', member: @fee_payment.member %>
+</div>
+<%= form_for @fee_payment do |f| %>
+
+    <div class="row mb-3">
+      <div class="col-6"><h4>Finanzdaten</h4></div>
+      <div class="col-6" align="right">
+        <%= f.submit "Finanzdaten speichern", class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label>Kontoverbindung(en)</label>
+          <%= f.text_area :account_details, class:"form-control" %>
+        </div>
+        <div class="form-group">
+          <label>Notizen zu Bezahlhistorie</label>
+          <%= f.text_area :payment_history_notes, class:"form-control" %>
+        </div>
+      </div>
+      <div class="col-6">
+        
+        <div class="form-group">
+          
+            <label>Bezahlstatus</label><br>
+            <%= f.check_box :paid %>
+            <%= f.label :paid, "bezahlt" %>
+            </div>
+        <div class="form-group">
+
+            <label>Erlaubnis zum Einzug per Lastschrift</label><br>
+            <%= f.check_box :direct_debit_allowed %>
+            <%= f.label :direct_debit_allowed, "erteilt" %>
+       </div>
+      </div>
+    </div>
+<% end %>

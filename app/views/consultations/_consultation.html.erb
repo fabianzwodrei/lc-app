@@ -1,0 +1,19 @@
+<%
+  admin_mode||=false
+  attendance = event.attendances.where('member_id' => current_member.id).first;
+%>
+<div class="consultation-info">
+  <div id="consultation_<%= event.id %>_heading">
+    <%= render partial:'consultations/heading', formats: [:html], locals: {consultation: event, attendance: attendance, admin_mode: admin_mode} %>
+  </div>
+
+  <hr>
+  <div class="row" id="consultation_<%= event.id %>">
+    <div class="col-sm-7">
+      <%= render partial: 'consultations/details', formats: [:html], locals: {consultation: event} %>
+      <h6 class="mt-3 mb-0">Teilnehmer</h6>
+      <div class="p-2"><%= render partial: 'events/attendees', formats: [:html], locals: {event: event, admin_mode: false } %></div>
+    </div>
+    <div class="col-sm-5"><%= render partial:'events/actions', formats: [:html], locals: { event: event,  hide_attendance_actions: admin_mode } %></div>    
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="card my-3">
+  <div class="card-block">
+    Sachstandsanfragen nach Mandanten suchen:
+    <% if client_name %>
+      <%= render "people/suggest", placeholder: client_name, button_text: "Suchen", callback: "search_by_client", role: "client" %>
+    <% else %>
+      <%= render "people/suggest", placeholder: "Name", button_text: "Suchen", callback: "search_by_client", role: "client" %>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function search_by_client(id) {
+    if (id) {
+      window.location.replace('/inquiries?client='+id);
+    } else {
+      window.location.replace('/inquiries');
+    }
+  }
+</script>

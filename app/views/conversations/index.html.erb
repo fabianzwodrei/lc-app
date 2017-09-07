@@ -1,0 +1,85 @@
+<h2>Kommunikation & Nachrichten</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <% if current_member.projects.any? %>
+      <div class="card mb-3">
+        <div class="card-header h6">Beteiligte Projekte</div>
+        <ul class="list-group list-group-flush">
+          <% for p in current_member.projects %>
+            <%= render "projects/list_group_item", project: p %>
+          <% end %>
+        </ul>
+      </div>
+    <% end -%>
+
+    <% if current_member.departments.any? %>
+      <% for department in current_member.departments %>
+        <div class="card mb-3">
+          <div class="card-header h6"><span class="text-muted">Projekte -</span> <%= departments_to_string [department] %></div>
+          <ul class="list-group list-group-flush">
+            <% for p in Project.active.by_department(department) %>
+              <%= render "projects/list_group_item", project: p %>
+            <% end %>
+          </ul>
+        </div>
+      <% end -%>
+      <div class="card mb-3">
+        <div class="card-header h6">Ressortübergreifende Projekte</div>
+        <ul class="list-group list-group-flush">
+          <% for p in Project.active.shared_by_departments current_member.departments %>
+            <%= render "projects/list_group_item", project: p %>
+          <% end %>
+        </ul>
+      </div>
+
+    <% end -%>
+   
+  </div>
+  <div class="col-md-6">
+
+     <div class="card mb-4">
+      <div class="card-header h6">
+        Privatnachrichten
+      </div>
+      <div class="card-block">
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Mitglied für Chat" id="member_suggest" autocomplete="off">
+        
+          <span class="input-group-btn">
+            <button type="button"  class="btn btn-warning " onclick="$.post('/conversations', { conversation: {private: true, member1_id: <%= current_member.id %>, member2_id: $('#member_suggest').typeahead('getActive').id }})"><span class="oi oi-plus"></span></button>
+          </span>
+        </div>
+
+        <script>
+            $('#member_suggest').typeahead({
+                source: function (query, process) {
+                    $.get('/suggest_member.json?query='+query, function(data) {
+                        process(data);
+                    });
+                }
+            });
+            
+        </script>
+      </div>
+      <ul class="list-group list-group-flush" id="conversations">
+        <% if !@private_conversations.blank? %>
+          <% for p_conv in @private_conversations %>
+            <% if other_member = p_conv.get_other_member(current_member) %>
+              <a class="list-group-item list-group-item-action" href="<%= conversation_path(p_conv) %>#bottom">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">
+                    <% if p_conv.is_unread_by current_member %><span class="oi oi-media-record text-primary mr-1"></span><% end %>
+                    <%= other_member.full_name %>
+                  </h5>
+                  <small><%= l p_conv.created_at.localtime %></small>
+                </div>
+              </a><br>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>

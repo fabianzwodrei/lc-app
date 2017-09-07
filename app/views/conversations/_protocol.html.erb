@@ -1,0 +1,16 @@
+<div class="card mb-3">
+	<div class="card-header h6">
+		Protokoll
+	</div>
+	<div class="card-block p-0">
+    	<%= render "messages/form", rows: 3, conversation: conversation %>
+    </div>
+	<div class="card-block"  id="cable_conversation" data-behavior="cable_conversation" data-conversation-id="<%= conversation.id %>" data-prepend-message="true">
+		<div id="messages">
+			<%= render conversation.messages.parents_only.timeline_order %>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	Turbolinks.clearCache();
+</script>

@@ -1,0 +1,36 @@
+<div class="row my-3">
+	<div class="col-4"><button class="btn btn-sm calendar_navigation" onclick="$('#calendar_wrapper').load('/events/calendar.htmlp?date=<%= @date - 1.month %>')"><span class="oi oi-chevron-left"></span></button></div>
+	<div class="col-4" align="center"><%= @date.strftime("%B") %></div>
+	<div class="col-4" align="right"><button class="btn btn-sm calendar_navigation" onclick="$('#calendar_wrapper').load('/events/calendar.htmlp?date=<%= @date + 1.month %>')"><span class="oi oi-chevron-right"></span></button></div>
+</div>
+
+<%= calendar @date do |date| %>
+  <%= date.day %>
+  <% if events[date] %>
+      <br>
+      <% events[date].each do |ev| %>
+        <button class="btn btn-sm btn-link p-0 m-0 <%= 'text-warning' if ev.type == 'Course' %> <%= 'text-danger' if ev.type == 'Consultation' %>" data-toggle="modal" data-target="#theModal" data-href="/events/<%= ev.id %>.htmlp"><%= ev.title %></button><br>
+      <% end %>
+  <% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-4 mt-4">
+		<h5>Legende</h5>
+		<span class="oi oi-media-record text-warning"></span> Schulung/Vorlesung<br>
+		<span class="oi oi-media-record text-primary"></span> Event<br>
+		<span class="oi oi-media-record text-danger"></span> Sprechstunde 
+	</div>
+	<div class="col-8 mt-4">
+		<h5>Terminliste</h5>
+
+		<% for date in events.keys %>
+			<h6 class="m-0 p-0"><%= l date %></h6>
+			<div class="pl-3 pb-2">
+			<% for ev in events[date] %>
+				<button class="btn btn-sm btn-link p-0 m-0 <%= 'text-warning' if ev.type == 'Course' %> <%= 'text-danger' if ev.type == 'Consultation' %>" data-toggle="modal" data-target="#theModal" data-href="/events/<%= ev.id %>.htmlp"><%= ev.title %></button><br>
+			<% end -%>
+			</div>
+		<% end -%>
+	</div>
+</div>

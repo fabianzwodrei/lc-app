@@ -1,0 +1,39 @@
+<div class="attendees">
+  <div class="mb-3">
+    <% count = 0 %>
+    <% for attendance in course.attendances %>
+        <% if !@public_mode || (course.is_attended_by current_member) %>
+            <% count+=1 %>
+              <div class="row pt-1 border-top ">
+                <%= render 'attendances/course', attendance: attendance, public_mode: @public_mode, from: @from %>
+              </div>
+        <% end %>
+    <% end %>
+  </div>
+
+
+
+  <% if not @public_mode %>
+    <div class="input-group add_attendee">
+      <input type="text" class="form-control" placeholder="<%= count > 0 ? "Weitere " : "" %>Teilnehmer ..." id="course_<%= course.id %>_member_suggest" autocomplete="off">
+    
+      <span class="input-group-btn">
+        <button type="button"  class="btn btn-warning " onclick="course_<%= course.id %>_select_member()"><span class="oi oi-plus"></span></button>
+      </span>
+    </div>
+
+    <script>
+        $('#course_<%= course.id %>_member_suggest').typeahead({
+            source: function (query, process) {
+                $.get('/suggest_member.json?query='+query, function(data) {
+                    process(data);
+                });
+            }
+        });
+        function course_<%= course.id %>_select_member() {
+            $.post( "/events/<%= course.id %>/add_member/"+
+                ($('#course_<%= course.id %>_member_suggest').typeahead("getActive")).id+'<%= @from ? "?from=#{@from.to_s}" : "" %>');
+        }
+    </script>
+  <% end %>
+</div>

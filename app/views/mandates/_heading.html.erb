@@ -1,0 +1,23 @@
+<div class="float-right">
+  <% if mandate.assignments.approved.count > 0 and not mandate.done %>
+      <div class="badge badge-default approved-notice">
+        <%= mandate.assignments.approved.count %>&nbsp<%= t('mandate.notice.approved', count: mandate.assignments.approved.count)%></div>
+  <% elsif not mandate.vacant and not mandate.done %>
+      <div class="badge badge-danger lacking-approved-member-notice">Warnung: Mandat aktiv, jedoch ohne Zuweisung</div>
+  <% end %>
+
+  <% if mandate.vacant %>
+      <% if mandate.assignments.unapproved.count > 0 %>
+          <div class="badge badge-success application-notice">
+            <%= mandate.assignments.unapproved.count %> Bewerber</div>
+      <% else %>
+          <div class="badge badge-calm">Keine Bewerbungen</div>
+      <% end %>
+  <% end %>
+  <span class="oi oi-eye ml-2 <% unless mandate.supervised %> text-calm <% end %>"></span>
+</div>
+
+<div class="h6 mb-0" >
+  <%= render "common/mandate_icon", mandate: mandate %>
+  <%= mandate.title %>
+</div>

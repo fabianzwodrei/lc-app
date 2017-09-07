@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6">
+        <% if current_member.id == @member.id %>
+            <%= render 'common/back', text: ' Ansehen', path: member_path(@member) %>
+            <br><br>
+
+            <h2>Profil editieren</h2>
+
+            <!-- only show this when member is editing his own profile -->
+            Dein aktueller Status:&nbsp;
+            <%= QUALIFICATION_LEVELS[@member.qualification_level] %>
+            <br>
+            <br>
+
+        <% else %>
+            <div class="mb-3"><%= render 'common/back', text: ' Zurück zur Übersicht', path: members_path %></div>
+            Mitgliedsdaten verwalten
+            <h3><%= @member.full_name %></h3>
+        <% end %>
+  </div>
+  <div class="col-md-6">
+    <% if can? :edit_right, Member %>
+      <%= link_to( edit_member_right_path(@member,params:{department_id:@department_id}),
+                   { class: "btn btn-primary btn-sm float-right pencil"}) do %>
+          Rechte bearbeiten
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+
+		<%= render "form", member: @member %>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<% hide_attendance_actions ||= false %>
+<div id="course_<%= event.id %>" class="course-info">
+  <div id="course-<%= event.id %>-heading">
+    <%= render partial:'courses/heading', formats: [:html], locals: {course: event } %>
+  </div>
+  <hr>
+  <div class="row" id="course_<%= event.id %>_body">
+    <div class="col-sm-7"><%= render partial:'courses/details', formats: [:html], locals: { course: event } %></div>
+    <div class="col-sm-5"><%= render partial:'events/actions', formats: [:html], locals: { event: event, hide_attendance_actions: hide_attendance_actions } %></div>
+  </div>
+</div>
+
+<% if event.is_attended_by(current_member) %>
+	<h6>Teilnehmer</h6>
+
+	<div class="attendees">
+		<% for attendance in event.attendances.permitted %>
+		<div class="row border-top py-1">
+			<div class="col attendee_full_name"><%= attendance.member.full_name %></div>
+		</div>
+		<% end -%>
+	</div>
+<% end %>

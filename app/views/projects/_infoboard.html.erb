@@ -1,0 +1,7 @@
+<% for message in project.conversation.messages.where("created_at > '#{Date.today-21.days}'") %>
+	<div class="mb-3">
+		<p class="lead mb-0"><%= message.text %></p>
+		<small><b><%= project.title %></b> - <%= l message.created_at.localtime, format: :long %>
+		</small>
+	</div>
+<% end -%>

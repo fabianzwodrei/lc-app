@@ -1,0 +1,53 @@
+<% 
+  
+  def make_detail_url member
+    return "/annotations/#{member.annotation_id}.htmlp" if controller.action_name == 'annotations'
+    return "/members/#{member.id}/qualification.htmlp" if controller.action_name == 'qualifications'
+    return "/members/#{member.id}.htmlp" if controller.action_name == 'index'
+    ''
+  end
+%>
+<div class=""><span class="oi oi-check text-success"></span> - Mitglied ist verfügbar</div>
+<div class=""><span class="oi oi-x text-danger"></span> - Mitglied derzeit nicht verfügbar</div>
+<div class=""><span class="oi oi-ban text-danger"></span> - Mitglied deaktiviert</div>
+<br>
+
+<% if !@members.blank? %>
+  <div id="accordion" role="tablist" class="accordion" aria-multiselectable="false">
+    <% for member in @members %>
+      <div class="card">
+        <div class="card-header p-1 p-sm-3" role="tab" id="member-<%= member.id %>">
+          <a data-toggle="collapse" data-parent="#accordion" href="#member-<%= member.id %>-content" aria-expanded="true" aria-controls="member-<%= member.id %>-content">
+          <div class="d-flex flex-column flex-md-row ">
+            <div class="px-1 col-md-4 bold member_full_name"><%= member.full_name %></div>
+            <div class="px-1 col-md-2 small break-word">
+              <%= QUALIFICATION_LEVELS[member.qualification_level] %>
+              <br><i><%= member.languages %></i>
+              </div>
+            <div class="px-1 col-md-1">
+              <% unless member.locked_at %>
+                <span class="oi oi-<%= member.available ? "check text-success" : "x text-danger" %>"></span>
+              <% else %>
+                <span class="oi oi-ban text-danger"></span>
+              <% end -%>
+            </div>
+            <div class="px-1  col-md-5 small break-word  departments-list"><%= departments_to_string member.departments %></div>
+          </div>
+          </a>
+        </div>
+        <div data-url="<%= make_detail_url member %>" id="member-<%= member.id %>-content" class="collapse" role="tabpanel" aria-labelledby="member-<%= member.id %>">
+          <div class="card-block">
+            Lade...
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    $('#accordion').on('shown.bs.collapse', function (e) {
+        var t = $(e.target.children[0]);
+        if (t.text().length < 50) t.load($(e.target).data('url'));
+    });
+</script>

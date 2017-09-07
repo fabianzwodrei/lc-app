@@ -1,0 +1,34 @@
+<% hide_attendance_actions ||= false %>
+<div class="mb-3" align="right">
+    <%= render "common/pencil", path: "/#{event.class.to_s.pluralize.downcase}/#{event.id}/edit", title: "Bearbeiten, Rundmail" if can? :edit, event %>
+
+    <% unless hide_attendance_actions %>
+	    <% attendance = event.attendances.where('member_id': current_member.id).first %>
+	    <% if not attendance.blank? and not attendance.passed %>
+	        <a class="btn btn-primary btn-sm mb-2 unattend_button" href="<%=  unattend_event_path(event) %>" data-method="PATCH"  data-confirm="Sicher?">
+	          <% if attendance.permitted %>
+	            Teilnahme absagen
+	          <% else %>
+	            Bewerbung zurückziehen
+	          <% end %>
+	        </a>
+	    <% else %>
+	        <% if attendance.blank? and event.attendance_possible? current_member %>
+	            <%= link_to(attend_event_path(event) , {class: "btn btn-primary btn-sm mb-2 attend_button", method: :patch}  ) do %>
+	              <% if event.permission_required %>
+	                Bewerben
+	              <% else %>
+	                Teilnehmen
+	              <% end -%>
+	            <% end %>
+	        <% end %>
+	    <% end %>
+	<% end -%>
+
+    <% if defined? event.conversation %>
+	    <% if event.conversation && event.conversation.is_open_for(current_member) %>
+	      <%= link_to( 'Forum', conversation_path(event.conversation)+'#bottom', {class: "btn btn-primary mb-2 btn-sm forum_link" }) %>
+	    <% end %>
+	<% end -%>
+</div>
+

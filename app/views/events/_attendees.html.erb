@@ -1,0 +1,34 @@
+<div class="attendees">
+
+  <div class="mb-3">
+    <% for attendance in event.attendances %>
+      <% if admin_mode || attendance.permitted %>
+        <div class="row pt-1 border-top ">
+          <%= render 'attendances/event', event: event, attendance: attendance, admin_mode: admin_mode, from: @from %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if admin_mode %>
+    <div class="input-group mt-3">
+        <input type="text" class="form-control" placeholder="Weitere Teilnehmer ..." id="event_<%= event.id %>_member_suggest" autocomplete="off">
+      <span class="input-group-btn">
+        <button type="button"  class="btn btn-warning" onclick="event_<%= event.id %>_select_member()"><span class="oi oi-collapse-up"></span></button>
+      </span>
+    </div>
+  <% end %>
+  <script>
+      $('#event_<%= event.id %>_member_suggest').typeahead({
+          source: function (query, process) {
+              $.get('/suggest_member.json?query='+query, function(data) {
+                  process(data);
+              });
+          }
+      });
+      function event_<%= event.id %>_select_member() {
+          $.post( "/events/<%= event.id %>/add_member/"
+              +($('#event_<%= event.id %>_member_suggest').typeahead("getActive")).id+'<%= @from ? "?from=#{@from.to_s}" : "" %>');
+      }
+  </script>
+</div>

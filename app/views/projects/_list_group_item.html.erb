@@ -1,0 +1,7 @@
+<% unread = project.conversation.is_unread_by current_member %>
+<a href="/projects/<%= project.id %>" id="<%= project.id %>" class="list-group-item" <% if unread %> style="display:block" <% end -%>>
+	<% if unread %><span class="oi oi-media-record text-primary mr-3" style="top: 2px;"></span><% end %><%= project.title %>
+	<% if unread and message = project.conversation.messages.last and member = project.conversation.messages.last.member %>
+		<div class="small text-muted mt-1"><b><%= member.first_name %>:</b> <%= message.text %> (<%= l message.created_at %>)</div>
+	<% end -%>
+</a>

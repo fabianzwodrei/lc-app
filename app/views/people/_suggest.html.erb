@@ -1,0 +1,18 @@
+<div align="right">
+  <input type="text" class="form-control" placeholder="<%= placeholder %>" id="people_suggest" autocomplete="off">
+  <button type="button"  class="btn btn-warning mt-2" onclick="selectPerson()">Bestätigen</button>
+</div>
+<script>
+  $('#people_suggest').typeahead({
+    source: function (query, process) {
+      $.get('/suggest_person.json?query='+query+"&role=<%= role %>", function(data) {
+        process(data);
+      });
+    } 
+  }); 
+
+  function selectPerson() {
+    var selected = $('#people_suggest').typeahead("getActive");
+    eval(<%= callback %>)(selected.id)
+  }
+</script>

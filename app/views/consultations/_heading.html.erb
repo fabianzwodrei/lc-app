@@ -1,0 +1,20 @@
+<div class="mb-0">
+  <small><%= print_dates [consultation.dates.first] %></small><br>
+  <span class="h5 consultation_title"><%= consultation.title %></span>
+
+  <span class="float-right">
+    <% if admin_mode %>
+      <% if consultation.attendances.unpermitted.length > 0 %>
+        <span class="open_permission_requests_notice">Offene Bewerbungen</span>
+      <% end %>
+    <% else %>
+      <% if not attendance.blank? %>
+        <% if not attendance.permitted %>
+            Beworben
+        <% else %>
+            Teilnahme bestätigt
+        <% end %>
+      <% end %>
+    <% end %>
+  </span>
+</div>

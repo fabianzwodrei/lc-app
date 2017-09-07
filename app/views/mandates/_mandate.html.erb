@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-4">
+    <p>
+      <small class="bold">Mandant*in</small><br>
+      <%= if mandate.client then mandate.client.name else "Niemand" end %>
+    </p>
+
+    <p>
+      <small class="bold">Beschreibung</small><br>
+      <%= mandate.description %>
+    </p>
+  </div>
+
+  <div class="col-md-4">
+    <p>
+      <small class="bold">Zuletzt geändert</small><br>
+      <%= l mandate.updated_at.localtime, format: :long %>
+    </p>
+
+    <p>
+      <small class="bold">Erstellt</small><br>
+      <%= l mandate.created_at.localtime, format: :long %>
+    </p>
+
+    <p>
+      <% if message = mandate.conversation.messages.last %>
+        <% if member = mandate.conversation.messages.last.member %>
+          
+              <small class="bold">Letzter Protokolleintrag</small><br>
+              <i><%= member.first_name %>, <%= l mandate.conversation.messages.last.created_at, format: :long %></i>: <%= mandate.conversation.messages.last.text %>
+            
+        <% end -%>
+      <% end -%>
+
+    </p>
+  </div>
+
+  <div class="col-md-4" align="right">
+    <%= link_to "Protokoll", mandate_path(mandate), class: "btn btn-sm mb-2 btn-secondary" if can? :show, mandate %>
+    <%= render "common/pencil", path: edit_mandate_path(mandate) %>
+  </div>
+</div>
+
+
+<div id='<%= "extra_card_content_#{mandate.id}" %>' %>
+  <table class="table table-sm">
+    <tr><th class="border-0 h6" colspan="4">Bearbeiter</th></tr>
+    <% assignments = mandate.assignments.order(:approved) %>
+    <% if assignments.any? %>
+      <%= render assignments, done: mandate.done, admin_mode: true %>
+    <% else %>
+      <tr><td  colspan="4"><small>Noch keine Bewerbungen oder Zuweisungen für dieses Mandat</small></td></tr>
+    <% end %>
+
+  </table>
+</div>
+
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Bearbeiter hinzufügen..." id="course_<%= mandate.id %>_member_suggest" autocomplete="off">
+  <span class="input-group-btn"><button type="button"  class="btn btn-warning" onclick="mandate_<%= mandate.id %>_select_member()"><span class="oi oi-collapse-up"></span></button></span>
+</div>
+
+<script>
+    $('#course_<%= mandate.id %>_member_suggest').typeahead({
+        source: function (query, process) {
+            $.get('/suggest_member.json?query='+query, function(data) {
+                process(data);
+            });
+        }
+    });
+
+    function mandate_<%= mandate.id %>_select_member() {
+        var memberId= ($('#course_<%= mandate.id %>_member_suggest').typeahead("getActive")).id;
+        var memberName= ($('#course_<%= mandate.id %>_member_suggest').typeahead("getActive")).name;
+
+        $.post( "/mandates/<%= mandate.id %>/add_member/"+memberId, function(data) {
+            if (data.status == 'ok') {
+                location.reload();
+            }
+        });
+    }
+</script>
+
+
+
+

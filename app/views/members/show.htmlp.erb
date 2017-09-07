@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-6">
+		<table>
+      <%= render(:partial => 'members/login_data', :formats => [:html], locals: {member: @member}) %>
+		</table>
+	</div>
+
+	<div class="col-6">
+    <%= link_to( edit_member_path(@member) , {class: "btn btn-primary btn-sm float-right attend_button"}  ) do %>Bearbeiten<% end %>
+	</div>
+</div>

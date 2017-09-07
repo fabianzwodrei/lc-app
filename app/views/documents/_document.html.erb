@@ -1,0 +1,27 @@
+<div class="list-group-item  list-group-item-action flex-column align-items-start">
+	<div class="d-flex w-100 justify-content-between">
+		<div>
+			<h5 class="mb-0"><%= document.title %></h5>
+			<%= document.comment %>
+			<br>
+
+			<span class="small text-muted font-italic" >
+				Schlagwörter: <%= document.tags %>
+			</span>
+		</div>
+		<% if document.attachment.content_type =~ %r(image|pdf) %>
+			<%= image_tag thumbnail_bibliography_document_path(@bibliography, document), style: "float:right; width: 100px;" %>
+		<% else	%>
+			<h6 class="text-muted">.<%= document.attachment_file_name %></h6>
+		<% end -%>
+	</div>
+
+	
+
+
+	<div class="d-flex w-100 mt-1 justify-content-between mt-2">
+		<%= link_to("Bearbeiten",  edit_bibliography_document_path(@bibliography, document), class:"btn btn-sm btn-secondary") %>
+		<a href="<%= get_attachment_bibliography_document_path(@bibliography, document) %>" class="btn btn-sm btn-primary">Download</a>
+
+	</div>
+</div>

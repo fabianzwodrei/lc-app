@@ -1,0 +1,134 @@
+$font-size-base: 0.9rem;
+@import "bootstrap";
+@import "bootstrap-datepicker3";
+
+
+body {
+	padding-top: 90px;
+	@media (max-width: map-get($grid-breakpoints, sm)) {
+		padding-top: 70px;
+  	}
+  	// Ensures that all page-titles (h2) have a bottom margin 
+  	main h2:first-of-type {
+  		@extend .mb-4;
+  	}
+}
+
+.calendar {
+	table-layout: fixed;
+}
+.calendar {
+	tr {
+		height: 40px;
+	}
+	td {
+		max-width: 15%;
+		overflow: hidden;
+		line-height: 14px;
+		white-space: nowrap;		
+	}
+	td:hover {
+		overflow:visible;
+		button {
+			z-index: 1000;
+			position: relative;
+			background-color: white;
+			display: inline-block;
+		}
+	}
+	button {
+		font-size: 12px;
+		cursor: pointer;
+	}
+}
+.text-calm {
+	color: #eeeeee;
+}
+
+.break-word {
+	word-wrap: break-word;
+}
+.bold {
+	font-weight: bold;
+}
+.dropdown-menu {
+	z-index: 1100 !important;
+}
+.card .card {
+	border: none;
+}
+.card-header[role=tab] {
+	cursor: pointer;
+}
+.card .list-group-item:first-of-type  {
+	border-top: none;
+}
+.border-top {
+	border-width: $border-width 0 0 0;
+	border-style: solid;
+	border-color: $gray-lighter;
+}
+
+.rails-alert {
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+	position: fixed;
+	top: 36px;
+	z-index: 1100;
+}
+
+.oi {
+	top: 2px;
+}
+.bg-white {
+	background-color: white;
+}
+.material-icons {
+	font-size: inherit;
+}
+.btn, .form-control {
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.typeahead .active {
+	background-color: $blue;
+	a {
+		color: white;
+	}
+}
+.message {
+	.create_message_thread_link {
+		display:none
+	}
+}
+.message:hover {
+	.create_message_thread_link {
+		display:inline;
+	}
+}
+
+.message-timestamp {
+
+	font-size: 77%;
+}
+
+.accordion {
+	.card {
+		border-radius: 0px;
+	}
+	.card-header {
+		cursor: pointer;
+		z-index: 0;
+		a {
+			z-index: 100;
+		}
+	}
+	.card:not(:last-child), .card-header {
+		border-bottom-width: 0px;
+	}
+}
+.badge {
+	font-weight: normal;
+}
+.badge-calm {
+	color: inherit;
+}

@@ -1,0 +1,102 @@
+<h2>Dein Dashboard</h2>
+
+<div class="row">
+  <div class="col-md-6 mb-3">
+
+
+
+    <%= render "tasks/widget", tasks: @tasks %>
+
+    <% if not current_member.mandates.undone.blank? %>
+      <div class="card mb-3">
+        <div class="card-header h6">Deine Mandate</div>
+        <div class="card-block p-0">
+          <% for mandate in current_member.mandates.approved.undone %>
+            <%= render "mandates/market/mandate", mandate: mandate, show_pencil: true, id_attribute: "your_mandates_approved_undone", show_assignments: true %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if !current_member.inquiries.undone.blank? %>
+      <div class="card mb-3">
+        <div class="card-header h6">Deine Sachstandsanfragen</div>
+        <div class="card-block p-0">
+          <% for inquiry in current_member.inquiries.undone %>
+            <%= render inquiry %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if not current_member.assignments.unapproved.blank? %>
+      <div id="mandate_market_applied" class="card mb-3">
+        <div class="card-header h6">Mandate, für die du dich beworben hast</div>
+        <div class="card-block p-0">
+            <%= render "mandates/market/listing", show_unapply: true, id_attribute: "your_mandates_unapproved_undone", mandates: current_member.mandates.unapproved.undone %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if not current_member.mandates.done.blank? %>
+      <div class="card mb-3">
+        <div class="card-header h6">Deine geschlossenen Mandate</div>
+        <div class="card-block p-0">
+            <%= render "mandates/market/listing", show_pencil: true, id_attribute: "your_mandates_closed",  show_assignments: true, mandates: current_member.mandates.done %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @unread_conversations.any? %>
+      <div class="card mb-3">
+        <div class="card-header h6">
+          Neue Nachrichten
+          <a class="btn btn-sm btn-secondary float-right" href="/conversations">Alle</a>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% for c in @unread_conversations %>
+            <%= render "conversations/list_group_item", conversation: c %>
+          <% end %>
+        </ul>
+      </div>
+      
+    <% end -%>
+
+    <% if @projects.any? %>
+      <div class="card mb-3">
+        <div class="card-header h6">Beteiligte Projekte</div>
+        <ul class="list-group list-group-flush">
+          <% for p in @projects %>
+            <%= render "projects/list_group_item", project: p %>
+          <% end %>
+        </ul>
+      </div>
+    <% end -%>
+
+    
+
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mb-3">
+      <div class="card-header h6"><span class="oi oi-bullhorn float-right"></span> Ankündigungen</div>
+      <div class="card-block">
+          <% for project in @infoboards %>
+            <%= render "projects/infoboard", project: project %>
+          <% end %>
+      </div>
+    </div>
+
+
+    <div id="calendar_wrapper"></div>
+    <script type="text/javascript">
+      $('#calendar_wrapper').load('/events/calendar.htmlp')
+    </script>
+
+
+  </div>
+</div>
+
+
+
+

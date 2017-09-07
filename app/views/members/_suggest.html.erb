@@ -1,0 +1,38 @@
+<%
+  mandate_id ||= nil
+%>
+
+<div class="small pl-2">
+  <% if defined? target_member and target_member %>
+    <p class="mb-0">
+      Aktuell: <%= target_member.full_name %>
+    </p>
+  <% end %>
+  <p id="selected_member_wrapper" style="display:none">
+    Neue Auswahl:
+    <span id="selected_member"></span>
+    <button type="button" class="close input-group-btn ml-1" style="float:none" aria-label="Close" onclick="remove_selected_member()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </p>
+</div>
+<input id="member_suggest" autocomplete="off" class="form-control">
+<script>
+  $('#member_suggest').typeahead({
+    source: function (query, process) {
+      $.get('/suggest_member?query='+query+'<%= mandate_id ? ";mandate=#{+mandate_id.to_s}" : "" %>', function(data) {
+        process(data);
+      });
+    },
+    afterSelect: function (selected) {
+      $('#<%= target_html_id %>').val(selected.id)
+      $('#selected_member_wrapper').show();
+      $('#selected_member').html(selected.name);
+    }
+  }); 
+  var remove_selected_member = function () {
+    $('#<%= target_html_id %>').val("")
+    $('#selected_member').html("")
+    $('#selected_member_wrapper').hide();
+  }
+</script>

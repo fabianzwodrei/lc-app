@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LcApp</title>
+    <%= csrf_meta_tags %>
+    <link href="/open-iconic-bootstrap.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+  </head>
+
+  <body>
+    <%= render "layouts/navbar" %>
+  	<main class="container">
+      <% if notice %>
+        <div id="" class="rails-alert alert alert-warning"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div id="" class="rails-alert alert alert-danger"><%= alert %></div>
+      <% end %>
+    	<%= yield %>
+    </main>
+
+    <div class="modal fade" id="theModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if notice or alert %>
+      <script type="text/javascript">
+        setTimeout(function(){
+          $('.rails-alert').fadeOut();
+        }, 4000);
+      </script>
+    <% end %>
+
+  </body>
+</html>

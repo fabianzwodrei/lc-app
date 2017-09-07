@@ -1,0 +1,43 @@
+  <div class="row mb-2">
+    <div class="small bold col-md-4">Typ der Veranstaltung </div>
+    <div class="col-md-6"><%= t 'course.module.'+course.module %></div>
+  </div>
+
+  <% if course.module == 'module-2' %>
+    <div class="row mb-2" data-toogle="tooltip" title="Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation (nur Modul 2) aktiv wird. Modul 2 Qualifikationen bleiben jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden.">
+      <div class="small bold col-md-4">Qualifikationsdatum </div>
+      <div class="col-md-6"><%= course.qualification_date.strftime('%d.%m.%Y') if course.qualification_date %></div>
+    </div>
+  <% end %>
+
+  <div class="row mb-2">
+    <div class="small bold col-md-4">Wo</div>
+    <div class="col-md-6"><%= course.where %></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="small bold col-md-4">Termin(e)</div>
+     <div class="col-md-6">
+        <%= print_dates course.dates, join_by: "<br>" %>
+     </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="small bold col-md-4">Beschreibung</div>
+    <div class="col-md-6"><%= course.description %></div>
+  </div>
+  
+  <div class="row mb-2">
+    <% if course.limit %>
+        <div class="small bold col-md-4">Teilnehmeranzahl begrenzt auf</div>
+        <div class="col-md-6"><%= course.limit.to_s %><% if course.full %>&nbsp;<span class="full_notice">(Kurs ist voll belegt bzw. max. Anzahl Bewerbungen ist erreicht)</span><% end %></div>
+    <% else %>
+        <div class="small bold col-md-4">Teilnehmerbegrenzung</div>
+        <div class="col-md-6">Nein</div>
+    <% end %>
+  </div>
+
+  <div class="row mb-3">
+    <div class="small bold col-md-4">Teilnahme erfordert Freischaltung</div>
+    <div class="col-md-6"><%= course.permission_required ? "Ja" : "Nein"  %></div>
+  </div>

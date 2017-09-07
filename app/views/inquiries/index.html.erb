@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-9">
+    <h2><%= (t 'domain_model.inquiries')+ ' verwalten' %></h2>
+  </div>
+  <div class="col-md-3" align="right">
+    <%= render "common/plus", path: new_inquiry_path %>
+  </div>
+</div>
+
+
+<div id="inquiries-index">
+
+    
+    
+
+    <%= render "index_client_select", client_name: @client_name %>
+
+
+    <% if not @from and not @client_name %>
+      <%= render 'common/show_archived', path: inquiries_url %>
+    <% end %>
+
+    <% if @client_name %>
+      <% if !@inquiries.blank? %>
+        <span class="oi oi-check text-success mr-2"></span> - Bereits erledigt
+      <% end %>
+      <div align="center"><%= link_to "Sachstandsanfragen für alle Mandanten anzeigen", inquiries_url, class: "btn btn-secondary btn-sm" %></div>
+    <% end %>
+
+
+    <% if @from %>
+      <% if !@inquiries.blank? %>
+        <span class="oi oi-check text-success mr-2"></span> - Bereits erledigt
+      <% end %>
+      <%= render 'common/show_open', path: inquiries_url %>
+    <% end %>
+    &nbsp;
+
+    <% if !@inquiries.blank? %>
+        <%= render "listing", inquiries: @inquiries %>
+    <% else %>
+        <p>Keine Sachstandsanfragen gefunden</p>
+    <% end %>
+
+
+
+    <%= render 'common/load_more', path: inquiries_url, from: @from, count: @count %>
+
+</div>

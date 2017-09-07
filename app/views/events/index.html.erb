@@ -1,0 +1,37 @@
+<h2>Deine Termine</h2>
+
+<% if not @past %>
+  <a href="/events/export.ics" target="_blank" data-toggle="tooltip" title="Die Termine werden im gängigen ICS-Format abgespeichert und können in Kalenderanwendungen geladen werden. Auf vielen Systemen funktioniert dies automatisch, sobald du auf den Link klickst (wobei dann normalerweise noch einmal eine Rückfrage durch die Ziel-Kalenderanwendung erfolgt). Beachte, dass nur kommende Termine exportiert werden, nicht die bereits verstrichenen." class="btn btn-primary" data-placement="bottom">Kalender exportieren</a>
+
+  <%= link_to "Vergangene Termine anzeigen",
+              events_path({params:{past:true}}),
+              style:"float:right" %>
+<% else %>
+  <%= link_to "Aktuelle Termine anzeigen",
+              events_path,
+              style:"float:right" %>
+<% end %>
+<br>
+<br>
+
+<div id="event_listing">
+  <% i=1; for event in @events %>
+      <div id="event-<%= i %>" class="card">
+        <div class="card-header">
+          <b><span class="dates"><%= event[:date] %></span></b><br>
+          <span class="title"><%= event[:title] %></span><br>
+          <span class="type"><%= event[:type] %></span> - Ort:&nbsp;<span class="type"><%= event[:place] %></span>
+
+          <% if event[:info] %>
+            <br>
+            <span class="info"><%= event[:info] %></span>
+          <% end %>
+        </div>
+      </div>
+      <br>
+    <% i=i+1 %>
+  <% end %>
+</div>
+
+
+

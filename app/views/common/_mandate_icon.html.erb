@@ -1,0 +1,15 @@
+<% if mandate.vacant %>
+  <span class="oi oi-transfer text-primary mr-2"></span>
+<% end %>  
+
+<% if mandate.status == 'active' %>
+    <span class="oi oi-play-circle mr-2"></span>
+<% end %>
+
+<% if mandate.status == 'awaits_review' %>
+    <span class="oi oi-flag text-warning mr-2"></span>
+<% end %>
+
+<% if mandate.done %>
+    <span class="oi oi-check text-success mr-2"></span>
+<% end %>

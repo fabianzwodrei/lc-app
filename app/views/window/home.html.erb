@@ -1,0 +1,12 @@
+<h2>Mandantenfenster</h2>
+
+<label for="mandate_number" data-toggle="tooltip" title="Den Zugangs- und den Bestätigungscode für Ihr Mandat bekommen Sie von Ihren Mandatsbearbeitern.">Zugangscode</label>
+<input name="mandate_number" id="mandate_number"/>
+<button name="commit" onclick="myFunction()">Mandat anzeigen</button>
+
+<script>
+    var myFunction = function() {
+        num = document.getElementById('mandate_number').value;
+        window.location.href = "/window/detail/"+num;
+    }
+</script>

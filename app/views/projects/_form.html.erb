@@ -1,0 +1,82 @@
+<%= form_for project do |f| %>
+	<div class="row">
+		
+		<div class="col-md-6 mb-3">
+			<div class="form-group mb-3">
+				<label>Titel</label>
+				<%= f.text_field :title, class: "form-control" %>
+			</div>
+
+			<div class="form-group mb-3">
+				<label>Beschreibung</label>
+				<%= f.text_area :description, class: "form-control", rows: 6 %>
+			</div>
+
+			<div class="form-group card">
+				<div class="card-block">
+					<h6 class="card-title">Beteiligte Ressorts</h6>
+					<%= render "departments/select", f:f %>
+				</div>
+			</div>
+
+			<div class="form-group card">
+				<div class="card-block">
+					<h6 class="card-title">Für Infoboard nutzen</h6>
+
+	                <label class="form-check-label">
+	                    <%= f.check_box :use_for_infoboard, class: "form-check-input" %> letzte Nachricht wird für alle Nutzer auf dem Infoboard angezeigt
+	                </label>
+	                </div>
+            </div>
+
+			<% unless project.new_record? %>
+				<div class="form-group card mb-3">
+					<div class="card-block">
+						<h6 class="card-title">Status</h6>
+		                  <label class="form-check-label">
+		                    <%= f.check_box :archived, class: "form-check-input" %> Archiviert
+		                  </label>
+		            </div>
+                </div>
+			<% end %>
+			<%= f.submit value: "Speichern", class:"btn btn-primary" %>
+		</div>
+		<div class="col-md-6">
+			<% unless project.new_record? %>
+				<div class="card mt-4">
+		            <div class="card-header h6">
+		              Eingeladene Mitglieder
+		            </div>
+		            <ul class="list-group list-group-flush">
+						<% for member in project.invitees %>
+							<li class="d-flex justify-content-between list-group-item">
+								<%= member.full_name %>
+								<button type="button" class="btn btn-sm btn-secondary float-right" onclick="$.post('/projects/<%= project.id %>/remove_member', { member_id: <%= member.id %> })">ausladen</button>
+							</li>
+						<% end -%>
+		            </ul>
+		            <div class="card-block">
+		            	<div class="input-group add_invitations">
+					      <input type="text" class="form-control" placeholder="Mitglied einladen" id="member_suggest" autocomplete="off">
+					    
+					      <span class="input-group-btn">
+					        <button type="button"  class="btn btn-warning " onclick="$.post('/projects/<%= project.id %>/add_member', { member_id: $('#member_suggest').typeahead('getActive').id })"><span class="oi oi-plus"></span></button>
+					      </span>
+					    </div>
+
+					    <script>
+					        $('#member_suggest').typeahead({
+					            source: function (query, process) {
+					                $.get('/suggest_member.json?query='+query, function(data) {
+					                    process(data);
+					                });
+					            }
+					        });
+					        
+					    </script>
+		            </div>
+		        </div>
+	        <% end -%>
+		</div>
+	</div>
+<% end -%>

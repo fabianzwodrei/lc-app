@@ -1,0 +1,11 @@
+<%
+  department_id ||= nil
+  dept_sfx = ''
+  if department_id
+    dept_sfx = '&department_id='+department_id.to_s
+  end
+%>
+
+<% if from and (from+Rails.configuration.x.page_items)<count%>
+  <div align="center"><a href="<%= path+"?from=#{from+Rails.configuration.x.page_items}"+dept_sfx %>" class="btn btn-secondary btn-sm my-3"><span class="oi oi-chevron-bottom mr-2"></span>Weitere laden</a></div>
+<% end %>

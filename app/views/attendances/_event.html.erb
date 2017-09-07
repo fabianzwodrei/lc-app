@@ -1,0 +1,12 @@
+<span class="col attendee_full_name"><%= attendance.member.full_name %></span>
+
+<% if admin_mode %>
+	<div class="col small">
+    <% if !attendance.permitted %>
+        <a class="float-right" href="<%= permit_attendance_path(attendance) %>" data-method="PATCH">Zur Teilnahme zulassen</a>
+    <% else %>
+        <a class="float-right" href="/events/<%= attendance.event_id %>/remove_member/<%= attendance.member_id %><%= from ? "?from=#{from}" : "" %> "
+           data-method="POST" data-confirm="Sicher?">Teilnahme aufheben</a>
+    <% end %>
+    </div>
+<% end %>

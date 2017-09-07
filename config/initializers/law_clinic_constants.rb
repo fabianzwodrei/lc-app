@@ -1,0 +1,2 @@
+LAW_CLINIC_NAME = "Some Law Clinic"
+LAW_CLINIC_NAVBAR_TITLE = "LC"

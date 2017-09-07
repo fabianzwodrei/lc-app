@@ -1,0 +1,27 @@
+<%= render 'common/back', text: ' Zurück zur Übersicht', path: "/people?department_id=#{@person.department_id}" %>
+<h2 class="mt-3"><%= @person.name %></h2>
+<p align="right"><%= render "common/pencil", path: edit_person_path(@person) if can? :edit, @person %></p>
+
+<table class="table">
+  <tr><td><span>Vorname:</span></td><td width="70%"><%= @person.first_name %></td></tr>
+  <tr><td><span>Nachname:</span></td><td><%= @person.last_name %></td></tr>
+  <tr><td><span>Rolle:</span></td><td><span class="badge badge-default"><%= t('domain_model.'+@person.role) %></span></td></tr>
+  <tr><td><span>Email:</span></td><td><%= @person.email %></td></tr>
+  <tr><td><span>Telefon:</span></td><td><%= @person.phone %></td></tr>
+  <tr><td><span>Sprachen:</span></td><td><%= @person.languages %></td></tr>
+  <tr><td><span>Kommentar:</span></td><td><%= @person.comment %></td></tr>
+
+  <% if @department_id and can? :update, @person %>
+    <tr><td><span>Öffentlich sichtbar:</span></td><td><%= @person.public ? 'Ja' : 'Nein' %></td></tr>
+
+    <% if @department_id == FINANZEN %>
+      <tr><td><span>Finanzdaten:</span></td><td><%= @person.comment %></td></tr>
+    <% end %>
+
+  <% end %>
+</table>
+
+<% if @person.mandates.any? and can? :edit, Mandate %>
+  <div class="my-4"><h4>Mandate</h4>
+    <%= render @person.mandates %></div>
+<% end %>

@@ -1,0 +1,23 @@
+<%= form_for bibliography do |f| %>
+
+  <%= render "common/validation_msg_box", resource: bibliography %>
+
+  <div class="row">
+    <div class="col-md-6">
+
+	    <div class="form-group">
+	        <%= f.label "Titel" %>
+	      	<%= f.text_field :title, class: "form-control" %></div>
+
+     	<div class="form-group">
+        	<%= f.label "Beschreibung" %>
+        	<%= f.text_area :description, class: "form-control", rows: "7" %></div>
+      	
+      	<%= f.submit "Speichern", class: "btn btn-primary" %>
+
+    </div>
+    <% if params[:department_id] %>
+      <%= f.hidden_field :department_id, value: params[:department_id] %>
+    <% end -%>
+  </div>
+<% end %>

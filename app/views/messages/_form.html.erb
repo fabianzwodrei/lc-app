@@ -1,0 +1,21 @@
+<%
+  parent_message ||= nil 
+  rows ||= 1
+%>  
+<form id="message_form" action="/conversations/<%= conversation.id %>/messages" multipart="true">
+  <div class="row bg-faded no-gutters rounded-top p-2 form-inline">
+      <div class="col-12" align="right">
+        <% if rows > 1 %>
+          <textarea rows="<%= rows%>" autofocus="true" autocomplete="off" class="w-100 form-control mb-1" name="message[text]" id="message_text"></textarea>
+        <% else %>
+          <input type="text" autofocus="true" autocomplete="off" class="w-100 form-control mb-1" name="message[text]" id="message_text">
+        <% end %>
+        <% if parent_message %>
+          <input type="hidden" name="message[parent_id]" value="<%= parent_message.id %>">
+        <% end -%>
+        <button type="button" class=" btn btn-sm btn-secondary protocol_button" id="upload_button" >Datei</button>
+        <input type="file" id="message_attachment" autocomplete="off" onchange="$('#upload_button').text($('#message_attachment').val() + ' entfernen');" style="opacity: 0; position:absolute; left:-4000px" name="message[attachment]">
+        <button type="submit" class=" btn btn-sm btn-primary" >Absenden</button>
+      </div>
+  </div>
+</form>

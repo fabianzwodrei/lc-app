@@ -1,0 +1,36 @@
+<% if !mandates.blank? %>
+  <div class="mandates_listing">
+    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+    		<% for mandate in mandates %>
+    			<div class="card">
+					  <div class="card-header" data-parent="#accordion" data-target="#mandate-<%= mandate.id %>" data-toggle="collapse" style="background-color: white" role="tab" id="mandate-<%= mandate.id %>-heading">
+					    <%= render 'mandates/heading', mandate: mandate %>
+
+					  </div>
+
+					  <div data-url="<%= mandate_url(mandate) %>.htmlp"  id="mandate-<%= mandate.id %>" class="collapse bg-faded" role="tabpanel" aria-labelledby="mandate-<%= mandate.id %>-heading">
+					    <div class="card-block">
+					   	 Lade...
+					    </div>
+					  </div>
+					</div>
+    		<% end %>
+    		
+    </div>
+  </div>
+<% else %>
+	<div>
+    Keine
+  </div>
+<% end %>
+
+<script type="text/javascript">
+    $('#accordion').on('shown.bs.collapse', function (e) {
+        var t = $(e.target.children[0]);
+        if (t.text().length < 50) t.load($(e.target).data('url'));
+    });
+
+    <% if params["open"] %>
+    	$('#mandate-<%= params["open"] %>').collapse('show').get(0).scrollIntoView(true);
+    <% end %>
+</script>

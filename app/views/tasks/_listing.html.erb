@@ -1,0 +1,39 @@
+<ul class="list-group list-group-flush" id="tasks_listing">
+	<% if !tasks.blank? %>
+		<% for task in tasks %>
+			<% can_manage = can? :manage, task %>
+			<li class="list-group-item list-group-item-action flex-column align-items-start task">
+				<div class="d-flex w-100 justify-content-between">
+					<small>
+						<span class="text-primary"><%= task.member.first_name %></span>
+						<%= " in " + task.mandate.title if task.mandate %>
+						<%= " in " + DEPARTMENT_TITLES[task.department_id] if task.department_id %>
+						<span class="text-danger"><%= " an " + task.assigned_member.first_name if task.assigned_member %></span>	
+					</small>
+					<small class="ml-auto">
+						<% if task.deadline %>
+							<span class="oi oi-clock mr-1 text-danger"></span> <%= task.deadline.strftime("%d.%m.%Y") %>
+						<% elsif can_manage and task.done == false %>
+							<input data-date-autoclose="true" data-date-format="dd.mm.yyyy" autocomplete="off" data-provide="datepicker" placeholder="Deadline" style="text-align:right; border:none; background: none; padding:0px; width:70px; cursor:pointer; font-family: inherit;" onchange="set_deadline(this)" data-task-id="<%= task.id %>"/>	
+						<% end %>
+						<% if can_manage && task.done == false %>
+							<a class="ml-2 text-muted edit_task" href="<%= edit_task_url(task, origin: @origin ? @origin : request.path) %>">
+								<span class="oi oi-cog"></span>
+							</a>
+						<% end -%>
+					</small>
+		    	</div>
+			    <div class="form-check">
+			    	<% if can? :close, task %>
+			      		<label class="form-check-label">
+			        		<input class="form-check-input task_done_checkbox mr-1 mt-2 close_task" data-task-id="<%= task.id %>" onclick="close_task(this)" autocomplete="off" type="checkbox" <% if task.done %> checked="checked" disabled="disabled" <% end %>>
+				      		<h6 class="mb-0 pt-1 task_title"><%= task.title %></h6>
+				      	</label>
+			        <% else -%>
+			        	<h6 class="mb-0 pt-1 task_title"><%= task.title %></h6>
+			        <% end -%>
+			    </div>
+		  </li>
+		<% end %>
+	<% end %>
+  </ul>

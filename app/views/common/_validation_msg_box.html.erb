@@ -1,0 +1,28 @@
+<% if resource.errors.any? %>
+
+    <div id="error_explanation" class="alert alert-danger">
+      <p>
+        <b><%= resource.errors.count.to_s + " "+ (t :error).to_s %> verhinderte(n), dass gespeichert werden konnte.</b>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        
+      </p>
+      <ul>
+          <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+      </ul>
+
+    </div>
+
+    <script type="text/javascript">
+      function fadeOut() {
+        $('#error_explanation').fadeOut();
+      }
+      setTimeout(function(){
+        fadeOut();
+      }, 7000);
+    </script>
+<% end %>

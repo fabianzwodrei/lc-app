@@ -1,0 +1,28 @@
+<% if not @mandate %>
+  <h2>Zu dem angegebenen Kürzel konnte kein Mandat gefunden werden</h2>
+  <p>Bitte probieren Sie es noch einmal oder wenden sich an Ihren Mandatsbearbeiter</p>
+<% else %>
+
+
+  <h2>Mandantenfenster für das Mandat <span id="title"><%= @mandate.title %></span></h2>
+
+  <p>
+    Der Status dieses Mandates ist: <b><%=
+    @mandate.status != 'done' ? 'In Bearbeitung' : 'Erledigt' %></b>
+  </p>
+
+  <br><br>
+  Hier können Sie eine Nachricht hinterlassen<br><br>
+
+
+  <%= form_tag("/window/message", multipart: true) do %>
+    <%= hidden_field_tag(:access_code, @access_code) %>
+    <textarea name="message[content]" rows="10" cols="80"><%= @msg_content %></textarea><br>
+    <input type="file" id="message_attachment" autocomplete="off" onchange="$('#upload_button').text($('#message_attachment').val() + ' entfernen');" style="opacity: 0; position:absolute; left:-4000px" name="message[attachment]">
+    <button type="button" class=" btn btn-sm btn-secondary protocol_button" id="upload_button" >Datei</button><br><br>
+    <label data-toggle="tooltip" title="Den Zugangs- und den Bestätigungscode für Ihr Mandat bekommen Sie von Ihren Mandatsbearbeitern. Geben Sie hier bitte den Bestätigungscode ein, bevor Sie die Nachricht abschicken.">Bestätigungscode</label><br>
+    <input id="confirmation_code" name="confirmation_code">
+    <input type="submit" value="Nachricht abschicken">
+  <% end %>
+<% end %>
+

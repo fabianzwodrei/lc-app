@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-6">
+    <table>
+      <% unless fee_payment.blank? %>
+            <tr><td class="small text-right pr-2"><b>Lastschrifterlaubnis</b></td><td><%= fee_payment.direct_debit_allowed ? 'Erteilt' : 'Nicht erteilt' %></td></tr>
+            <tr><td class="small text-right pr-2"><b>Kontoverbindung</b></td><td><%= fee_payment.account_details %></td></tr>
+      <% end %>
+      <%= render(:partial => 'members/login_data', :formats => [:html], locals: {member: fee_payment.member}) %>
+    </table>
+  </div>
+
+  <div class="col-4">
+    <% unless fee_payment.blank? %>
+        <span class="small text-right pr-2"><b>Notizen zur Bezahlhistorie</b><br>
+        <% if fee_payment.payment_history_notes && fee_payment.payment_history_notes != '' %>
+              <%= fee_payment.payment_history_notes %>
+              <% else %>
+                Bisher keine Notizen
+              <% end %>
+        <br><br>
+    <% end %>
+  </div>
+
+  <div class="col-2">
+      <%= link_to( fee_payment_path(fee_payment) , {class: "btn btn-primary btn-sm float-right attend_button"}  ) do %>Bearbeiten<% end %>
+  </div>
+</div>

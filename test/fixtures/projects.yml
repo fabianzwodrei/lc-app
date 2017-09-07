@@ -1,0 +1,19 @@
+mandatsverwaltung_project:
+  departments: [0]
+  id: 1
+sprechstunde_project:
+  departments: [7]
+  id: 2
+interneorga_project:
+  departments: [1]
+  id: 3
+mandatsverwaltung_with_sprechstunde_project:
+  departments: [0,7]
+  id: 4
+archived_mandatsverwaltung_with_sprechstunde_project:
+  departments: [0,7]
+  archived: true
+  id: 5
+with_invitation_project:
+  departments: [0]
+  id: 6

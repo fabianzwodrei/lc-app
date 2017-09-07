@@ -1,0 +1,65 @@
+<div class="float-right"><%= link_to( reset_all_fee_payments_path , {class: ""}  ) do %>Weitere Aktionen<% end %></div>
+
+<h2>Zahlungsübersicht</h2>
+<div class="row mb-3">
+  <div class="col-4">
+    <% if not @open %>
+      <span class="oi oi-check text-success"></span> - Bezahlt
+    <% end %>
+    <div class="pb-2 "><span class="oi oi-x text-danger"></span>  - Noch nicht bezahlt</div>
+    <% if not @open %>
+      <%= link_to "Nur offene Zahlungen anzeigen", fee_payments_path(params:{open:true}), class: "btn btn-sm btn-secondary"   %>
+    <% else %>
+      
+        <%= link_to "Alle anzeigen", fee_payments_path, class: "btn btn-sm btn-secondary mb-2" %>
+
+        <button class="btn btn-sm btn-secondary" onclick="$('#open_payments_email_form').show(); $(this).hide()">Email an Mitglieder mit offener Zahlung</button>
+      
+    <% end %>
+  </div>
+  <div class="col-8">
+    <div id="open_payments_email_form" class="card " style="display:none">
+      <div class="card-header">
+        Zahlungserinnerung
+      </div>
+      <div class="card-block">
+        <%= render "emails/form", action: email_fee_payments_path() %>
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+  
+  
+
+
+
+
+<% if !@members.blank? %>
+    <div id="accordion" role="tablist" class="accordion" aria-multiselectable="false">
+      <% for member in @members %>
+          <div class="card">
+            <div class="card-header" role="tab" id="member-<%= member.id %>">
+              <a data-toggle="collapse" data-parent="#accordion" href="#member-<%= member.id %>-content" aria-expanded="true" aria-controls="member-<%= member.id %>-content">
+                <div class="d-flex flex-row justify-content-start">
+                  <div class="p-2 h6 m-0 col-4 member_full_name"><%= member.full_name %></div>
+
+                  <div class="p-2 small col-4 departments-list"><%= member.departments.map { |n| DEPARTMENT_TITLES[n] }.join(", ") %></div>
+
+                  <div class="p-2 col-4"><span class="float-right oi oi-<%= member.fee_payment && member.fee_payment.paid ? "check text-success" : "x text-danger" %>"></span></div>
+                </div>
+              </a>
+            </div>
+
+            <% if member.fee_payment %>
+              <div data-id="<%= member.fee_payment.id %>"  id="member-<%= member.id %>-content" class="collapse" role="tabpanel" aria-labelledby="member-<%= member.id %>">
+                <div class="card-block">
+                  <%= render 'row', fee_payment: member.fee_payment %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+<% end %>

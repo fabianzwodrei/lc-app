@@ -1,0 +1,27 @@
+mandatsverwaltung_conversation:
+  id: 1
+  project_id: 1
+sprechstunde_conversation:
+  id: 2
+  project_id: 2
+interneorga_conversation:
+  id: 3
+  project_id: 3
+mandate1_protocol_conversation:
+  id: 4
+  mandate_id: 1
+course_conversation:
+  id: 5
+  event_id: 5
+course_1_conversation:
+  id: 6
+  event_id: 1
+project_mandatsverwaltung_with_sprechstunde_conversation:
+  id: 7
+  project_id: 4
+archived_project_mandatsverwaltung_with_sprechstunde_conversation:
+  id: 8
+  project_id: 5
+invitation_mandatsverwaltung_with__conversation:
+  id: 9
+  project_id: 6

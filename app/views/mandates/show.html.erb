@@ -1,0 +1,80 @@
+<h2><%= @mandate.title %></h2>
+
+<div class="row">
+  <div class="col-md-7">
+
+    <%= render "conversations/protocol", conversation: @mandate.conversation if @mandate.conversation %>
+  </div>
+
+  <div class="col-md-5">
+  	<div class="card mb-3">
+    	<div class="card-header h6">
+    	 Status
+    	</div>
+    	<div class="card-block pb-1">
+    		<h5><%= t "mandate.status.#{@mandate.status}" %></h5>
+
+        <% if @mandate.status == "active" and can? :request_review, @mandate and not can? :manage, Mandate %>
+            <p class="request_review_action" align="right"><a href="<%= request_review_mandate_path %>" confirm="Abnahme starten?" data-method="post">Abnahme anfragen</a></p>
+        <% end %>
+
+    	  <br>
+        Bearbeiter
+      </div>
+
+      <table class="list-group list-group-flush">
+        <% for ass in @mandate.assignments.approved %>
+            <tr class="list-group-item">
+              <td><%= ass.member.full_name %></td>
+
+              <% if ass.member.qualified %>
+                  <td style="color:gray" href="#" data-toggle="tooltip" title="Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen.">&nbsp;&nbsp;&nbsp;&nbsp;Voll qualifiziertes Mitglied</td>
+              <% else %>
+                  <td style="color:gray" href="#" data-toggle="tooltip" title="Hospitant*innen können voll qualifizierte Mitglieder bei der Mandatsbearbeitung unterstützen, können jedoch keine Änderungen am Mandatsstatus vornehmen.">&nbsp;&nbsp;&nbsp;&nbsp;Hospitant*in</td>
+              <% end %>
+            </tr>
+          <% end %>
+      </table>
+    </div>
+    <% unless @mandate.new_record? %>
+        <%= render "tasks/widget", tasks: @mandate.tasks.undone, filter: { mandate_id: @mandate.id } %>
+    <% end %>
+
+    <div class="card mb-3">
+      <div class="card-header h6">
+        Beschreibung
+      </div>
+      <div class="card-block">
+        <%= simple_format @mandate.description %>
+      </div>
+      <% if @mandate.attachment.exists? %>
+        <div class="card-footer">
+          Anlage: <%= link_to @mandate.attachment_file_name, get_attachment_mandate_path(@mandate), target: "_blank" %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render 'code' %>
+    
+    <div class="card">
+      <div class="card-header h6">
+        <%= link_to "Bearbeiten", edit_person_path(@mandate.client, {origin: mandate_path(@mandate)}), class: "float-right" if @mandate.client %>
+        Mandant
+      </div>
+      <div class="card-block">
+
+        <% if not @mandate.client.blank? %>
+          <h4 class="person-name">
+            <%= @mandate.client.name %>
+          </h4>
+          <%= render "people/details", person: @mandate.client %>
+        <% else %>
+          Kein Mandant
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+

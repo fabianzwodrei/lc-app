@@ -1,0 +1,64 @@
+<%
+  hide_extras ||= false
+%>
+
+<%= form.hidden_field :department_id %>
+
+<div class="form-group">
+  <%= form.label :first_name, t("person.first_name")  %>
+  <%= form.text_field :first_name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :last_name, t("person.last_name")  %>
+  <%= form.text_field :last_name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :email, t("person.email") %>
+  <%= form.text_field :email, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :phone, t("person.phone") %>
+  <%= form.text_field :phone, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :languages, t("person.languages") %>
+  <%= form.text_field :languages, class: "form-control" %>
+</div>
+
+<% if @department_id != FINANZEN %>
+  <div class="form-group">
+    <label for="person_comment">Kommentar</label>
+    <%= form.text_area :comment, class: "form-control"%>
+  </div>
+<% else %>
+  <div class="form-group">
+    <label for="person_comment" data-toggle="tooltip" title="Beachte, dass die Finanzdaten nur in der Ressort-spezifischen, nicht aber in der öffentlichen Personenübersicht zu sehen ist.">Finanzdaten</label>
+    <%= form.text_area :comment, class: "form-control"%>
+  </div>
+<% end %>
+
+<% unless hide_extras %>
+  <% if person.new_record? and person.department_id == MANDATSVERWALTUNG %>
+    <div class="form-group">
+      <%= form.label :role, "Rolle" %>
+      <%= form.select(:role, [['Mandant', 'client'], ['Beirat', 'consultant'], ['Dolmetscher','translator']], { include_blank: true }, { class: "form-control", autocomplete: "off"}) %>
+    </div>
+  <% else %>
+    <%= form.hidden_field :role, value: :contact %>
+  <% end %>
+
+
+
+  <div class="form-check">
+    <label class="form-check-label" data-toggle="tooltip" title="Ist das Häkchen gesetzt, ist der Kontakt in der öffentlichen Personenübersicht zu sehen. Beachte, das diese Eigenschaft nicht für Mandanten gilt. Diese werden grundsätzlich nicht in der öffentlichen Personenübersicht angezeigt.">
+      <%= form.check_box :public, class:"form-check-input" %>
+      Öffentlich sichtbar
+    </label>
+  </div>
+
+
+<% end %>

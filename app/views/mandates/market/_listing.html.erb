@@ -1,0 +1,11 @@
+<% if !mandates.blank? %>
+  <div class="mandates_listing">
+    <div class="accordion" id="<%= id_attribute %>" role="tablist" aria-multiselectable="true">
+      <%= render partial: 'mandates/market/mandate', collection: mandates, as: :mandate, locals: {id_attribute: id_attribute} %>
+    </div>
+  </div>
+<% else %>
+	<div>
+    Keine
+  </div>
+<% end %>

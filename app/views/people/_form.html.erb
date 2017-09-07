@@ -1,0 +1,19 @@
+<% @origin = request.params[:origin] unless request.params[:origin].blank? %>
+<%= form_for person do |f| %>
+  <%= render "common/validation_msg_box", resource: person %>
+
+  <div class="row">
+    <div class="col-md-6">
+     <%= render "inputs", form: f, person: person %>
+    </div>
+    <div class="col-md-6">
+
+      <% if @origin %>
+        <input type="hidden" name="origin" value="<%= @origin %>">
+      <% end %>
+      <div class="actions right">
+        <%= f.submit "Speichern", class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

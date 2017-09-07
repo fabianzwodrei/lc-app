@@ -1,0 +1,54 @@
+<%= form_for inquiry do |f| %>
+
+  <%= render "common/validation_msg_box", resource: inquiry %>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :titel %>
+          <%= f.text_field :title, class:"form-control" %>
+        </div>
+
+        <div>
+          <%= f.label :description, t('inquiry.description') %>
+          <%= f.text_area :description, class:"form-control", rows:"12" %>
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+
+        <% if inquiry.id %>
+          <div class="card mb-3">
+            <div class="card-header">
+              Status
+            </div>
+            <div class="card-block">
+              <div class="custom-controls-stacked">
+                <label class="custom-control custom-checkbox">
+                  <%= f.check_box :done,  class:"custom-control-input" %>
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">Erledigt</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render "form_member_select", parent_form: f, inquiry: inquiry %>
+        
+        <%= render "people/client_select_card", parent_form: f, owner: inquiry %>
+
+        <%= hidden_field_tag(:department_id, @department_id) %>
+        <% if @department_id %>
+          <input type="submit" name="commit" value="Speichern" class="mt-3 btn btn-primary"
+                 data-disable-with="Speichern" data-toggle="tooltip" data-placement="top"
+                 title="Beachte, dass das Mandat später nur noch durch die Mandatsverwaltung editiert werden kann.">
+          <span></span>
+        <% else %>
+          <%= f.submit "Speichern",  class: "mt-3 btn btn-primary" %>
+        <% end %>
+
+      </div>
+    </div>
+<% end %>

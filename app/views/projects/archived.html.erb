@@ -1,0 +1,40 @@
+<h3  class="mb-0">
+	Archivierte Projekte
+</h3>		
+
+<% if @department_projects and @department_projects.any? %>
+
+	<p class="mb-3"><small>Für <%= departments_to_string current_member.departments %></small></p>
+
+	<div class="row mb-5">
+		<div class="col-md-8 mb-3"> 
+			<div class="list-group archived_department_projects">
+				<% for project in @department_projects %>
+					<a href="<%= project_path(project) %>" id="<%= project.id %>" class="h6 list-group-item list-group-item-action"><%= project.title %></a>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% else -%> 
+	<p>Keine gefunden</p>
+<% end -%>
+
+	<h3  class="mb-3">
+		Archivierte Projekte mit Einladung
+	</h3>
+
+<% if @projects_with_invitation.any? %>
+	
+
+		<div class="row mb-5">
+			<div class="col-md-8 mb-3"> 
+				<div class="list-group">
+					<% for project in @projects_with_invitation %>
+						<a href="<%= project_path(project) %>" class="h6 list-group-item list-group-item-action"><%= project.title %></a>
+					<% end %>
+				</div>
+			</div>
+		</div>
+<% else -%> 
+	<p>Keine gefunden</p>
+<% end -%>

@@ -1,0 +1,23 @@
+<tr><td class="small text-right pr-2"><b>Email</b></td>
+  <td class="small"><%= member.email %></td></tr>
+
+<tr><td class="small text-right pr-2"><b>Beitritt</b></td>
+  <td><%= member.entry_date %></td></tr>
+
+<tr><td class="small text-right pr-2"><b>Letzer Login</b></td>
+  <td><%= l member.last_sign_in_at.localtime, format: :long if member.last_sign_in_at %></td></tr>
+
+<tr><td class="small text-right pr-2"><b>Login-Zähler</b></td>
+  <td><%= member.sign_in_count %></td></tr>
+
+<tr><td class="small text-right pr-2"><b>Letzte Nachricht</b></td>
+  <td><%= l member.messages.last.created_at.localtime, format: :long if member.messages.last %></td></tr>
+
+<tr><td class="small text-right pr-2"><b>Nachrichten</b></td>
+  <td><%= member.messages.count if member.messages.count %></td></tr>
+
+
+<% if member.locked_at %>
+	<tr><td class="small text-right pr-2 text-danger"><b>Deaktiviert am</b></td>
+	  <td><%= l member.locked_at.localtime, format: :long  %></td></tr>
+<% end -%>

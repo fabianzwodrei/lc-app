@@ -1,0 +1,77 @@
+<%= render "common/validation_msg_box", resource: @event %>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <%= form_for @event do |f| %>
+      <%= render 'events/form_core', f: f %>
+      <div class="form-group">
+        <%= f.label :dates, "Wann" %> <small class="text-muted">Format: 01.01.2017 - 13:30</small>
+        <%= f.text_field :dates_string, value: print_dates(@event.dates),  class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, "Beschreibung" %>
+        <%= f.text_area :description, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <% if @event.new_record? %>
+          <div class="form-group">
+            <%= f.label :permission_required, "Anmeldung erfordert Freischaltung", data: {toggle:"tooltip"}, title:"Ist das Häkchen gesetzt, können sich Mitglieder für eine Teilnahme anmelden, werden jedoch nicht automatisch zugelassen. Eine Freischaltung durch das verantwortliche Ressort ist dann notwendig. Beachte, dass diese Einstellung nicht mehr im Nachhinein verändert werden kann." %>
+            <%= f.check_box :permission_required, class:"checkbox" %>
+          </div>
+        <% elsif @event.permission_required %>
+
+          <b>Anmelung nur nach Freischaltung!</b>
+        <% end %>
+      </div>
+
+      <label>
+        <b>Verantwortliches Ressort</b><br>
+        <small>Alle Mitglieder dieses Ressorts können den Termin bearbeiten und ggf. Teilnehmer zulassen.</small>
+
+      </label>
+      <%= f.select :department_id, current_member.departments.map {|did| [DEPARTMENT_TITLES[did],did]}, {}, class: "form-control" %>
+
+      
+      <hr>
+
+      <% if @event.id %>
+        <div class="form-group">
+          <%= f.label :archive, "Archiviert", data: {toggle:"tooltip"}, title:"Häkchen setzen, um den Termin nach Abschluss zu archivieren." %>
+          <%= f.check_box :archive, class:"checkbox" %>
+        </div>
+      <% end %>
+
+      <div class="row actions">
+
+        <% if @event.id %>
+          <div class="col"><a href="<%= event_path(@event,params:{department_id:@department_id})  %>" data-method="DELETE" class=" btn btn-danger mb-4" data-confirm="Sicher?">Termin Löschen</a></div>
+        <% end %>
+        <div class="col" align="right"><%= f.submit "Speichern", class: "btn btn-primary mb-4" %></div>
+
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <% if !@event.new_record? %>
+      <% if can? :email, @event  %>
+        <h4>Email an alle Teilnehmer</h4>
+        <%= render "emails/form", action: email_event_path(@event, department_id: @department_id) %>
+      <% end -%>
+
+          <div class="card mt-4">
+            <div class="card-header h6">
+              Teilnehmer
+            </div>
+            <div class="card-block p-3"><%= render partial: 'events/attendees', formats: [:html], locals: {event: @event, admin_mode: true } %>
+            </div>
+          </div>
+
+    <% end %>
+
+
+  </div>
+</div>

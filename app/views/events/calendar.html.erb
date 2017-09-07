@@ -1,0 +1,6 @@
+<div align="right" class="pb-3">
+	<% if can? :create, Event %> <a class="btn btn-primary btn-sm" href="<%= new_event_path() %>">Neuer Termin </a><% end -%>
+</div>
+<div id="calendar_wrapper">
+	<%= render partial: "events/calendar", formats: [:html], locals: {events: @events} %>
+</div>

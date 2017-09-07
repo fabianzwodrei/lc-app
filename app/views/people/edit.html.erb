@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-md-12">
+  	<% unless request.params["origin"].blank? %>
+  		<%= render 'common/back', text: 'Zurück', path: request.params["origin"] %>
+  	<% else  %>
+    	<%= render 'common/back', text: 'Ansehen', path: person_path(@person) %>
+    <% end -%>
+    <h2>
+      Person verwalten
+    </h2>
+    <%= render "form", person: @person %>
+
+    <%= link_to "Kontakt löschen", person_path(@person), method: "DELETE", data: {confirm: "Löschen bestätigen"}, class: "btn btn-danger btn-sm my-4" if can? :destroy, @person  %>
+  </div>
+</div>

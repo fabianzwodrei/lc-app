@@ -1,0 +1,20 @@
+t1:
+  id: 1
+  member_id: 2
+  event_id: 6
+  passed: true
+t2:
+  id: 2
+  member_id: 2
+  event_id: 7
+  passed: true
+t3:
+  id: 3
+  member_id: 2
+  event_id: 8
+  passed: true
+a4:
+  id: 4
+  member_id: 2
+  event_id: 9
+  passed: true

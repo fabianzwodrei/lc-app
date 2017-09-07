@@ -1,0 +1,14 @@
+<h3>Rechteverwaltung</h3>
+<% if !@members.blank? %>
+    <table class="table">
+      <% for member in @members %>
+        <% if member.id != current_member.id %>
+          <tr>
+            <td class="col-md-4"><%= member.full_name %></td>
+            <td class="small col-md-5 departments-list"><%= departments_to_string member.departments %></td>
+            <td><%= link_to( edit_member_right_path(member,params:{department_id:@department_id}) , {class: "btn btn-primary btn-sm"}  ) do %>Bearbeiten<% end %></td>
+          </tr>
+       <% end %>
+      <% end %>
+    </table>
+<% end %>

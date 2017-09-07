@@ -1,0 +1,7 @@
+
+<a href="<%= conversation.get_url %>" id="<%= conversation.id %>" class="list-group-item" style="display:block">
+	<span class="oi oi-media-record text-primary mr-3" style="top: 2px;"></span><%= conversation.get_title current_member %>
+	<% if message = conversation.messages.last and member = conversation.messages.last.member %>
+		<div class="small text-muted mt-1"><b><%= member.first_name %>:</b> <%= message.text %> (<%= l message.created_at %>)</div>
+	<% end -%>
+</a>

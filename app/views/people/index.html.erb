@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-9">
+    <h2>
+      <%= t "domain_model.people" %>
+    </h2>
+  </div>
+  <div class="col-md-3">
+    <div class="mb-2" align="right"><%= render "common/plus", path: new_person_path(params:{department_id:params[:department_id]}) if params[:department_id] %></div>
+  </div>
+</div>
+
+<div id="people-index">
+  <% if !@people.blank? %>
+    <div class="list-group">
+      <%= render @people %>
+    </div>
+  <% else %>
+      Bisher wurden keine <%= t "domain_model.people" %> aufgenommen.
+  <% end %>
+</div>

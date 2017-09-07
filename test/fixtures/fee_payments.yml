@@ -1,0 +1,8 @@
+leifs_payment:
+  member_id: 4
+  account_details: "leifs account details"
+  paid: false
+tinas_payment:
+  member_id: 1
+  account_details: "tinas account details"
+  paid: false

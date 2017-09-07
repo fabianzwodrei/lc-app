@@ -1,0 +1,51 @@
+<h3 class="mb-4">Mitglieder</h3>
+
+<div class="mb-3" align="right">
+	<div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    <% if @filter %>
+	    	<b><%= departments_to_string [@filter.to_i] %></b>
+	    <% else %>
+	    	Filter
+	    <% end -%>
+	  </button>
+	  <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+	  	<a class="dropdown-item" href="/members/public"><b>Alle</b></a>
+	  	<% DEPARTMENTS.each do |d| %>
+	    	<a class="dropdown-item" href="?filter=<%= d %>"><%= departments_to_string [d] %></a>
+	    <% end -%>
+	  </div>
+	</div>
+</div>
+
+<% for m in @members %>
+	<div class="row border-top py-2">
+
+		<div class="col-md-1 col-sm-2 col-3 media">
+			<%= image_tag m.avatar.url(:thumb), class: " d-flex mr-3 rounded", style: "min-width: 50px; max-width: 50px;" %>
+		</div>
+		<div class="col-md-11 col-sm-8 col-9">
+			<h5 class="mt-0 mb-1">
+				
+				<%= form_for Conversation.new do |f| %>
+	        		<input type="hidden" name="conversation[member2_id]" value="<%= m.id %>">
+	        		<%= f.hidden_field :member1_id, value: current_member.id %>
+	        		<%= f.hidden_field :private, value: true  %>
+					<button type="submit" class="btn btn-primary float-right btn-sm"><span class="oi oi-chat"></span></button>
+	       		<% end %>
+				
+				<%= m.full_name %>
+
+			</h5>
+			<small class="break-word">
+				<%= m.public_infos %> 
+				<% unless m.languages.blank? %>
+					- <i><%= m.languages %></i>
+				<% end %>
+			</small>
+			
+		</div>
+		
+	</div>
+<% end %>
+

@@ -1,0 +1,75 @@
+
+  <%= render "common/validation_msg_box", resource: member %>
+
+	<div class="row">
+		<div class="col-md-6 mb-3">
+      <%= form_for member, html: { multipart: true } do |f| %>
+
+  			<%= render 'core_data_edit', f:f %>
+
+        <% if can? :manage, Member %>
+          <div class="form-group">
+            <%= f.label "Eintrittsdatum" %>
+            <%= f.date_field :entry_date, class: "form-control", data: { date_autoclose: "true", date_format: "dd.mm.yyyy", provide:"datepicker"} %>
+          </div>
+              
+          <div class="mt-4">
+            <% unless @member == current_member %>
+                <div class="form-group">
+                  <%= f.label :password, "Passwort" %><br><small>Min. 8 Zeichen, eine Zahl. Leer lassen wenn es nicht geändert werden soll.</small>
+                  <%= f.password_field :password, :autocomplete => "off", class: "form-control"  %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :password_confirmation, "Passwort bestätigen" %><br />
+                  <%= f.password_field :password_confirmation, class: "form-control" %>
+                </div>
+            <% end %>
+          </div>
+        <% end %>
+        <% if !member.new_record? and can? :manage, Member and @member != current_member %>
+          <div class="form-group card">
+            <div class="card-block">
+              <p>
+                <% unless member.locked_at %>
+                  <b>Account deaktivieren</b>
+                <% else %>
+                  <b class="h4 text-danger">Account ist deaktiviert</b>
+                <% end -%>
+                <br>Das Mitglied wird sich nicht mehr anmelden können. Nur die Interne Orga kann das Mitglied wieder freischalten
+              </p>
+              <p align="right" class="m-0 p-0"><%= link_to (member.locked_at ? "Account aktivieren" : "Account deaktivieren"), lock_member_path(member),method: "POST", class: "btn " + (member.locked_at ? "btn-success" : "btn-danger") if !member.new_record? and can? :lock, member %></p>
+            </div>
+          </div>
+        <% end -%>
+
+        <%= f.submit "Speichern", class: "btn btn-primary mt-4" %>
+
+      <% end %>  
+		</div>
+		<div class="col-md-6 mb-3">
+      <% if @member == current_member %>
+        <div class="card">
+          <div class="card-header">
+          Passwort ändern
+          </div>
+          <div class="card-block">
+            <%= form_for(@member, :url => { :action => "update_password" } ) do |fp| %>
+              <div class="form-group">
+                <%= fp.label :password, "Neues Passwort" %><br /><small>Min. 8 Zeichen, eine Zahl.</small>
+                <%= fp.password_field :password, :autocomplete => "off", class: "form-control"  %>
+              </div>
+              <div class="form-group">
+                <%= fp.label :password_confirmation, "Neues Passwort bestätigen" %><br />
+                <%= fp.password_field :password_confirmation, class: "form-control" %>
+              </div>
+              <div class="action_container">
+                <%= fp.submit "Ändern", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      
+		</div>
+	</div>

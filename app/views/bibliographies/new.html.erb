@@ -1,0 +1,4 @@
+<%= render 'common/back', text: ' Alle Ordner', path: bibliographies_path(department_id: (@bibliography.department_id if @bibliography.department_id)) %>
+
+<h3>Neuer Ordner</h3>	
+<%= render "form", bibliography: @bibliography %>

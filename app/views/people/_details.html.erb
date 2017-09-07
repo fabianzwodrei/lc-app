@@ -1,0 +1,16 @@
+<dl class="row">
+  <dt class="col-sm-5"><%= t 'person.email' %></dt>
+  <dd class="col-sm-7"><%= person.email %></dd>
+
+  <dt class="col-sm-5"><%= t 'person.phone' %></dt>
+  <dd class="col-sm-7"><%= person.phone %></dd>
+
+  <dt class="col-sm-5"><%= t 'person.languages' %></dt>
+  <dd class="col-sm-7"><%= person.languages %></dd>
+
+  <% unless person.comment.blank? %>
+	  <dt class="col-sm-5">Kommentar</dt>
+	  <dd class="col-sm-7"><%= person.comment %></dd>
+	<% end -%>
+
+</dl>

@@ -1,0 +1,26 @@
+<div class="row"><% if message.member_id != nil %>
+    <div class="col-lg-1 hidden-lg-down media">
+        <%= image_tag message.member.avatar.url(:thumb), class: " d-flex mr-3 rounded", style: "min-width: 46px; max-width: 46px;" if message.member and message.member.avatar.exists? %>
+    </div>
+<% end -%>
+<div class="col-lg-11 col-md-12 col-sm-12">
+    <div class="message mb-3 px-2 rounded <% if message.member_id == nil %>text-center small<% end %>  <% if message.children_count > 0 %> p-3 bg-faded <% end %>" >   
+        <%= link_to message.children_count.to_s + " Antworten", conversation_message_thread_path(message.conversation_id, message.id) , class: "badge badge-primary badge-pill float-right float-right message_thread_link" if message.children_count > 0 && !defined? hide_thread_link %>
+
+        <% if message.member_id == -1  %>
+           <b class="text-muted pr-1"><%= 'Via Mandantenfenster' %></b>
+        <% elsif message.member_id != nil  %>
+           <b class="text-muted pr-1"><%= message.member.first_name %></b>
+        <% end %>
+
+        <small class="text-muted message-timestamp">
+            <%= l message.created_at.localtime, format: :long %>
+            <%= link_to " ▼ Upload " + message.attachment_file_name,  conversation_message_get_attachment_path(message.conversation_id, message.id), target: "_blank" if message.attachment.exists? %>
+            <%= link_to "Vertiefen", conversation_message_thread_path(message.conversation_id, message.id), class: "create_message_thread_link message_thread_link" if message.parent_id == nil && message.children_count == 0 && message.member_id != nil %>
+        </small>
+        <br>
+        <span class="message-content">
+          <%= simple_format message.text %>
+        </span>
+    </div>
+</div></div>

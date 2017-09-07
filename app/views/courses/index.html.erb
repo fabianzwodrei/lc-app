@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-9">
+    <h2>Schulungen verwalten</h2>
+  </div>
+  <div class="col-md-3" align="right">
+    <%= render "common/plus", path: new_course_path %>
+  </div>
+</div>
+
+<% if !@from %>
+    <%= render 'common/show_archived', path: courses_url %>
+<% else %>
+    <%= render 'common/show_open', path: courses_url %>
+<% end %>
+&nbsp;
+
+<%= render "listing" %>
+
+<%= render 'common/load_more', path: courses_url, from: @from, count: @count %>

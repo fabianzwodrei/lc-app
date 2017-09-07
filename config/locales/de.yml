@@ -1,0 +1,128 @@
+de:
+  activerecord:
+      models:
+        course:
+          one: "Schulung"
+          other: "Schulungen"
+      errors:
+        models:
+          mandate:
+            attributes:
+              title:
+                blank: "- Ein Titel muss angegeben werden"
+          person:
+            attributes:
+              role:
+                inclusion: "- Eine Rolle muss für die Person ausgewählt werden."
+              name:
+                blank: "- Ein Name muss angegeben werden"
+              email:
+                blank: "- Eine Kontakt muss angegeben werden (Email oder Telefon)"
+              phone:
+                blank: "- Eine Kontakt muss angegeben werden (Email oder Telefon)"
+          member:
+            attributes:
+              email:
+                blank: "- Eine Email Adresse muss angegeben werden"
+                invalid: "- Es muss eine gültige Email Adresse angegeben werden"
+              last_name:
+                blank: "- Ein Nachname muss angegeben werden"
+              first_name:
+                blank: "- Ein Vorname muss angegeben werden"
+              password_confirmation:
+                confirmation: "- Die angegebenen Passwörter stimmen nicht überein"
+              password:
+                too_short: "- Das gewählte Passwort ist zu kurz"
+                blank: "- Bitte ein Passwort angeben"
+          course:
+            attributes:
+              dates:
+                blank: "- Es muss ein Datum angegeben werden"
+          consultation:
+            attributes:
+              dates_string:
+                blank: "- Es muss mind. ein Datum angegeben werden"
+              dates:
+                invalid: "- Das Datumsformat ist ungültig."
+          task:
+            attributes:
+              title:
+                blank: "- Ein Titel muss angegeben werden"
+              deadline:
+                invalid: "- Datumsformat bitte wie in 02.02.2017."
+          course:
+            attributes:
+              title:
+                blank: "- Ein Titel muss gewählt werden"
+              module:
+                inclusion: "- Ein Veranstaltungstyp muss gewählt werden"
+              qualification_date:
+                blank: "- Für Modul 2 Schulungen muss ein gültiges Qualifikationsdatum gewählt werden."
+              dates_string:
+                blank: "- Es muss mind. ein Datum angegeben werden"
+              dates:
+                invalid: "- Das Datumsformat ist ungültig."
+
+  person:
+    first_name: "Vorname"
+    last_name: "Nachname"
+    phone: "Telefonnummer(n)"
+    email: "Email-Adressen"
+    languages: "Sprachen"
+    role: "Rolle"
+  mandate:
+    description: "Beschreibung"
+    status:
+      vacant: "In Mandatsbörse"
+      active: "In Bearbeitung"
+      awaits_review: "Wartet auf Abnahme"
+      done: "Erledigt"
+    notice:
+      approved:
+        one: "Zuweisung"
+        other: "Zuweisungen"
+  course:
+    module:
+      module-1-lecture: "Vorlesung Modul 1"
+      module-1-workshop: "Workshop Modul 1"
+      module-2: "Veranstaltung Modul 2"
+  inquiry:
+    description: "Beschreibung"
+  date:
+    month_names: [~, Januar, Februar, März, April, Mail, Juni, Juli, August, September, Oktober, November, Dezember]
+    formats:
+      short: "%-d.%m.%Y"
+      default: "%d.%m.%Y"
+  time:
+    formats:
+      default: "%d.%m.%Y - %H:%M"
+      long: "%d.%m.%y - %H:%M"
+      date_only: "%d. %B %Y"
+  datetime:
+    month_names: [~, Januar, Februar, März, April, Mail, Juni, Juli, August, September, Oktober, November, Dezember]
+    formats:
+      short: "%-d.%m.%Y"
+      default: "%d.%m.%Y - %H:%M"
+  error: "Fehler"
+  assignment:
+    apply: "Bewerben"
+    unapply: "Bewerbung zurückziehen"
+  domain_model:
+    inquiry: "Sachstandsanfrage"
+    inquiries: "Sachstandsanfragen"
+    mandate: "Mandat"
+    mandates: "Mandate"
+    consultant: "Beirat"
+    consultants: "Beiräte"
+    person: "Kontakt"
+    people: "Kontakte"
+    client: "Mandant"
+    clients: "Mandanten"
+    translator: "Dolmetscher"
+    translators: "Dolmetscher"
+    contact: "Kontakt"
+    contacts: "Kontakte"
+    member: "Mitglied"
+    members: "Mitglieder"
+    department: "Ressort"
+    departments: "Ressorts"

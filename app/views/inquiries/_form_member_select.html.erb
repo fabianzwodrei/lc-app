@@ -1,0 +1,27 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <label>Bearbeiter</label>
+  </div>
+  <div class="card-block">
+
+    <div class="custom-controls-stacked">
+      <label class="custom-control custom-radio">    
+        <%= radio_button_tag "inquiry[member_id]", "no", (inquiry.member_id ? false : true),class:"custom-control-input" %>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description">Niemand</span>
+      </label>
+
+    
+
+    <%= parent_form.collection_radio_buttons(:member_id,
+         Member.all.select{|m| m.departments.include? MANDATSVERWALTUNG }, :id, :email) do |b| %>
+      <label class="custom-control custom-radio">
+        <%= b.radio_button class: "custom-control-input" %>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description"><%= b.text %></span>
+      </label>
+    <% end %>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,18 @@
+<a  href="<%= person_path(person) %>"
+    class="person-info list-group-item list-group-item-action flex-column align-items-start">
+  <small class="text-muted">
+    <%= (t "domain_model.#{person.role}") %>
+    <% if person.department_id %>
+      <i> via
+        <%= DEPARTMENT_TITLES[person.department_id] if person.department_id %>
+        <% if !request.params['department_id'].blank? and person.public %>
+          <span class="text-warning">öffentlich</span>
+        <% end %>
+      </i>
+    <% end %>
+  </small>
+
+  <div class="h5 m-0 person-name" >
+    <%= person.name %>
+  </div>
+</a>
