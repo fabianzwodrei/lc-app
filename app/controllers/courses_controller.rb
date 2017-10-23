@@ -28,7 +28,7 @@ class CoursesController < EventsController
     if @course.destroy
       redirect_to courses_path(), notice: 'Schulung wurde erfolgreich gelöscht.'
     else
-      render action: 'edit'
+      head :precondition_failed
     end
   end
 

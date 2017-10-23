@@ -45,6 +45,28 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
+  # destroy
+  test "can not destroy empty course that has messages" do
+    with :svenja do
+      attend :course_1
+      post conversation_messages_url(conversations(:course_1_conversation).id),
+         params: { message: {text: "bla bla" }}
+      unattend :course_1
+    end
+    
+    delete "/courses/#{courses(:course_1).id}"
+    assert_response :precondition_failed
+  end
+
+  test "can not destroy course that has members left" do
+    with :svenja do
+      attend :course_1
+    end
+    
+    delete "/courses/#{courses(:course_1).id}"
+    assert_response :precondition_failed
+  end
+
 
   test 'do see attend button' do
     sign_in :svenja

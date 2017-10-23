@@ -7,12 +7,13 @@
   </div>
 </div>
 
-<% if !@from %>
-    <%= render 'common/show_archived', path: courses_url %>
-<% else %>
-    <%= render 'common/show_open', path: courses_url %>
-<% end %>
-&nbsp;
+<div class="mb-2">
+	<% if !@from %>
+	    <%= render 'common/show_archived', path: courses_url %>
+	<% else %>
+	    <%= render 'common/show_open', path: courses_url %>
+	<% end %>
+</div>
 
 <%= render "listing" %>
 
