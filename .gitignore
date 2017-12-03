@@ -33,3 +33,9 @@ user_files/*
 
 # ignore redis
 dump.rdb
+
+# TSM
+dsmerlog.pru
+dsmerror.log
+dsminstr.log
+dsminstr.log.lock
