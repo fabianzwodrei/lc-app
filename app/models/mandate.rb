@@ -57,8 +57,8 @@ class Mandate < ActiveRecord::Base
 
   scope :vacant, -> { where("status = 'vacant'") }
 
-  def attended_by(current_member)
-    assignments.pluck(:member_id).include? current_member.id
+  def application_exists_from(current_member)
+    assignments.unapproved.pluck(:member_id).include? current_member.id
   end
 
 end

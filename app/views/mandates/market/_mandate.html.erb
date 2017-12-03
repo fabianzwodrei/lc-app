@@ -9,7 +9,7 @@
       <% if mandate.is_assigned_to(current_member) %>
           <%= link_to "Anzeigen",  mandate_path(mandate), class: "btn btn-primary btn-sm float-right" %>
       <% else %>
-        <% if mandate.attended_by(current_member) %>
+        <% if mandate.application_exists_from(current_member) %>
             <p align="right"><a href="<%= mandate_unapply_path(mandate)  %>" data-method="PATCH" class="btn btn-primary btn-sm float-right"><%= t 'assignment.unapply' %></a></p>
         <% else %>
             <p align="right"><a href="<%= mandate_apply_path(mandate)  %>" data-method="PATCH" class="btn btn-primary btn-sm float-right"><%= t 'assignment.apply' %></a></p>

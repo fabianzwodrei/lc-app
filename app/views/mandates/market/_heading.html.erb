@@ -2,7 +2,7 @@
   <div class="badge badge-calm">
     <% if mandate.is_assigned_to(current_member) %>
       Zugewiesen
-    <% elsif mandate.attended_by(current_member) %>
+    <% elsif mandate.application_exists_from(current_member) %>
       Beworben
     <% end %>
   </div>
