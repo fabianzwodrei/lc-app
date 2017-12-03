@@ -22,7 +22,7 @@
 		<% for date in events.keys %>
 			<% for ev in events[date] %>
 				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start" data-toggle="modal" data-target="#theModal" data-href="/events/<%= ev.id %>.htmlp">
-					<b class="m-0 p-0 text-dark"><%= l date %></b>
+					<b class="m-0 p-0 text-muted"><%= l date %></b>
 					<span class="<%= 'text-warning' if ev.type == 'Course' %> <%= 'text-danger' if ev.type == 'Consultation' %>">
 						<%= ev.title %>
 					</span>
