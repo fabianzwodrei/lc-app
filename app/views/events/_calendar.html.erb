@@ -14,23 +14,25 @@
   <% end %>
 <% end %>
 
-<div class="row">
-	<div class="col-4 mt-4">
-		<h5>Legende</h5>
-		<span class="oi oi-media-record text-warning"></span> Schulung/Vorlesung<br>
-		<span class="oi oi-media-record text-primary"></span> Event<br>
-		<span class="oi oi-media-record text-danger"></span> Sprechstunde 
+<div class="card">
+	<div class="card-header h6">
+		Terminliste
 	</div>
-	<div class="col-8 mt-4">
-		<h5>Terminliste</h5>
-
+	<ul class="list-group list-group-flush" id="tasks_listing">
 		<% for date in events.keys %>
-			<h6 class="m-0 p-0"><%= l date %></h6>
-			<div class="pl-3 pb-2">
 			<% for ev in events[date] %>
-				<button class="btn btn-sm btn-link p-0 m-0 <%= 'text-warning' if ev.type == 'Course' %> <%= 'text-danger' if ev.type == 'Consultation' %>" data-toggle="modal" data-target="#theModal" data-href="/events/<%= ev.id %>.htmlp"><%= ev.title %></button><br>
+				<a href="#" class="list-group-item list-group-item-action flex-column align-items-start" data-toggle="modal" data-target="#theModal" data-href="/events/<%= ev.id %>.htmlp">
+					<b class="m-0 p-0 text-dark"><%= l date %></b>
+					<span class="<%= 'text-warning' if ev.type == 'Course' %> <%= 'text-danger' if ev.type == 'Consultation' %>">
+						<%= ev.title %>
+					</span>
+				</a>
 			<% end -%>
-			</div>
 		<% end -%>
+	</ul>
+	<div class="card-footer small border-top-0">
+		<span class="oi mr-1 oi-media-record text-warning"></span> Schulung/Vorlesung<br>
+		<span class="oi mr-1 oi-media-record text-primary"></span> Event<br>
+		<span class="oi mr-1 oi-media-record text-danger"></span> Sprechstunde 
 	</div>
 </div>
