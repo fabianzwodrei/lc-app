@@ -1,10 +1,14 @@
 <div class="float-right">
-  <div class="badge badge-calm">
+  <div class="text-muted">
     <% if mandate.is_assigned_to(current_member) %>
       Zugewiesen
     <% elsif mandate.application_exists_from(current_member) %>
       Beworben
-    <% end %>
+    <% else %>
+    	<% if mandate.vacant %>
+		    <%= mandate.assignments.unapproved.count %> Bewerber
+		<% end %>
+    <% end -%>
   </div>
 </div>
 <div class="h6 mb-0">
