@@ -14,7 +14,7 @@
     	<div class="card-block pb-1">
     		<h5><%= t "mandate.status.#{@mandate.status}" %></h5>
 
-        <% if @mandate.status == "active" and can? :request_review, @mandate and not can? :manage, Mandate %>
+        <% if @mandate.status == "active" and can? :request_review, @mandate %>
             <p class="request_review_action" align="right"><a href="<%= request_review_mandate_path %>" confirm="Abnahme starten?" data-method="post">Abnahme anfragen</a></p>
         <% end %>
 

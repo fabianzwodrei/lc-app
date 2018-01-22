@@ -277,6 +277,13 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
 
   ## request_review
 
+  test 'can see request-review-button if assigned and full qualified' do
+    assign_and_approve_mandate_for :sabine
+    update_mandate({ status: "active" })
+    visit_mandate_path
+    assert_select '.request_review_action a', 'Abnahme anfragen'
+  end
+
   test 'can see & request review button and can request review' do
     assign_and_approve_mandate_for :tim
     update_mandate({ status: "active" })
