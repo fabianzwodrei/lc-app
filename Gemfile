@@ -55,7 +55,7 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'cancancan'
 
-gem "paperclip", "~> 4.2"
+gem "paperclip", "~> 5.0.0"
 
 gem 'passenger'
 gem 'sidekiq'
