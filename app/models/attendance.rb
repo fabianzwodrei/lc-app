@@ -1,6 +1,6 @@
 class Attendance < ActiveRecord::Base
-	belongs_to :course, foreign_key: :event_id
-	belongs_to :consultation, foreign_key: :event_id
+	belongs_to :course, foreign_key: :event_id, optional: true
+	belongs_to :consultation, foreign_key: :event_id, optional: true
 	belongs_to :event, foreign_key: :event_id
 	belongs_to :member
 

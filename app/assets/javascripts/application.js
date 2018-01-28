@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
+//= require popper
 //= require bootstrap-sprockets
 //= require bootstrap3-typeahead.min
 //= require bootstrap-datepicker/core

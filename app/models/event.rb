@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
   validates :where, presence: true, allow_blank: false
   validates :dates_string, presence: true, allow_blank: false
 
-  belongs_to :department
+  belongs_to :department, optional: true
   has_many :attendances, foreign_key: :event_id
   has_many :members, through: :attendances
 

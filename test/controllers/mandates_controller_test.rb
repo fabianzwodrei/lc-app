@@ -154,7 +154,7 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     end
     approve_latest_assignment
     visit_mandate_market
-    assert_select "#mandate_market_open .card:first-child .card-block .btn", 'Bewerben'
+    assert_select "#mandate_market_open .card:first-child .card-body .btn", 'Bewerben'
   end
 
   ## new
@@ -372,7 +372,7 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     end
 
     # def mandate_child_nr(nr)
-    #   " div:first-child .card-block tr:nth-child(#{nr})"
+    #   " div:first-child .card-body tr:nth-child(#{nr})"
     # end
 
     @@first_mandate = '.mandates_listing div div:first-child'

@@ -2,7 +2,7 @@
   <div class="card-header h6">
     <span data-toggle="tooltip" title="Das Mandatsfenster erlaubt den Mandaten, den Status des Mandates einzusehen, und Nachrichten inkl. Anhängen hochzuladen. Für den anonymen Zugang sind die hier aufgeführten Codes notwendig. Bitte teile diese Codes der jeweiligen Mandantin / dem jeweiligen Mandanten mit.">Mandantenfenster</span>
   </div>
-  <div class="card-block">
+  <div class="card-body">
     <% if @mandate.code %>
         <table>
           <tr><td data-toggle="tooltip" title="Der Zugangscode erlaubt, im Mandantenfenster auf die Ansicht des Mandates zu gelangen. Der Bestätigungscode wird für das Abschicken einer Nachricht aus der Mandatsansicht des Mandantenfenster heraus benötigt.">Zugangscode:</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="access_code"><%= @mandate.code[0,6] %></span></td></tr>

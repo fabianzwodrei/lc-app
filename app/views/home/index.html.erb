@@ -10,7 +10,7 @@
     <% if not current_member.mandates.undone.blank? %>
       <div class="card mb-3">
         <div class="card-header h6">Deine Mandate</div>
-        <div class="card-block p-0">
+        <div class="card-body p-0">
           <% for mandate in current_member.mandates.approved.undone %>
             <%= render "mandates/market/mandate", mandate: mandate, show_pencil: true, id_attribute: "your_mandates_approved_undone", show_assignments: true %>
           <% end %>
@@ -21,7 +21,7 @@
     <% if !current_member.inquiries.undone.blank? %>
       <div class="card mb-3">
         <div class="card-header h6">Deine Sachstandsanfragen</div>
-        <div class="card-block p-0">
+        <div class="card-body p-0">
           <% for inquiry in current_member.inquiries.undone %>
             <%= render inquiry %>
           <% end %>
@@ -32,7 +32,7 @@
     <% if not current_member.assignments.unapproved.blank? %>
       <div id="mandate_market_applied" class="card mb-3">
         <div class="card-header h6">Mandate, für die du dich beworben hast</div>
-        <div class="card-block p-0">
+        <div class="card-body p-0">
             <%= render "mandates/market/listing", show_unapply: true, id_attribute: "your_mandates_unapproved_undone", mandates: current_member.mandates.unapproved.undone %>
         </div>
       </div>
@@ -41,7 +41,7 @@
     <% if not current_member.mandates.done.blank? %>
       <div class="card mb-3">
         <div class="card-header h6">Deine geschlossenen Mandate</div>
-        <div class="card-block p-0">
+        <div class="card-body p-0">
             <%= render "mandates/market/listing", show_pencil: true, id_attribute: "your_mandates_closed",  show_assignments: true, mandates: current_member.mandates.done %>
         </div>
       </div>
@@ -80,7 +80,7 @@
   <div class="col-md-6">
     <div class="card mb-3">
       <div class="card-header h6"><span class="oi oi-bullhorn float-right"></span> Ankündigungen</div>
-      <div class="card-block">
+      <div class="card-body">
           <% for project in @infoboards %>
             <%= render "projects/infoboard", project: project %>
           <% end %>

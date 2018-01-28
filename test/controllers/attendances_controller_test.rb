@@ -26,9 +26,9 @@ class AttendancesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'can award and unaward attendance' do
-    attendance_id=nil
+    attendance_id = nil
     with :svenja do
-      attendance_id=attend :course_1
+      attendance_id = attend :course_1
     end
     patch permit_attendance_path(attendance_id)
     patch award_attendance_path(attendance_id)

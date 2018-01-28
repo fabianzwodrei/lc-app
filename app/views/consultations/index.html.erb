@@ -19,7 +19,7 @@
 <div id="consultations_list">
   <% for consultation in @consultations %>
     <div class="card mb-3">
-      <div class="card-block p-2">
+      <div class="card-body p-2">
         <%= render partial: "consultations/consultation", formats: [:html],  locals: { event: consultation, admin_mode: true } %>
       </div>
     </div>

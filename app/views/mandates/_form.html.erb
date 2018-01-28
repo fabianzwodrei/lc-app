@@ -36,7 +36,7 @@
       <div class="card-header h6">
           Bearbeiter
       </div>
-      <div class="card-block p-3">
+      <div class="card-body p-3">
         <table class="table table-sm">
           <% assignments = mandate.assignments.order(:approved) %>
           <% if assignments.any? %>
@@ -57,29 +57,25 @@
       <div class="card-header h6">
         Status
       </div>
-      <div class="card-block">
+      <div class="card-body">
         <% if can? :manage, Mandate %>
           <div class="custom-controls-stacked">
-            <label class="custom-control custom-radio">
-              <%= f.radio_button :status, 'vacant', class:"custom-control-input" %>
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description" data-toggle="tooltip" title="Ist ein Mandat vakant, so wird es in der Mandatsbörse angezeigt und Mitglieder können sich bewerben, an dessen Bearbeitung teilzunehmen. Die Mandatsverwaltung kann dann die Bewerber sehen und zulassen. Wird das Mandat auf 'aktiv' geschaltet, so sind keine Bewerbungen mehr möglich und es können keine Zuweisungen mehr vorgenommen werden.">Vakant</span>
-            </label>
-            <label class="custom-control custom-radio">
-              <%= f.radio_button :status, 'active', class:"custom-control-input" %>
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description" data-toggle="tooltip" title="Aktive Mandate sind in Bearbeitung und werden nicht mehr in der Mandatsbörse angezeigt. Sind Mandate aktiv, so können dem Mandat zugewiesene, voll qualifizierte Mitglieder zum Ende der Bearbeitung die Abnahme des Mandates anfragen.">Aktiv</span>
-            </label>
-            <label class="custom-control custom-radio">
-              <%= f.radio_button :status, 'awaits_review', class:"custom-control-input" %>
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description" data-toggle="tooltip" title="Sobald ein voll qualifiziertes, dem Mandat zur Bearbeitung zugewiesenes Mitglied die Abnahme anfragt, wird das Mandat in der Übersicht mit einem orangenem Fähnchen ausgezeichnet. Nach einer Revision des Mandates durch die Mandatsverwaltung kann das Mandat, wenn alles in Ordnung ist, anschließend geschlossen werden (Status 'erledigt').">Wartet auf Abnahme</span>
-            </label>
-            <label class="custom-control custom-radio">
-              <%= f.radio_button :status, 'done', class:"custom-control-input" %>
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description" data-toggle="tooltip" title="Erledigte Mandate werden archiviert und sind erreichbar über den Button 'Bereits erledigte anzeigen'. Sollen nachträglich Änderungen an archivierten Mandaten vorgenommen vorgenommen werden, so müssen diese zuerst wieder in den Status aktiv gesetzt werden.">Erledigt</span>
-            </label>
+            <div class="form-check">
+              <%= f.radio_button :status, 'vacant', class:"form-check-input" %>
+              <label class="form-check-label" for="status" data-toggle="tooltip" title="Ist ein Mandat vakant, so wird es in der Mandatsbörse angezeigt und Mitglieder können sich bewerben, an dessen Bearbeitung teilzunehmen. Die Mandatsverwaltung kann dann die Bewerber sehen und zulassen. Wird das Mandat auf 'aktiv' geschaltet, so sind keine Bewerbungen mehr möglich und es können keine Zuweisungen mehr vorgenommen werden.">Vakant</label>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :status, 'active', class:"form-check-input" %>
+              <label class="form-check-label" for="status" data-toggle="tooltip" title="Aktive Mandate sind in Bearbeitung und werden nicht mehr in der Mandatsbörse angezeigt. Sind Mandate aktiv, so können dem Mandat zugewiesene, voll qualifizierte Mitglieder zum Ende der Bearbeitung die Abnahme des Mandates anfragen.">Aktiv</label>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :status, 'awaits_review', class:"form-check-input" %>
+              <label class="form-check-label" for="status" data-toggle="tooltip" title="Sobald ein voll qualifiziertes, dem Mandat zur Bearbeitung zugewiesenes Mitglied die Abnahme anfragt, wird das Mandat in der Übersicht mit einem orangenem Fähnchen ausgezeichnet. Nach einer Revision des Mandates durch die Mandatsverwaltung kann das Mandat, wenn alles in Ordnung ist, anschließend geschlossen werden (Status 'erledigt').">Wartet auf Abnahme</label>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :status, 'done', class:"form-check-input" %>
+              <label class="form-check-label" for="status" data-toggle="tooltip" title="Erledigte Mandate werden archiviert und sind erreichbar über den Button 'Bereits erledigte anzeigen'. Sollen nachträglich Änderungen an archivierten Mandaten vorgenommen vorgenommen werden, so müssen diese zuerst wieder in den Status aktiv gesetzt werden.">Erledigt</label>
+            </div>
           </div>
         <% else %>
           <h5><%= t "mandate.status.#{@mandate.status}" %></h5>
@@ -95,10 +91,14 @@
         <div class="card-header h6">
           Supervision
         </div>
-        <div class="card-block">
-          <div class="form-group">
-            <%= f.label :supervised, "durchgeführt" %>
-            <%= f.check_box :supervised, class:"checkbox" %>
+        <div class="card-body">
+          
+          <div class="form-check">
+            
+            <%= f.check_box :supervised, class:"form-check-input" %>
+            <label class="form-check-label" for="supervised">
+              durchgeführt
+            </label>
           </div>
         </div>
       </div>

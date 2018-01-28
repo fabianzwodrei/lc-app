@@ -13,14 +13,14 @@
 			</div>
 
 			<div class="form-group card">
-				<div class="card-block">
+				<div class="card-body">
 					<h6 class="card-title">Beteiligte Ressorts</h6>
 					<%= render "departments/select", f:f %>
 				</div>
 			</div>
 
 			<div class="form-group card">
-				<div class="card-block">
+				<div class="card-body">
 					<h6 class="card-title">Für Infoboard nutzen</h6>
 
 	                <label class="form-check-label">
@@ -31,7 +31,7 @@
 
 			<% unless project.new_record? %>
 				<div class="form-group card mb-3">
-					<div class="card-block">
+					<div class="card-body">
 						<h6 class="card-title">Status</h6>
 		                  <label class="form-check-label">
 		                    <%= f.check_box :archived, class: "form-check-input" %> Archiviert
@@ -55,7 +55,7 @@
 							</li>
 						<% end -%>
 		            </ul>
-		            <div class="card-block">
+		            <div class="card-body">
 		            	<div class="input-group add_invitations">
 					      <input type="text" class="form-control" placeholder="Mitglied einladen" id="member_suggest" autocomplete="off">
 					    

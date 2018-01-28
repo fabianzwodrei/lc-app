@@ -101,7 +101,7 @@ class MembersController < ApplicationController
 		params[:member][:departments] = nil # this has to be done exclusively via update_right
 		@member.avatar = nil if params[:member][:delete_avatar]
 
-		return render 'edit' unless _update
+		return render :edit unless _update
 		redirect_back(
 				notice: 'Mitglied wurde erfolgreich aktualisiert.',
 				fallback_location: root_path

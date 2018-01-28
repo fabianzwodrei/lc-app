@@ -231,7 +231,7 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def update_and_compare(member_to_update,expect_changed=true)
+  def update_and_compare(member_to_update, expect_changed = true)
     patch member_url(members(member_to_update).id),
           params: { member: { first_name: 'new_name' }, format: :json}
 

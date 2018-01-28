@@ -14,7 +14,7 @@ class Member < ActiveRecord::Base
 
 	has_many :inquiries
   has_one :fee_payment
-  belongs_to :annotation
+  belongs_to :annotation, optional: true
 
   has_many :conversation_views, dependent: :destroy
   has_many :conversations

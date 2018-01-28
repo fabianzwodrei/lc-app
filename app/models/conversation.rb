@@ -3,12 +3,12 @@ class Conversation < ActiveRecord::Base
   has_many :conversation_views, dependent: :destroy
   default_scope -> { order('updated_at DESC')}
 
-  belongs_to :mandate
-  belongs_to :project
+  belongs_to :mandate, optional: true
+  belongs_to :project, optional: true
   
   # PRIVATE CONVERSATIONS
-  belongs_to :member1, class_name: "Member", foreign_key: 'member1_id' 
-  belongs_to :member2, class_name: "Member", foreign_key: 'member2_id' 
+  belongs_to :member1, class_name: "Member", foreign_key: 'member1_id', optional: true
+  belongs_to :member2, class_name: "Member", foreign_key: 'member2_id', optional: true
 
   before_validation :ensure_member1_lower_member2
   # member-ids in ascending order. swapping if otherwise

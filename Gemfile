@@ -8,7 +8,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
-gem 'pg'
+gem 'pg', "~> 0.18"
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -50,7 +50,7 @@ end
 
 gem 'devise'
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap-datepicker-rails'
 
 gem 'cancancan'

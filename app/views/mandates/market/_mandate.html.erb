@@ -4,7 +4,7 @@
 	</div>
 
 	<div id="<%= id_attribute %>-mandate-<%= mandate.id %>" class="collapse bg-faded" role="tabpanel" aria-labelledby="mandate-<%= mandate.id %>-heading">
-		<div class="card-block">
+		<div class="card-body">
 
       <% if mandate.is_assigned_to(current_member) %>
           <%= link_to "Anzeigen",  mandate_path(mandate), class: "btn btn-primary btn-sm float-right" %>

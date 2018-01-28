@@ -6,7 +6,7 @@ class Mandate < ActiveRecord::Base
 
   validates :title, presence: true, allow_blank: false
 
-  belongs_to :client, class_name: "Person", foreign_key: 'client_id'
+  belongs_to :client, class_name: "Person", foreign_key: 'client_id', optional: true
   accepts_nested_attributes_for :client
 
   has_attached_file :attachment,

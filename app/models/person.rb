@@ -6,7 +6,7 @@ class Person < ActiveRecord::Base
   validates :department_id, presence: true
   validates_inclusion_of :role, :in => %w( client contact consultant translator )
 
-  belongs_to :inquiry
+  belongs_to :inquiry, optional: true
   has_many :mandates, foreign_key: 'client_id'
 
   default_scope { order('LOWER(last_name)') }

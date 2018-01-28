@@ -11,7 +11,7 @@
     	<div class="card-header h6">
     	 Status
     	</div>
-    	<div class="card-block pb-1">
+    	<div class="card-body pb-1">
     		<h5><%= t "mandate.status.#{@mandate.status}" %></h5>
 
         <% if @mandate.status == "active" and can? :request_review, @mandate %>
@@ -44,7 +44,7 @@
       <div class="card-header h6">
         Beschreibung
       </div>
-      <div class="card-block">
+      <div class="card-body">
         <%= simple_format @mandate.description %>
       </div>
       <% if @mandate.attachment.exists? %>
@@ -61,7 +61,7 @@
         <%= link_to "Bearbeiten", edit_person_path(@mandate.client, {origin: mandate_path(@mandate)}), class: "float-right" if @mandate.client %>
         Mandant
       </div>
-      <div class="card-block">
+      <div class="card-body">
 
         <% if not @mandate.client.blank? %>
           <h4 class="person-name">

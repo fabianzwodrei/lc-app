@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
-	belongs_to :assigned_member, class_name: "Member", foreign_key: 'assigned_member_id'
+	belongs_to :assigned_member, class_name: "Member", foreign_key: 'assigned_member_id', optional: true
 	belongs_to :member
-	belongs_to :mandate
+	belongs_to :mandate, optional: true
 
 	attr_accessor :deadline_string
 	validate :deadline_format

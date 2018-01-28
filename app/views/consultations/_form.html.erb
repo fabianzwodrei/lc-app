@@ -36,7 +36,7 @@
             <div class="card-header h6">
               Email an alle Teilnehmer
             </div>
-            <div class="card-block p-2">
+            <div class="card-body p-2">
               <%= render "emails/form", action: email_consultation_path(@consultation) %>
             </div>
           </div>
@@ -46,7 +46,7 @@
             <div class="card-header h6">
               Teilnehmer
             </div>
-            <div class="card-block p-3"><%= render partial: 'events/attendees', formats: [:html], locals: {event: @consultation, admin_mode: true } %>
+            <div class="card-body p-3"><%= render partial: 'events/attendees', formats: [:html], locals: {event: @consultation, admin_mode: true } %>
             </div>
           </div>
 

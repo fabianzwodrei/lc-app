@@ -22,7 +22,7 @@
       <div class="card-header">
         Zahlungserinnerung
       </div>
-      <div class="card-block">
+      <div class="card-body">
         <%= render "emails/form", action: email_fee_payments_path() %>
       </div> 
     </div>
@@ -54,7 +54,7 @@
 
             <% if member.fee_payment %>
               <div data-id="<%= member.fee_payment.id %>"  id="member-<%= member.id %>-content" class="collapse" role="tabpanel" aria-labelledby="member-<%= member.id %>">
-                <div class="card-block">
+                <div class="card-body">
                   <%= render 'row', fee_payment: member.fee_payment %>
                 </div>
               </div>

@@ -19,7 +19,7 @@ class WindowController < ApplicationController
       return redirect_back(notice: "Die Nachricht wurde nicht versendet, da der Bestätigungscode nicht korrekt ist.",
                            fallback_location: 'window')
     end
-    @mandate.conversation.messages.push Message.create(text: params[:message][:content],attachment:params[:message][:attachment],member_id:-1)
+    @mandate.conversation.messages.push Message.create(text: params[:message][:content], attachment:params[:message][:attachment], member_id: -1)
     @mandate.save
     redirect_back(notice: "Die Nachricht wurde erfolgreicht übermittelt.",
                   fallback_location: 'window')
