@@ -19,20 +19,42 @@
             though everything should work fine from a technical
             perspective, the resulting behaviour might be confusing,
             especially if there are already members who passed the course
-          --><% if ! @course.id %>
+          -->
+          <% if ! @course.id %>
           <div class="form-group">
-            <%= f.label :module, "Veranstaltungstyp", data: {toggle:"tooltip"}, title:"Der Veranstaltungstyp bestimmt die Qualifikation, die ein Mitglied durch erfolgreiche Teilnahme erwerben kann. Sobald die Evaluierungsphase offen ist, kann die angegebene Qualifikation an erfolgreiche Kursteilnehmer vergeben werden. Beachte, dass diese Einstellung nicht mehr im Nachhinein verändert werden kann." %>
-            <%= f.select(:module, @course.types.map {|type| [t('@course.type.'+type),type]}, :prompt => 'Select', class:"form-control") %>
+            <%= f.label :category1, "Veranstaltungstyp", data: {toggle:"tooltip"}, title:"Der Veranstaltungstyp bestimmt die Qualifikation, die ein Mitglied durch erfolgreiche Teilnahme erwerben kann. Sobald die Evaluierungsphase offen ist, kann die angegebene Qualifikation an erfolgreiche Kursteilnehmer vergeben werden. Beachte, dass diese Einstellung nicht mehr im Nachhinein verändert werden kann." %>
+            <%= f.select(:category1, COURSE_CATEGORIES.keys.map {|type| [t('course.categories.'+type.to_s+'.name'),type.to_s]}, {}, {class:"form-control mb-2", autocomplete:"off", onchange:"toggleCategory2Select()"}) %>
+
+            <% COURSE_CATEGORIES.each_key do |key| %>
+                
+              <%= f.select(:category2, COURSE_CATEGORIES[key].map {|type| [t('course.categories.'+key.to_s+'.sub_categories.'+type), type]}, {}, {id: "courseCategory2_#{key.to_s}", class:"form-control category2_select", autocomplete:"off", "disabled": "disabled", "hidden":"" }) %>
+
+            <% end -%>
           </div>
           <% else %>
-            Veranstaltungstyp: <%= t 'course.module.'+@course.module %>
-            <br>
-            <br>
+            <div class="card mb-3"><div class="card-body">Veranstaltungstyp:<h4><%= print_course_type @course %></h4></div></div>
           <% end %>
+         
+          <script type="text/javascript">
+            function toggleCategory2Select(){
+              var selects = document.getElementsByClassName('category2_select');
+              for (var i = selects.length - 1; i >= 0; i--) {
+                selects[i].setAttribute("disabled", "disabled");
+                selects[i].setAttribute("hidden", "");
+              }
+
+              var v = document.getElementById('course_category1').value
+              var s1 = document.getElementById('courseCategory2_' + v)
+              s1.removeAttribute("disabled"); s1.removeAttribute("hidden")
+               
+            }
+            toggleCategory2Select();
+              
+          </script>
 
           <div class="form-group">
-            <%= f.label :qualification_date, "Qualifikationsdatum", data: {toggle:"tooltip"}, title:"Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation (nur Modul 2) aktiv wird. Modul 2 Qualifikationen bleiben jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden." %> <small class="text-muted">Nur bei Modul 2. Format: 01.01.2017</small>
-            <%= f.text_field :qualification_date, value: (l @course.qualification_date if @course.qualification_date), class:"form-control" %>
+            <%= f.label :qualification_date, "Qualifikationsdatum", data: {toggle:"tooltip"}, title:"Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation aktiv wird. Schulungen für Voll-Qualifikation bleiben jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden." %> <small class="text-muted">Bei Schulungen, Format: 01.01.2017</small>
+            <%= f.text_field :qualification_date, value: (l @course.qualification_date if @course.qualification_date), class:"form-control", data: { date_autoclose:"true", provide:"datepicker", date_format:"dd.mm.yyyy" } %>
           </div>
 
           <div class="form-group">

@@ -54,10 +54,12 @@ de:
             attributes:
               title:
                 blank: "- Ein Titel muss gewählt werden"
-              module:
-                inclusion: "- Ein Veranstaltungstyp muss gewählt werden"
+              category1:
+                inclusion: "- Ein Veranstaltungstyp 1 muss gewählt werden"
+              category2:
+                inclusion: "- Ein Veranstaltungstyp 2 muss gewählt werden"
               qualification_date:
-                blank: "- Für Modul 2 Schulungen muss ein gültiges Qualifikationsdatum gewählt werden."
+                blank: "- Für Schulungen muss ein gültiges Qualifikationsdatum gewählt werden."
               dates_string:
                 blank: "- Es muss mind. ein Datum angegeben werden"
               dates:
@@ -82,10 +84,18 @@ de:
         one: "Zuweisung"
         other: "Zuweisungen"
   course:
-    module:
-      module-1-lecture: "Vorlesung Modul 1"
-      module-1-workshop: "Workshop Modul 1"
-      module-2: "Veranstaltung Modul 2"
+    categories:
+      lecture:
+        name: "Vorlesung"
+        sub_categories:
+          A: "Vorlesung A"
+          B: "Vorlesung B"
+      workshop:
+        name: "Schulung"
+        sub_categories:
+          E: "Sonstige"
+          C: "Mandatsarbeit"
+          D: "Aktuelle Gesetzgebung"
   inquiry:
     description: "Beschreibung"
   date:

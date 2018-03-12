@@ -294,7 +294,7 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     assert flash[:notice].include? "wurde gespeichert"
   end
 
-  test 'cannot see request review action and can not request review if not qualified' do
+  test 'cannot see request review action and can not request review if not full qualified' do
     assign_and_approve_mandate_for :svenja
     update_mandate({ status: "active" })
     verify_cannot_request_review :svenja
@@ -303,7 +303,7 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
   test 'cannot see request review action and can not request review if workshop is missing' do
     with :sonja do
       patch course_url(courses(:course_tim_4).id),
-            params: { course: { module: 'module-1-lecture', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 2 lectures, no workshop
+            params: { course: { category1: 'lecture', category2: 'A', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 2 lectures, no workshop
     end
 
     assign_and_approve_mandate_for :tim
@@ -311,10 +311,10 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     verify_cannot_request_review :tim
   end
 
-  test 'cannot see request review action and can not request review if lecture is missing' do
+  test 'cannot see request review action and can not request review if lecture A is missing' do
     with :sonja do
       patch course_url(courses(:course_tim_1).id),
-            params: { course: { module: 'module-1-workshop', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 2 workshops, no lecture
+            params: { course: { category1: 'lecture', category2: 'B', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 2 B-lectures 
     end
     assign_and_approve_mandate_for :tim
     update_mandate({ status: "active" })

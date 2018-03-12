@@ -1,10 +1,10 @@
   <div class="row mb-2">
-    <div class="small bold col-md-4">Typ der Veranstaltung </div>
-    <div class="col-md-6"><%= t 'course.module.'+course.module %></div>
+    <div class="small bold col-md-4">Typ / Untertyp</div>
+    <div class="col-md-6"><%= print_course_type course %></div>
   </div>
 
-  <% if course.module == 'module-2' %>
-    <div class="row mb-2" data-toogle="tooltip" title="Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation (nur Modul 2) aktiv wird. Modul 2 Qualifikationen bleiben jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden.">
+  <% if course.category1 == 'lecture' %>
+    <div class="row mb-2" data-toogle="tooltip" title="Das Qualifikationsdatum gibt an, zu welchem Zeitpunkt die erlangte Qualifikation aktiv wird. Schulungen bleiben für Vollqualifizierung jeweils 365 Tage lang gültig und müssen danach aufgefrischt werden.">
       <div class="small bold col-md-4">Qualifikationsdatum </div>
       <div class="col-md-6"><%= course.qualification_date.strftime('%d.%m.%Y') if course.qualification_date %></div>
     </div>

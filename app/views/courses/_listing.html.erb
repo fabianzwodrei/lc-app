@@ -2,7 +2,7 @@
   <% for course in @courses %>
     <div class="card mb-3">
       <div class="card-body p-3">
-        <%= render partial: "courses/course", formats: [:html],  locals: { event: course, hide_attendance_actions: true } %>
+        <%= render partial: "courses/course", formats: [:html],  locals: { event: course, hide_attendances: true, hide_attendance_actions: true } %>
       </div>
     </div>
   <% end -%>

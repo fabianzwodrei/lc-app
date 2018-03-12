@@ -262,7 +262,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   def create
     post courses_url,
-         params: { course: { title: SECOND_COURSE_TITLE, module: 'module-1-lecture', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s, where: 't' }}
+         params: { course: { title: SECOND_COURSE_TITLE, category1: 'lecture', category2: 'A', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s, where: 't' }}
   end
 
   def change_and_compare(expect_changed = true)

@@ -119,7 +119,7 @@ class Ability
       end
 
       can [:request_review], Mandate do |mandate|
-        mandate.is_assigned_to member and member.qualified
+        mandate.is_assigned_to member and member.full_qualified
       end
       
       # Conversations

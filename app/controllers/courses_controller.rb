@@ -73,6 +73,6 @@ class CoursesController < EventsController
 
   def course_params
     params.require(:course).permit(
-        :title,:when,:where,:limit,:module,:permission_required,:description,:archive,:qualification_date,:dates_string)
+        :title,:when,:where,:limit,:category1,:category2,:permission_required,:description,:archive,:qualification_date,:dates_string)
   end
 end

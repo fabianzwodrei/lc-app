@@ -33,7 +33,13 @@ DEPARTMENTS = [
 ]
 
 QUALIFICATION_LEVELS = [
+	"Mitglied",
 	"Hospitant*in",
 	"Qualifiziertes Mitglied",
 	"Voll qualifiziertes Mitglied"
 ]
+
+COURSE_CATEGORIES = {
+	"lecture": ["A", "B"],
+	"workshop": ["C", "D", "E"]
+}

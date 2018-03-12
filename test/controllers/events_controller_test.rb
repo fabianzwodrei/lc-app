@@ -206,7 +206,8 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
            params: {
                course: {
                  title: 'someCourse',
-                 module: 'module-1-lecture',
+                 category1: 'lecture',
+                 category2: 'A',
                  dates_string: dates,
                  where: 't',
                  permission_required: permission_required

@@ -1,6 +1,6 @@
- <h5>
- 	<span data-toggle="tooltip" data-placement="right" title="Um als voll qualifiziertes Mitglied arbeiten zu können, müssen folgende Voraussetzungen gegeben sein: 1. Einmaliger erfolgreicher Abschluss einer Modul 1 Vorlesung. 2. Einmaliger erfolgreicher Abschluss eines Modul 1 Workshops. Zwei erfolgreiche Abschlüsse in Modul 2 Schulungen. Letztere müssen jünger als ein Jahr sein.">Qualifikationen</span>
- </h5>
+ <h3>
+  Qualifikationen
+ </h3>
     Aktueller Status:&nbsp;
     <%= render partial: 'qualification_state', :formats => [:html], locals: {member: @member} %>
 
@@ -9,16 +9,20 @@
       <% if courses.any? %>
       <br>
       <br>
-      <h6 style="color:darkslategray"><span data-toggle="tooltip" title="Hier werden alle deine erfolgreich absolvierten Schulungen aufgelistet. Bei Modul 2 Schulungen, die nicht älter als ein Jahr sind, wird zusätzlich noch das Ablaufdatum aufgeführt." data-placement="top">Erfolgreich absolvierte Schulungen</span></h6>
+      <h6 style="color:darkslategray">
+        <span data-toggle="tooltip"
+              title="Hier werden alle deine erfolgreich absolvierten Schulungen aufgelistet. Bei Modul 2 Schulungen, die nicht älter als ein Jahr sind, wird zusätzlich noch das Ablaufdatum aufgeführt."
+              data-placement="top"> 
+          Erfolgreich absolvierte Schulungen
+        </span>
+      </h6>
       <table class="table table-sm" id="qualifications" width="100%">
         <% for course in courses %>
           <tr>
-            <td class="text-muted"><%= t 'course.module.'+course.module %></td>
+            <td class="text-muted"><%= print_course_type course %></td>
             <td class="title"><%= course.title %></td>
             <td class="small qualification_validity text-muted">
-            <% if course.module == 'module-2' && course.qualification_date && (course.qualification_date+365) > Date.today-1 %>
-              Gültig bis <%= (course.qualification_date+365).strftime('%d.%m.%Y') %>
-            <% end %>
+              <%= print_qualification_validity course %>
             </td>
           </tr>
         <% end %>

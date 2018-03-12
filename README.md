@@ -25,7 +25,7 @@ the password for all members is `password1`
 * leif@finanzen.com - member of `Finanzen`
 * sonja@schulungen.com - member of `Schulungen`
 * leonie@netzwerk.com - member of `Netzwerk`
-* tim@mitglieder.com - represents members not associated to specific departments. Tim has all necessary qualifications to apply for mandates
+* tim@mitglieder.com - represents members not associated to specific departments. Tim has all necessary (full) qualifications to apply for mandates
 * svenja@mitglieder.com - represents members not associated to specific departments
 * martha@sprechstunde.com - member of `Sprechstunde`
 * fatima@rechteverwaltung.com - member of `Rechteverwaltung`

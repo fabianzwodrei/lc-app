@@ -54,7 +54,7 @@ class MandatesController < ApplicationController
 
   def request_review
     return redirect_to mandate_path(@mandate),
-       notice: 'Erforderliche Qualifikationen nicht vorhanden.' unless current_member.qualified
+       notice: 'Erforderliche Qualifikationen nicht vorhanden.' unless current_member.full_qualified
 
     @mandate.status = "awaits_review"
     if @mandate.save
@@ -104,7 +104,7 @@ class MandatesController < ApplicationController
 
     def mandate_params
       set_client_attrs(params.require(:mandate).permit(
-          :title, :description, :supervised, :status, :module,:client_id, :attachment, :code, client_attributes: permitted_client_attrs
+          :title, :description, :supervised, :status, :client_id, :attachment, :code, client_attributes: permitted_client_attrs
       ))
     end
 end

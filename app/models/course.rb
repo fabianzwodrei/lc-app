@@ -6,17 +6,39 @@ class Course < Event
     course.archive = false
   }
   
-  validates_inclusion_of :module, :in => %w( module-1-workshop module-1-lecture module-2 )
-  validates :qualification_date, presence: true, if: Proc.new { |c| c.module == 'module-2' }
+  validates_inclusion_of :category1, in: COURSE_CATEGORIES.keys.map { |e| e.to_s  }
+  validates :category2, presence: true, inclusion: { :in => lambda{ | course | COURSE_CATEGORIES[course.category1.to_sym] }}
+  
+  validates :qualification_date, presence: true, if: Proc.new { |c| c.category1 == "workshop" }
 
   has_one :conversation, foreign_key: :event_id, dependent: :destroy
 
   scope :passed, -> { where('attendances.passed = ?', true) }
 
-  def types
-    ['module-1-workshop','module-1-lecture','module-2']
+  def was_in_past_year
+    if category1 == 'workshop'
+        if qualification_date
+          age = (Date.today - qualification_date).to_i
+          return true if age < 366
+        end
+    end
+    false
   end
 
+  def is_lecture_A
+    category1 == 'lecture' and category2 == 'A'
+  end
+  def is_lecture_B
+    category1 == 'lecture' and category2 == 'B'
+  end
+
+  def is_lecture_mandatsarbeit
+    category1 == 'workshop' and category2 == 'C'
+  end
+  
+  def is_lecture_gesetzgebung
+    category1 == 'workshop' and category2 == 'D'
+  end
 
   private 
     def check_for_attendances

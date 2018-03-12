@@ -1,3 +1,121 @@
 <span class="qualification_state">
-  <%= QUALIFICATION_LEVELS[member.qualification_level] %>
+  <%= QUALIFICATION_LEVELS[member.qualification_level] %><br>
 </span>
+<% lecturesA = member.passed_lectures_A %>
+<% lecturesB = member.passed_lectures_B %>
+
+<div class="my-md-5">
+	<h5>Mitglied</h5>
+	<div class="row">
+		<div class="col-2" align="center">
+			<span class="oi oi-check"></span>
+		</div>
+		<div class="col-10">
+			Ab der Registrierung</div>
+	</div>
+	<h5 class="mt-5">Hospitant/*in</h5>
+	<div class="row">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= lecturesA.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-primary">Klausur</span> im Jahreskurs A bestanden<br>
+			<% for item in lecturesA %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %></div>
+	</div>
+
+<!-- QUALIFIZIERT -->
+	<% courses_not_mandatsarbeit = member.passed_courses_not_mandatsarbeit %>
+
+	<h5 class="mt-5">Qualifiziertes Mitglied</h5>
+	<div class="row mb-2">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= lecturesA.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-primary">Klausur</span> im Jahreskurs A bestanden<br>
+			<% for item in lecturesA %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %></div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= lecturesB.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-primary">Klausur</span> im Jahreskurs B bestanden<br>
+			<% for item in lecturesB %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<% mandatsarbeit = member.passed_mandatsarbeit_courses %>
+		<div class="col-2" align="center">
+			<span class="oi oi-check" style="color: <%= mandatsarbeit.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span><br><i>"Mandatsarbeit"</i><br>
+			<% for item in mandatsarbeit %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %></div>
+	</div>
+	<div class="row">
+		<% item = courses_not_mandatsarbeit.pop() %>
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span>, beliebig<br>
+			<% if item %><small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small><% end %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2" align="center"><span class="oi oi-check"  style="color: <%= courses_not_mandatsarbeit	.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span>, beliebig<br>
+			<% for item in courses_not_mandatsarbeit %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small><br>
+			<% end %>
+		</div>
+	</div>
+
+<!-- VOLL QUALIFIZIERT -->
+	<% item = nil %>
+	<% valid_courses_not_gesetzgebung = member.passed_and_valid_courses_not_gesetzgebung %>
+	<% valid_gesetzgebung = member.passed_and_valid_gesetzgebung %>
+		
+	<h5 class="mt-5">Vollqualifiziertes Mitglied</h5>
+	<div class="row mb-2">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= lecturesA.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-primary">Klausur</span> im Jahreskurs A bestanden<br>
+			<% for item in lecturesA %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %></div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= lecturesB.count == 0 ? "silver" : "black" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-primary">Klausur</span> im Jahreskurs B bestanden<br>
+			<% for item in lecturesB %>
+				<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %></small>
+			<% end %>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= valid_gesetzgebung ? "black" : "silver" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span>, <small class="text-danger">max. 365 Tage alt</small><br><i>"Aktuelle Gesetzgebung, Rechtsprechung und Behördenpraxis"</i><br>
+			<% if valid_gesetzgebung %><small class="text-muted pl-3"><span class="oi oi-check"></span> <%= valid_gesetzgebung.title %> (<%= print_qualification_validity valid_gesetzgebung %>) </small><% end %>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<% item = valid_courses_not_gesetzgebung.pop() %>
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span>, <small class="text-danger">max. 365 Tage alt</small><br>
+			<% if item %><small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %> (<%= print_qualification_validity item %>) </small><% end %>
+		</div>
+	</div>
+	<div class="row mb-2">
+		<% item = valid_courses_not_gesetzgebung.pop() %>
+		<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
+		<div class="col-10">
+			<span class="text-info">Schulung</span>, <small class="text-danger">max. 365 Tage alt</small><br>
+			<% if item %><small class="text-muted pl-3"><span class="oi oi-check"></span> <%= item.title %> (<%= print_qualification_validity item %>) </small><% end %>
+		</div>
+	</div>
+</div>

@@ -1,15 +1,33 @@
 <div class="row">
-  <div class="col-md-12">
-    <%= render "common/pencil", path: edit_member_path(@member) %>
-    <h2>Dein Profil</h2>
+  <div class="col-md-8">
+    <div class="row">
+    	<div class="col-sm-3"><%= image_tag @member.avatar.url, class: "mr-3 rounded", style: "width: 100%; max-width: 160px" %></div>
+    	<div class="col-sm-9 h2"><%= @member.full_name %></div>
+    </div>
 
-    <%= image_tag @member.avatar.url, class: " d-flex mr-3 rounded", style: "max-width: 120px;" %><br>
-
+    
+    <div class="row mt-4">
+    	<div class="col-6 h4">Dein Profil</div>
+    	<div class="col-6" align="right"><%= render "common/pencil", path: edit_member_path(@member) %></div>
+    </div>
     <%= render 'core_data', member: @member, show_extras: true %>
+    
 
-    <br>
-    <br>
-
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-md-8">
     <%= render file: 'members/qualification', formats: [:htmlp], locals: { member: @member } %>
+  </div>
+  <div class="col-md-4">
+  	<h3 class="mt-4"><small class="text-muted">Erklärung</small><br>Rechte</h3>
+  	<h5>Mitglied</h5>
+  	Ab der Registrierung
+  	<h5 class="mt-3">Hospitant/*in</h5>
+  	blabla
+  	<h5 class="mt-3">Qualifiziertes Mitglied</h5>
+  	bla blalaa
+  	<h5 class="mt-3">Vollqualifiziertes Mitglied</h5>
+  	bla blalaa
   </div>
 </div>

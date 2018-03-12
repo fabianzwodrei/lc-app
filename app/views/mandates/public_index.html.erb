@@ -1,11 +1,8 @@
 <h2>Mandatsbörse</h2>
 
 Dein aktueller Status:&nbsp;
-<% if current_member.qualified %>
-    Voll qualifiziertes Mitglied
-<% else %>
-    Hospitant*in
-<% end %>
+  <%= QUALIFICATION_LEVELS[current_member.qualification_level] %><br>
+
 
 <div id="mandate_market_your_mandates" class="mt-4">
   <h5>Deine Mandate</h5>

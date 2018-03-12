@@ -1,16 +1,18 @@
 course_1:
   id: 1
   type: "Course"
-  title: "Vorlesung Modul 1"
-  module: "module-1-lecture"
+  title: "Vorlesung A"
+  category1: "lecture"
+  category2: "A"
   dates: ["2017-02-02"]
   where: "There"
   archive: false
 course_limited:
   id: 2
   type: "Course"
-  title: "Veranstaltung Modul 2 mit maximaler Teilnehmeranzahl"
-  module: "module-2"
+  title: "Schulung (divers) mit maximaler Teilnehmeranzahl"
+  category1: "workshop"
+  category2: "E"
   dates: ["2017-02-02"]
   where: "There"
   limit: 1
@@ -19,8 +21,9 @@ course_limited:
 course_limited_and_permission_required:
   id: 3
   type: "Course"
-  title: "Veranstaltung Modul 2 mit maximaler Teilnehmeranzahl und Notwendigkeit der Freischaltung"
-  module: "module-2"
+  title: "Schulung (divers) mit maximaler Teilnehmeranzahl und Notwendigkeit der Freischaltung"
+  category1: "workshop"
+  category2: "E"
   dates: ["2017-02-02"]
   where: "There"
   limit: 1
@@ -30,15 +33,17 @@ course_limited_and_permission_required:
 course_4:
   id: 4
   type: "Course"
-  title: "Modul 1 Workshop"
-  module: "module-1-workshop"
+  title: "Schulung (divers)"
+  category1: "workshop"
+  category2: "E"
   dates: ["2017-02-02"]
   where: "There"
 course_permission_required:
   id: 5
   type: "Course"
-  title: "Veranstaltung Modul 2 mit Notwendigkeit der Freischaltung"
-  module: "module-2"
+  title: "Schulung (divers) mit Notwendigkeit der Freischaltung"
+  category1: "workshop"
+  category2: "E"
   dates: ["2017-02-02"]
   where: "There"
   permission_required: true
@@ -48,14 +53,16 @@ course_tim_1:
   id: 6
   type: "Course"
   title: "Tim1"
-  module: "module-1-lecture"
+  category1: "lecture"
+  category2: "A"
   dates: ["2017-02-02"]
   where: "There"
 course_tim_2:
   id: 7
   type: "Course"
   title: "Tim2"
-  module: "module-2"
+  category1: "lecture"
+  category2: "B"
   qualification_date: <%= Date.yesterday %>
   dates: ["2017-02-02"]
   where: "There"
@@ -65,7 +72,8 @@ course_tim_3:
   id: 8
   type: "Course"
   title: "Tim3"
-  module: "module-2"
+  category1: "workshop"
+  category2: "D"
   qualification_date: <%= Date.yesterday %>
   dates: ["2017-02-02"]
   where: "There"
@@ -73,6 +81,17 @@ course_tim_4:
   id: 9
   type: "Course"
   title: "Tim4"
-  module: "module-1-workshop"
+  category1: "workshop"
+  category2: "C"
+  qualification_date: <%= Date.yesterday %>
+  dates: ["2017-02-02"]
+  where: "There"
+course_tim_5:
+  id: 10
+  type: "Course"
+  title: "Tim5"
+  category1: "workshop"
+  category2: "E"
+  qualification_date: <%= Date.yesterday %>
   dates: ["2017-02-02"]
   where: "There"

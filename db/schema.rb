@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816085454) do
+ActiveRecord::Schema.define(version: 20180220102426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,14 @@ ActiveRecord::Schema.define(version: 20170816085454) do
     t.string   "where"
     t.string   "type"
     t.integer  "limit"
-    t.string   "module"
+    t.string   "category1"
     t.boolean  "permission_required"
     t.boolean  "archive"
     t.text     "description"
     t.integer  "department_id"
     t.date     "qualification_date"
     t.datetime "dates",               default: [], array: true
+    t.string   "category2",           default: ""
   end
 
   create_table "fee_payments", force: :cascade do |t|

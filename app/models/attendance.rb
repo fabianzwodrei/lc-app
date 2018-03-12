@@ -6,6 +6,7 @@ class Attendance < ActiveRecord::Base
 
   scope :permitted, -> { where(permitted: true) }
   scope :unpermitted, -> { where(permitted: false) }
+  scope :passed, -> { where(passed: true) }
 
   def authorized_by member
     return true if (event.type == "Course" && member.departments.include?(SCHULUNGEN))

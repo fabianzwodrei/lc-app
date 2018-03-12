@@ -46,37 +46,55 @@ class Member < ActiveRecord::Base
     first_name + ' ' + last_name
   end
 
-  def qualified
-    qualification_level > 0
+  def full_qualified
+    qualification_level == 3
+  end
+
+  def passed_courses
+    unless @pc
+      @pc = courses.includes(:attendances).where("attendances.passed = 't'")
+    end
+
+    @pc
+  end
+
+  def passed_lectures_A
+    passed_courses.find_all { |c| c.is_lecture_A }
+  end
+
+  def passed_lectures_B
+    passed_courses.find_all { |c| c.is_lecture_B }
+  end
+
+  def passed_courses_not_mandatsarbeit
+    passed_courses.find_all { |c| !c.is_lecture_mandatsarbeit }
+  end
+
+  def passed_mandatsarbeit_courses
+    passed_courses.find_all { |c| c.is_lecture_mandatsarbeit } 
+  end
+
+  def passed_and_valid_courses_not_gesetzgebung
+    passed_courses.find_all { |c| !c.is_lecture_gesetzgebung and c.was_in_past_year }
+  end
+
+  def passed_and_valid_gesetzgebung
+    passed_courses.find_all { |c| c.is_lecture_gesetzgebung and c.was_in_past_year }.first
   end
 
   def qualification_level
-    passed_attendances = attendances.select {|t| t.passed}
-    m1a_found = 0
-    m1b_found = 0
-    m2_found = 0
-
-    for attendance in passed_attendances
-      c = Course.find attendance.event_id
-      m1a_found += 1 if c.module == 'module-1-lecture'
-      m1b_found += 1 if c.module == 'module-1-workshop'
-
-      if c.module == 'module-2'
-        age = 366
-        if c.qualification_date
-          age = (Date.today - c.qualification_date).to_i
-        end  
-        m2_found += 1 if age < 366
-      end
+    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_and_valid_gesetzgebung and passed_and_valid_courses_not_gesetzgebung.count > 1 
+      return 3
     end
-
-    if m1a_found > 0 and m1b_found > 0 and m2_found > 1
-      return 2 # vollqualifiziert wenn min. 2 modul-2 Schulungen jünger als ein Jahr
-    elsif m1a_found > 0 and m1b_found > 0
-      return 1 # qualifiziert
-    else
-      return 0 # Hospitant*in
+    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_courses_not_mandatsarbeit.count > 1
     end
+    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_courses_not_mandatsarbeit.count > 1
+      return 2
+    end
+    if passed_lectures_A.count > 0 
+      return 1
+    end
+    return 0 # Mitglied
   end
 
   def stats
