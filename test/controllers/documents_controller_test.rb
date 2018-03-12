@@ -5,6 +5,11 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     	sign_in :tim
   	end
 
-  	# todo
-  	# test for get_attachment-request on doc without attachment-file
+  	test 'can create document in Mandatsverwaltung Bib' do
+  		sign_in :sabine
+  		image = fixture_file_upload('lc-logo.jpeg')
+  		post "/bibliographies/" + bibliographies(:mandatsbib).id.to_s + "/documents", params: { document: { title: "Testdokument", attachment: image } }
+		assert_response :redirect
+    	assert_equal flash[:notice], "Dokument wurde erfolgreich hinzugefügt."
+  	end
 end

@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
   def create
     @bibliography = Bibliography.find(params[:bibliography_id])
 
-  	@document = @bibliography.documents.new(document_params)
+  	@document = @bibliography.documents.new(document_params.merge({member_id: current_member.id}))
     if @document.save
       redirect_to bibliography_path(@bibliography), notice: 'Dokument wurde erfolgreich hinzugefügt.'
     else

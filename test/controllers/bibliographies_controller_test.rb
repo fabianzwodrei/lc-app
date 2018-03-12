@@ -52,6 +52,4 @@ class BibliographiesControllerTest < ActionDispatch::IntegrationTest
 	def find_bib_link title, count = 1
 		assert_select "a", { count: count, text: title}
 	end
-
-
 end
