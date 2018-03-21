@@ -67,19 +67,19 @@ class Member < ActiveRecord::Base
   end
 
   def passed_courses_not_mandatsarbeit
-    passed_courses.find_all { |c| !c.is_lecture_mandatsarbeit }
+    passed_courses.find_all { |c| !c.is_workshop_mandatsarbeit }
   end
 
   def passed_mandatsarbeit_courses
-    passed_courses.find_all { |c| c.is_lecture_mandatsarbeit } 
+    passed_courses.find_all { |c| c.is_workshop_mandatsarbeit } 
   end
 
   def passed_and_valid_courses_not_gesetzgebung
-    passed_courses.find_all { |c| !c.is_lecture_gesetzgebung and c.was_in_past_year }
+    passed_courses.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
   end
 
   def passed_and_valid_gesetzgebung
-    passed_courses.find_all { |c| c.is_lecture_gesetzgebung and c.was_in_past_year }.first
+    passed_courses.find_all { |c| c.is_workshop_gesetzgebung and c.was_in_past_year }.first
   end
 
   def qualification_level

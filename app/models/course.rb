@@ -32,11 +32,11 @@ class Course < Event
     category1 == 'lecture' and category2 == 'B'
   end
 
-  def is_lecture_mandatsarbeit
+  def is_workshop_mandatsarbeit
     category1 == 'workshop' and category2 == 'C'
   end
   
-  def is_lecture_gesetzgebung
+  def is_workshop_gesetzgebung
     category1 == 'workshop' and category2 == 'D'
   end
 
