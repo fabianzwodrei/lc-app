@@ -33,7 +33,7 @@
 	</div>
 
 <!-- QUALIFIZIERT -->
-	<div class="mt-5 p-3" <% if current_qualification_level == 2 %> style="background: #eee" <% end %>>
+	<div class="mt-5 <% if current_qualification_level == 2 %> bg-light p-3 <% end %>">
 		<% courses_not_mandatsarbeit = member.passed_courses_not_mandatsarbeit %>
 
 		<h5 class=" <% if current_qualification_level != 2 %> text-muted <% end %>">
@@ -92,7 +92,7 @@
 	<% valid_courses_not_gesetzgebung = member.passed_and_valid_courses_not_gesetzgebung %>
 	<% valid_gesetzgebung = member.passed_and_valid_gesetzgebung %>
 	<% passed_and_valid_first_mandatsarbeit = member.passed_and_valid_first_mandatsarbeit %>
-	<div class="mt-5 p-3" <% if current_qualification_level == 3 %> style="background: #eee" <% end %>>	
+	<div class="mt-5 <% if current_qualification_level == 3 %> bg-light p-3 <% end %>">	
 		<h5 class="<% if current_qualification_level != 3 %> text-muted <% end %>">
 			<% if current_qualification_level > 2 %>
 			<span class="oi oi-check"></span><% end %> 
