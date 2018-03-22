@@ -26,7 +26,7 @@ class Ability
 
         
         can :create, Event if member.departments.any? # will affect inheriting classes like Courses, Consultations
-        cannot :create, Course unless member.departments.include? SCHULUNGEN
+        # cannot :create, Course unless member.departments.include? SCHULUNGEN
         cannot :create, Consultation unless member.departments.include? SPRECHSTUNDE
 
         can [:edit, :destroy, :update, :email, :add_member, :remove_member], Event do |event|

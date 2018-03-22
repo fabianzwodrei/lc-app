@@ -40,7 +40,7 @@ class Member < ActiveRecord::Base
   
   scope :with_open_payment, lambda {
     joins(:fee_payment).
-        where.not( fee_payments: {paid: true})}
+        where.not( fee_payments: { paid: true } )}
 
   def full_name
     first_name + ' ' + last_name
@@ -54,7 +54,6 @@ class Member < ActiveRecord::Base
     unless @pc
       @pc = courses.includes(:attendances).where("attendances.passed = 't'")
     end
-
     @pc
   end
 
@@ -82,11 +81,23 @@ class Member < ActiveRecord::Base
     passed_courses.find_all { |c| c.is_workshop_gesetzgebung and c.was_in_past_year }.first
   end
 
+  def passed_and_valid_first_mandatsarbeit # für Erstsemester-Ausnahmeregelung, s.u.
+    mandatsarbeit_courses = passed_courses.find_all { |c| c.is_workshop_mandatsarbeit }
+    mandatsarbeit_courses.sort! { |a, b| a.dates[0] <=> b.dates[0] }
+    return mandatsarbeit_courses.first if mandatsarbeit_courses.first.was_in_past_year
+  end
+
   def qualification_level
-    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_and_valid_gesetzgebung and passed_and_valid_courses_not_gesetzgebung.count > 1 
-      return 3
-    end
-    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_courses_not_mandatsarbeit.count > 1
+    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_and_valid_courses_not_gesetzgebung.count > 1 
+      if passed_and_valid_gesetzgebung
+        return 3
+      # Ausnahmeregelung
+      # Mit Alternativschulung für fehlende Gesetzgebung (ersetzt durch Mandatsarbeit) bei Erstsemestern:
+      # - Alternative: erste erfolgreiche Belegung von Mandatsarbeit, max. 365 Tage alt
+      # - dann muss die Alternativschulung von den anderen sonstigen Seminaren abgezogen werden bzw. dann braucht es mind. 3  
+      elsif passed_and_valid_first_mandatsarbeit and passed_and_valid_courses_not_gesetzgebung.count > 2
+        return 3
+      end
     end
     if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_courses_not_mandatsarbeit.count > 1
       return 2
