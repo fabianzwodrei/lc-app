@@ -84,7 +84,10 @@ class Member < ActiveRecord::Base
   def passed_and_valid_first_mandatsarbeit # für Erstsemester-Ausnahmeregelung, s.u.
     mandatsarbeit_courses = passed_courses.find_all { |c| c.is_workshop_mandatsarbeit }
     mandatsarbeit_courses.sort! { |a, b| a.dates[0] <=> b.dates[0] }
-    return mandatsarbeit_courses.first if mandatsarbeit_courses.first.was_in_past_year
+    if mandatsarbeit_courses.count > 0 and mandatsarbeit_courses.first.was_in_past_year
+      return mandatsarbeit_courses.first
+    end
+    return nil
   end
 
   def qualification_level
