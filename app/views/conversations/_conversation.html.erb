@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-light bg-faded" style="top:54px; z-index: 500;">
+<nav class="navbar fixed-top navbar-light bg-light" style="top:54px; z-index: 500;">
     <span class="navbar-text">
   
     <h5 class="mb-0">
@@ -14,8 +14,9 @@
 <div class="row" id="cable_conversation" data-behavior="cable_conversation" data-conversation-id="<%= conversation.id %>" style="padding-top: 40px; padding-bottom: 80px;">
   <div class="col-12" id="messages">     
     <% if @parent_message %>
-    <h5>Ausgangsnachricht</h5>
-      <div class="mx-3"><%= render @parent_message, hide_thread_link: true %></div>
+      <div class="px-3 pt-3 rounded bg-light mb-2">
+        <h6>Ausgangsnachricht</h6>
+        <%= render @parent_message, hide_thread_link: true %></div>
     <% end -%>
     
     <%= render messages %>

@@ -4,7 +4,7 @@
     </div>
 <% end -%>
 <div class="col-lg-11 col-md-12 col-sm-12">
-    <div class="message mb-3 px-2 rounded <% if message.member_id == nil %>text-center small<% end %>  <% if message.children_count > 0 %> p-3 bg-faded <% end %>" >   
+    <div class="message mb-3 px-2 rounded <% if message.member_id == nil %>text-center small<% end %>  <% if message.children_count > 0 %> p-3 bg-light <% end %>" >   
         <%= link_to message.children_count.to_s + " Antworten", conversation_message_thread_path(message.conversation_id, message.id) , class: "badge badge-primary badge-pill float-right float-right message_thread_link" if message.children_count > 0 && !defined? hide_thread_link %>
 
         <% if message.member_id == -1  %>

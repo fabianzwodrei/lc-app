@@ -3,7 +3,7 @@
   rows ||= 1
 %>  
 <form id="message_form" action="/conversations/<%= conversation.id %>/messages" multipart="true">
-  <div class="row bg-faded no-gutters rounded-top p-2 form-inline">
+  <div class="row bg-light no-gutters rounded-top p-2 form-inline">
       <div class="col-12" align="right">
         <% if rows > 1 %>
           <textarea rows="<%= rows%>" autofocus="true" autocomplete="off" class="w-100 form-control mb-1" name="message[text]" id="message_text"></textarea>
