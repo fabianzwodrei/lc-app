@@ -8,6 +8,7 @@
  * Install Redis: `brew install redis` (on mac os x)
  * Run `bundle install`
  * Run `rails db:drop db:setup` 
+ * Copy `config/app_environment_variables_example.rb` to `config/app_environment_variables.rb` and replace placeholders with your (mail-)configuration
 
 ### Running in local Dev
  * Start Redis: `redis-server`

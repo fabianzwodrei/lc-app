@@ -1,0 +1,5 @@
+ENV['MAIL_ADDR'] = 'your@email.com'
+ENV['MAIL_SMTP'] = 'smtp.yourmailprovider.com'
+ENV['MAIL_USER'] = 'noreply@youremail.com'
+ENV['MAIL_PASS'] = 'password'
+ENV['ROOT_URL'] = 'https://your-lc-app-root.com'
