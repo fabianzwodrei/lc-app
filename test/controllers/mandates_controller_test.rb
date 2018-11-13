@@ -106,6 +106,14 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     assert_select @@approved_notice, false, 'no notice expected'
   end
 
+  test 'mandates assignments show correct member qualification_levels' do
+    assign_and_approve_mandate_for :tim
+    assign_and_approve_mandate_for :svenja
+    get mandate_url(mandates(:mandate_1)) + ".htmlp"
+    assert_select "#member_#{members(:tim).id}_qualifiaction", QUALIFICATION_LEVELS[members(:tim).qualification_level]
+    assert_select "#member_#{members(:svenja).id}_qualifiaction", QUALIFICATION_LEVELS[members(:svenja).qualification_level]
+  end
+
   ## public_index
 
   test 'can not see any action in mandate market' do
