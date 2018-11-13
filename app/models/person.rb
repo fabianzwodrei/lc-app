@@ -15,6 +15,10 @@ class Person < ActiveRecord::Base
     first_name + " " + last_name
   end
 
+  def self.genders
+    ['male', 'female', 'other']
+  end
+
   def editable_by member
     if department_id
       return true if member.departments.include? department_id

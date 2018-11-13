@@ -59,3 +59,5 @@ gem "paperclip", "~> 5.2.1"
 
 gem 'passenger'
 gem 'sidekiq'
+
+gem 'country_select'

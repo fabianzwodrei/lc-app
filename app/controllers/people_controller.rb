@@ -72,8 +72,7 @@ class PeopleController < ApplicationController
 
   def person_params
     params[:person][:public] = false if is_client
-    params.require(:person).
-        permit(permitted_client_attrs)
+    params.require(:person).permit(permitted_client_attrs)
   end
 
   def is_client

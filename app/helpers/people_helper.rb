@@ -8,6 +8,6 @@ module PeopleHelper
   end
 
   def permitted_client_attrs()
-    [:email,:first_name,:last_name,:phone,:languages,:department_id,:role,:public,:comment]
+    [:email,:first_name,:last_name,:phone,:languages,:department_id,:role,:public,:comment,:country_of_origin,:date_of_birth,:gender] 
   end
 end

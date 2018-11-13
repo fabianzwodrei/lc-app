@@ -8,8 +8,13 @@
     <h2>
       Person verwalten
     </h2>
-    <%= render "form", person: @person %>
 
-    <%= link_to "Kontakt löschen", person_path(@person), method: "DELETE", data: {confirm: "Löschen bestätigen"}, class: "btn btn-danger btn-sm my-4" if can? :destroy, @person  %>
+    
+      <%= render "form", person: @person %>
+    
+
+    <div class="mt-4">
+      <%= link_to "Kontakt löschen", person_path(@person), method: "DELETE", data: {confirm: "Löschen bestätigen"}, class: "btn btn-danger btn-sm my-4" if can? :destroy, @person  %>
+    </div>
   </div>
 </div>
