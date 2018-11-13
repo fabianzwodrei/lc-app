@@ -1,6 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  # default from: ENV['MAIL_ADDR']
-  default from: "noreply@zwodrei.com"
+  default from: ENV['MAIL_ADDR']
   layout 'mailer'
 
   def info (m_id, subject, body)
