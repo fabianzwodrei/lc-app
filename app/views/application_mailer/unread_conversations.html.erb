@@ -1,0 +1,21 @@
+<h2>Nachrichten in der Law Clinic App</h2>
+<ul>
+	<% for conversation in @conversations %>
+		<% if conversation.mandate_id %>
+			<li><a href="<%= URI.join(root_url, 'mandates/' + conversation.mandate_id.to_s) %>">Protokoll für Mandat #<%= conversation.mandate_id %></a></li>
+		<% end %>
+		<% if conversation.project_id %>
+			<li><a href="<%= URI.join(root_url, 'projects/' + conversation.project_id.to_s) %>">Projekt #<%= conversation.project_id %></a></li>
+		<% end %>
+		<% if conversation.event_id %>
+			<li><a href="<%= URI.join(root_url, 'conversations/' + conversation.id.to_s + "#bottom") %>">Protokoll für Event #<%= conversation.event_id %></a></li>
+		<% end %>
+		<% if conversation.private %>
+			<li><a href="<%= URI.join(root_url, 'conversations/' + conversation.id.to_s + "#bottom") %>">Privater Chat #<%= conversation.id %></a></li>
+		<% end %>
+	<% end -%>
+</ul>
+<p><small>
+	Diese Email bekommst du, weil es so in deinen Einstellungen gespeichert ist: Neue Nachrichten-Mail, jeden Tag um 7:00 Uhr, wenn neue Ungelesenes vorliegt.<br>
+	Zum Deaktivieren melde dich in der Law Clinic App an und klicke in der Navigation auf deinen Namen und dann auf "Profil".
+</small></p>

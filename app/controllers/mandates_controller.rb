@@ -21,6 +21,9 @@ class MandatesController < ApplicationController
 
   def edit
   end
+  def show
+    ConversationView.create_or_update_for @mandate.conversation.id, current_member.id
+  end
 
   def new
   	@mandate = Mandate.new
