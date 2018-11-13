@@ -15,22 +15,8 @@
 
       
     </td>
-    <td class="small" id="member_<%= assignment.member.id %>_qualifiaction">
-      <% ql = assignment.member.qualification_level %>
-      <% if ql == 3 %>
-        <span href="#" data-toggle="tooltip" title="Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen."><%= QUALIFICATION_LEVELS[ql] %></span>
-      <% end %>
-
-      <% if ql == 2 %>
-        <span href="#" data-toggle="tooltip" title="Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen."><%= QUALIFICATION_LEVELS[ql] %></span>
-      <% end %>
-
-      <% if ql == 1 %>
-        <span href="#" data-toggle="tooltip" title="Hospitant*innen können voll qualifizierte Mitglieder bei der Mandatsbearbeitung unterstützen, können jedoch keine Änderungen am Mandatsstatus vornehmen."><%= QUALIFICATION_LEVELS[ql] %></span>
-      <% end %>
-      <% if ql == 0 %>
-        <span href="#" class="qualification_level text-danger"><%= QUALIFICATION_LEVELS[ql] %></span>
-      <% end %>
+    <td id="member_<%= assignment.member.id %>_qualifiaction">
+      <%= render "assignments/qualification_level_badge", member: assignment.member %>
     </td>
 
     <td>

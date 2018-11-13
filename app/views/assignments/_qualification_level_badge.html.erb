@@ -1,0 +1,20 @@
+<% ql = member.qualification_level
+	texts = ["",
+		"Hospitant*innen können voll qualifizierte Mitglieder bei der Mandatsbearbeitung unterstützen, können jedoch keine Änderungen am Mandatsstatus vornehmen.",
+		"Qualifizierte Mitglieder können Mandate bearbeiten, aber deren Abnahme nicht beantragen.",
+		"Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen."]
+ %>	
+ 	<span  class="badge badge-light" data-toggle="tooltip" title="<%= texts[ql] %>">
+      <% if ql == 3 %>
+        <%= QUALIFICATION_LEVELS[ql] %>
+      <% end %>
+      <% if ql == 2 %>
+        <%= QUALIFICATION_LEVELS[ql] %>
+      <% end %>
+      <% if ql == 1 %>
+        <%= QUALIFICATION_LEVELS[ql] %>
+      <% end %>
+      <% if ql == 0 %>
+        <%= QUALIFICATION_LEVELS[ql] %>
+      <% end %>
+  	</span>

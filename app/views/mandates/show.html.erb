@@ -19,22 +19,17 @@
         <% end %>
 
     	  <br>
-        Bearbeiter
+        <small style="color:gray"><b>BEARBEITER</b></small>
       </div>
 
-      <table class="list-group list-group-flush">
+      <ul class="list-group list-group-flush">
         <% for ass in @mandate.assignments.approved %>
-            <tr class="list-group-item">
-              <td><%= ass.member.full_name %></td>
-
-              <% if ass.member.full_qualified %>
-                  <td style="color:gray" href="#" data-toggle="tooltip" title="Voll qualifizierte Mitglieder können Mandate eigenständig bearbeiten und abschließend deren Abnahme anfragen.">&nbsp;&nbsp;&nbsp;&nbsp;Voll qualifiziertes Mitglied</td>
-              <% else %>
-                  <td style="color:gray" href="#" data-toggle="tooltip" title="Hospitant*innen können voll qualifizierte Mitglieder bei der Mandatsbearbeitung unterstützen, können jedoch keine Änderungen am Mandatsstatus vornehmen.">&nbsp;&nbsp;&nbsp;&nbsp;Hospitant*in</td>
-              <% end %>
-            </tr>
+            <li class="list-group-item">
+              <span><%= ass.member.full_name %></span>
+              <%= render "assignments/qualification_level_badge", member: ass.member %>
+            </li>
           <% end %>
-      </table>
+      </ul>
     </div>
     <% unless @mandate.new_record? %>
         <%= render "tasks/widget", tasks: @mandate.tasks.undone, filter: { mandate_id: @mandate.id } %>
