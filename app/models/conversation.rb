@@ -21,9 +21,10 @@ class Conversation < ActiveRecord::Base
 
   scope :privates, lambda { |current_member_id| where('private = ? AND (member1_id = ? OR member2_id = ?)', true, current_member_id, current_member_id) }
   
-  scope :unread, lambda { |member|
-    joins(:conversation_views).
-        where("conversation_views.member_id = ? AND conversation_views.viewed_at < conversations.updated_at", member.id)}
+  # todo: REMOVE ! 
+  # scope :unread, lambda { |member|
+  #   joins(:conversation_views).
+  #       where("conversation_views.member_id = ? AND conversation_views.viewed_at < conversations.updated_at", member.id)}
 
   def get_other_member member
   	if member1 and member2

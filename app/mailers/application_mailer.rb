@@ -15,7 +15,7 @@ class ApplicationMailer < ActionMailer::Base
   def unread_conversations (member_id)
     @member = Member.find(member_id)
     if @member.locked_at == nil
-      @conversations = Conversation.unread @member
+      @conversations = @member.unread_conversations
       return if @conversations.empty?
       mail(to: @member.email, subject: "Nachrichten in Law Clinic App")
     end

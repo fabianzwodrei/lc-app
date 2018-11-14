@@ -1,5 +1,5 @@
 class Mandate < ActiveRecord::Base
-	has_many :assignments
+	has_many :assignments, dependent: :destroy
 	has_many :members, through: :assignments
   has_many :tasks
   has_one :conversation
@@ -52,8 +52,8 @@ class Mandate < ActiveRecord::Base
   scope :undone, -> { where("status != 'done'") }
   scope :active, -> { where("status = 'active'") }
 
-  scope :unapproved, -> { where("approved != ?", true)}
-  scope :approved, -> { where("approved = ?", true)}
+  scope :unapproved, -> { where("assignments.approved != ?", true)}
+  scope :approved, -> { where("assignments.approved = ?", true)}
 
   scope :vacant, -> { where("status = 'vacant'") }
 

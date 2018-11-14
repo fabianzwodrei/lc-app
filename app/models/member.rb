@@ -17,7 +17,8 @@ class Member < ActiveRecord::Base
   belongs_to :annotation, optional: true
 
   has_many :conversation_views, dependent: :destroy
-  has_many :conversations
+  #has_many :conversations
+  
 
 	has_many :assignments
   has_many :attendances
@@ -48,6 +49,23 @@ class Member < ActiveRecord::Base
 
   def full_qualified
     qualification_level == 3
+  end
+
+  def unread_conversations
+    conversations = Array.new
+    # mandate-conversations: 
+    conversations += mandates.approved.map{ |m| m.conversation }
+
+    # private conversations
+    conversations += Conversation.privates(id)
+
+    # Project conversations - by invitations
+    conversations += projects.map{ |m| m.conversation }
+
+    # Project conversations - by departments
+    conversations += Project.where("departments && ARRAY#{departments}").map{ |m| m.conversation } if departments.any?
+
+    conversations.keep_if{|c| c.is_unread_by self }
   end
 
   def passed_courses

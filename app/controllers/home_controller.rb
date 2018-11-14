@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 		@infoboards = Project.where(use_for_infoboard: true)
 		@projects = current_member.projects.active
 		@public_mode = true
-		@unread_conversations = Conversation.unread current_member
+		@unread_conversations = current_member.unread_conversations
 		
 	end
 end
