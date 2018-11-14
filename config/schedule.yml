@@ -1,0 +1,4 @@
+unread_conversations_job:
+  cron: "20 * * * *"
+  class: "UnreadConversationsWorker"
+  queue: default
