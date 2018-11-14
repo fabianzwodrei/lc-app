@@ -20,11 +20,6 @@ class Conversation < ActiveRecord::Base
   validates :member1_id, uniqueness: { scope: :member2_id }, if: :private?
 
   scope :privates, lambda { |current_member_id| where('private = ? AND (member1_id = ? OR member2_id = ?)', true, current_member_id, current_member_id) }
-  
-  # todo: REMOVE ! 
-  # scope :unread, lambda { |member|
-  #   joins(:conversation_views).
-  #       where("conversation_views.member_id = ? AND conversation_views.viewed_at < conversations.updated_at", member.id)}
 
   def get_other_member member
   	if member1 and member2

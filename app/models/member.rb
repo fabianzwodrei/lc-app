@@ -64,7 +64,7 @@ class Member < ActiveRecord::Base
 
     # Project conversations - by departments
     conversations += Project.where("departments && ARRAY#{departments}").map{ |m| m.conversation } if departments.any?
-
+    conversations.uniq!
     conversations.keep_if{|c| c.is_unread_by self }
   end
 
