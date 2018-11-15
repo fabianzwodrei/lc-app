@@ -38,8 +38,16 @@
 <div class="form-group card">
   <div class=" card-body">
   <label class="form-check-label">
-    <%= f.check_box :available, class: "form-check-input" %>
+    <%= f.check_box :available %>
     Aktuell verfügbar
+  </label>
+  </div>
+</div>
+<div class="form-group card">
+  <div class=" card-body">
+  <label class="form-check-label">
+    <%= f.check_box :subscribed_unread_conversations_email %>
+    Email über ungelesene Nachrichten abonnieren - täglich um 6:00 Uhr, wenn Ungelesenes gefunden wird.
   </label>
   </div>
 </div>
@@ -55,7 +63,7 @@
       <% end -%>
     
     <label class="form-check-label mt-4">
-        <%= f.check_box :did_confirm_privacy_clause, class: "form-check-input" %>
+        <%= f.check_box :did_confirm_privacy_clause  %>
      <b> Ich habe die Datenschutzerklärung gelesen und erkläre mein Einverständnis.</b>
     </label>
     </div>

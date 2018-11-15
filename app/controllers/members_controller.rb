@@ -128,7 +128,7 @@ class MembersController < ApplicationController
 	end
 
 	def member_params
-		p = params.require(:member).permit(:email, :first_name, :last_name, :course_of_studies, :semester_count, :hobbies, :entry_date, :password, :password_confirmation, :languages, :available, :did_confirm_privacy_clause, :avatar, :phone, :public_infos, :departments => [])
+		p = params.require(:member).permit(:email, :first_name, :last_name, :course_of_studies, :semester_count, :hobbies, :entry_date, :password, :password_confirmation, :languages, :available, :did_confirm_privacy_clause, :avatar, :phone, :public_infos, :subscribed_unread_conversations_email, :departments => [])
 		p[:departments].reject!(&:blank?) if p[:departments]
 		p
 	end
