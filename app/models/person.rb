@@ -2,14 +2,14 @@ class Person < ActiveRecord::Base
   before_destroy :check_for_mandates
   validates :last_name, presence: true
   validates :first_name, presence: true
-  validates :email, presence: true, if: 'phone.blank?'
+  validates :email, presence: true, if: Proc.new { |p| p.phone.blank? }
   validates :department_id, presence: true
   validates_inclusion_of :role, :in => %w( client contact consultant translator )
 
   belongs_to :inquiry, optional: true
   has_many :mandates, foreign_key: 'client_id'
 
-  default_scope { order('LOWER(last_name)') }
+  default_scope { order(Arel.sql('LOWER(last_name)')) }
 
   def name
     first_name + " " + last_name

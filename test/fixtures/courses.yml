@@ -49,14 +49,6 @@ course_permission_required:
   permission_required: true
   archive: false
   qualification_date: <%= Date.yesterday %>
-course_tim_1:
-  id: 6
-  type: "Course"
-  title: "Tim1"
-  category1: "lecture"
-  category2: "A"
-  dates: ["2017-02-02"]
-  where: "There"
 course_tim_2:
   id: 7
   type: "Course"

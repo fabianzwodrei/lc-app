@@ -64,7 +64,7 @@ class PeopleController < ApplicationController
   ## used from javascript in _suggest
   def render_suggest(params)
     if params[:query] and params[:role]
-      @people = Person.where("(LOWER(first_name) LIKE '%#{params[:query].downcase}%' OR LOWER(last_name) LIKE '%#{params[:query].downcase}%') AND role = '#{params[:role]}'")
+      @people = Person.where(Arel.sql("(first_name ILIKE '%#{params[:query]}%' OR last_name ILIKE '%#{params[:query]}%') AND role = '#{params[:role]}'"))
         .limit(9)
         .select(:id, :first_name, :last_name)
     end

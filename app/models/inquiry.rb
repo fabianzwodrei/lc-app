@@ -1,5 +1,5 @@
 class Inquiry < ActiveRecord::Base
-  belongs_to :member, :foreign_key => 'member_id', optional: true
+  belongs_to :member, optional: true
   belongs_to :client, class_name: "Person", foreign_key: 'client_id', optional: true
 
   validates :client, presence: true

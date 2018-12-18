@@ -35,7 +35,7 @@ class Member < ActiveRecord::Base
   validates :last_name, presence: true
   validates :first_name, presence: true
 
-  default_scope { order('LOWER(last_name)') }
+  default_scope { order(Arel.sql('LOWER(members.last_name)')) }
   scope :unlocked, -> { where(locked_at: nil) }
   scope :in_department, lambda { |department_id| where("departments @> ARRAY[#{department_id}]") }
   
