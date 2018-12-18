@@ -319,10 +319,10 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
     verify_cannot_request_review :tim
   end
 
-  test 'cannot see request review action and can not request review if lecture A is missing' do
+  test 'cannot see request review action and can not request review if lecture B or C is missing' do
     with :sonja do
-      patch course_url(courses(:course_tim_1).id),
-            params: { course: { category1: 'lecture', category2: 'B', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 2 B-lectures 
+      patch course_url(courses(:course_tim_2).id),
+            params: { course: { category1: 'lecture', category2: 'A', dates_string: DateTime.now.strftime('%d.%m.%Y - %H:%M').to_s }} # so we have 1 A-lecture only 
     end
     assign_and_approve_mandate_for :tim
     update_mandate({ status: "active" })

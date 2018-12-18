@@ -70,8 +70,8 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
   test 'see qualifications' do
     sign_in :tim
     get member_url(members(:tim).id)
-    assert_select '#qualifications tr:nth-child(2) .title', 'Tim2'
-    assert_select '#qualifications tr:nth-child(2) .qualification_validity', "gültig bis #{(Date.yesterday+365).strftime('%d.%m.%Y')}"
+    assert_select '#qualifications tr:nth-child(1) .title', 'Tim2'
+    assert_select '#qualifications tr:nth-child(1) .qualification_validity', "gültig bis #{(Date.yesterday+365).strftime('%d.%m.%Y')}"
   end
 
 

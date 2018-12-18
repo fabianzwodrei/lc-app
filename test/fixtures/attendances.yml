@@ -1,24 +1,26 @@
-t1:
-  id: 1
-  member_id: 2
-  event_id: 6
-  passed: true
-t2:
+#
+# Tim is fully qualified
+#
+
+t2: # lecture B for tim
   id: 2
   member_id: 2
   event_id: 7
   passed: true
-t3:
+
+t3: # workshop D (Gesetzgebung) for tim
   id: 3
   member_id: 2
   event_id: 8
   passed: true
-t4:
+
+t4: # workshop E for tim
   id: 4
   member_id: 2
   event_id: 9
   passed: true
-t5:
+
+t5: # workshop E for tim
   id: 5
   member_id: 2
   event_id: 10

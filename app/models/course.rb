@@ -31,6 +31,9 @@ class Course < Event
   def is_lecture_B
     category1 == 'lecture' and category2 == 'B'
   end
+  def is_lecture_C
+    category1 == 'lecture' and category2 == 'C'
+  end
 
   def is_workshop_mandatsarbeit
     category1 == 'workshop' and category2 == 'C'

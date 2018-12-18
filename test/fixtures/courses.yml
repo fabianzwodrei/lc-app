@@ -68,7 +68,7 @@ course_tim_2:
   where: "There"
   limit: 1
   archive: false
-course_tim_3:
+course_tim_3: # Gesetzgebung
   id: 8
   type: "Course"
   title: "Tim3"

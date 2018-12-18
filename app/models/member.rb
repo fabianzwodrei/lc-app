@@ -68,62 +68,75 @@ class Member < ActiveRecord::Base
     conversations.keep_if{|c| c.is_unread_by self }
   end
 
-  def passed_courses
-    unless @pc
-      @pc = courses.includes(:attendances).where("attendances.passed = 't'")
+  # def passed_courses
+  #   unless @pc
+  #     @pc = courses.includes(:attendances).where("attendances.passed = 't'")
+  #   end
+  #   @pc
+  # end
+
+  def passed_lectures
+    unless @passed_lectures
+      @passed_lectures = courses.includes(:attendances).where("events.category1 = 'lecture' AND attendances.passed = 't'")
     end
-    @pc
+    @passed_lectures
+  end
+
+  def passed_workshops
+    unless @passed_workshops
+      @passed_workshops = courses.includes(:attendances).where("events.category1 = 'workshop' AND attendances.passed = 't'")
+    end
+    @passed_workshops
   end
 
   def passed_lectures_A
-    passed_courses.find_all { |c| c.is_lecture_A }
+    passed_lectures.find_all { |c| c.is_lecture_A }
   end
 
   def passed_lectures_B
-    passed_courses.find_all { |c| c.is_lecture_B }
+    passed_lectures.find_all { |c| c.is_lecture_B }
   end
 
-  def passed_courses_not_mandatsarbeit
-    passed_courses.find_all { |c| !c.is_workshop_mandatsarbeit }
+  def passed_lectures_C
+    passed_lectures.find_all { |c| c.is_lecture_C }
+  end
+
+  def passed_workshops_not_mandatsarbeit
+    passed_workshops.find_all { |c| !c.is_workshop_mandatsarbeit }
   end
 
   def passed_mandatsarbeit_courses
-    passed_courses.find_all { |c| c.is_workshop_mandatsarbeit } 
+    passed_workshops.find_all { |c| c.is_workshop_mandatsarbeit } 
   end
 
-  def passed_and_valid_courses_not_gesetzgebung
-    passed_courses.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
+  def passed_and_valid_workshops_not_gesetzgebung
+    passed_workshops.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
   end
 
   def passed_and_valid_gesetzgebung
-    passed_courses.find_all { |c| c.is_workshop_gesetzgebung and c.was_in_past_year }.first
+    passed_workshops.find_all { |c| c.is_workshop_gesetzgebung and c.was_in_past_year }.first
   end
 
-  def passed_and_valid_first_mandatsarbeit # für Erstsemester-Ausnahmeregelung, s.u.
-    mandatsarbeit_courses = passed_courses.find_all { |c| c.is_workshop_mandatsarbeit }
-    mandatsarbeit_courses.sort! { |a, b| a.dates[0] <=> b.dates[0] }
-    if mandatsarbeit_courses.count > 0 and mandatsarbeit_courses.first.was_in_past_year
-      return mandatsarbeit_courses.first
-    end
-    return nil
-  end
+  # def passed_and_valid_first_mandatsarbeit # für Erstsemester-Ausnahmeregelung, s.u.
+  #   mandatsarbeit_courses = passed_workshops.find_all { |c| c.is_workshop_mandatsarbeit }
+  #   mandatsarbeit_courses.sort! { |a, b| a.dates[0] <=> b.dates[0] }
+  #   if mandatsarbeit_courses.count > 0 and mandatsarbeit_courses.first.was_in_past_year
+  #     return mandatsarbeit_courses.first
+  #   end
+  #   return nil
+  # end
 
   def qualification_level
-    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_and_valid_courses_not_gesetzgebung.count > 1 
+    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops_not_gesetzgebung.count > 1 
       if passed_and_valid_gesetzgebung
-        return 3
-      # Ausnahmeregelung
-      # Mit Alternativschulung für fehlende Gesetzgebung (ersetzt durch Mandatsarbeit) bei Erstsemestern:
-      # - Alternative: erste erfolgreiche Belegung von Mandatsarbeit, max. 365 Tage alt
-      # - dann muss die Alternativschulung von den anderen sonstigen Seminaren abgezogen werden bzw. dann braucht es mind. 3  
-      elsif passed_and_valid_first_mandatsarbeit and passed_and_valid_courses_not_gesetzgebung.count > 2
         return 3
       end
     end
-    if passed_lectures_A.count > 0 and passed_lectures_B.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_courses_not_mandatsarbeit.count > 1
+    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_workshops_not_mandatsarbeit.count > 1
       return 2
     end
-    if passed_lectures_A.count > 0 
+    # Hospitant
+    if passed_mandatsarbeit_courses.count > 0
       return 1
     end
     return 0 # Mitglied

@@ -90,6 +90,7 @@ de:
         sub_categories:
           A: "Vorlesung A"
           B: "Vorlesung B"
+          C: "Vorlesung C"
       workshop:
         name: "Schulung"
         sub_categories:

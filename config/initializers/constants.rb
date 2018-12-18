@@ -40,6 +40,6 @@ QUALIFICATION_LEVELS = [
 ]
 
 COURSE_CATEGORIES = {
-	"lecture": ["A", "B"],
+	"lecture": ["A", "B", "C"],
 	"workshop": ["C", "D", "E"]
 }
