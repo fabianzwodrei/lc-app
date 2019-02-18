@@ -81,8 +81,9 @@
 
 <!-- VOLL QUALIFIZIERT -->
 	<% item = nil %>
-	<% valid_courses_not_gesetzgebung = member.passed_and_valid_workshops_not_gesetzgebung %>
+	<% valid_courses = member.passed_and_valid_workshops %>
 	<% valid_gesetzgebung = member.passed_and_valid_gesetzgebung %>
+	<% valid_courses.reject!{ |c| c == valid_gesetzgebung } %>
 	<div class="mt-5 <% if current_qualification_level == 3 %> bg-light p-3 <% end %>">	
 		<h5 class="<% if current_qualification_level != 3 %> text-muted <% end %>">
 			<% if current_qualification_level > 2 %>
@@ -106,7 +107,7 @@
 			</div>
 		</div>
 		<div class="row mb-2">
-			<% item = valid_courses_not_gesetzgebung.pop() %>
+			<% item = valid_courses.pop() %>
 			<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
 			<div class="col-10">
 				<span class="text-info">Schulung</span>, <small class="text-danger">max. 365 Tage alt</small><br>
@@ -114,7 +115,7 @@
 			</div>
 		</div>
 		<div class="row mb-2">
-			<% item = valid_courses_not_gesetzgebung.pop() %>
+			<% item = valid_courses.pop() %>
 			<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
 			<div class="col-10">
 				<span class="text-info">Schulung</span>, <small class="text-danger">max. 365 Tage alt</small><br>

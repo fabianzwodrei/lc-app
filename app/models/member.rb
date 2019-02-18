@@ -109,25 +109,20 @@ class Member < ActiveRecord::Base
     passed_workshops.find_all { |c| c.is_workshop_mandatsarbeit } 
   end
 
-  def passed_and_valid_workshops_not_gesetzgebung
-    passed_workshops.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
+  # def passed_and_valid_workshops_not_gesetzgebung
+  #   passed_workshops.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
+  # end
+
+  def passed_and_valid_workshops
+    passed_workshops.find_all { |c| c.was_in_past_year }
   end
 
   def passed_and_valid_gesetzgebung
     passed_workshops.find_all { |c| c.is_workshop_gesetzgebung and c.was_in_past_year }.first
   end
 
-  # def passed_and_valid_first_mandatsarbeit # für Erstsemester-Ausnahmeregelung, s.u.
-  #   mandatsarbeit_courses = passed_workshops.find_all { |c| c.is_workshop_mandatsarbeit }
-  #   mandatsarbeit_courses.sort! { |a, b| a.dates[0] <=> b.dates[0] }
-  #   if mandatsarbeit_courses.count > 0 and mandatsarbeit_courses.first.was_in_past_year
-  #     return mandatsarbeit_courses.first
-  #   end
-  #   return nil
-  # end
-
   def qualification_level
-    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops_not_gesetzgebung.count > 1 
+    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops.count > 2
       if passed_and_valid_gesetzgebung
         return 3
       end
