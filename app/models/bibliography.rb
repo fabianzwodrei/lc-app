@@ -1,5 +1,5 @@
 class Bibliography < ActiveRecord::Base
-	has_many :documents, dependent: :destroy
+	has_many :documents, -> { order "created_at DESC" }, dependent: :destroy
 
 	def editable_by member
 		if department_id

@@ -6,7 +6,8 @@
 			<br>
 
 			<span class="small text-muted font-italic" >
-				Schlagwörter: <%= document.tags %>
+				Schlagwörter: <%= document.tags %><br>
+				Hochgeladen: <%= l document.created_at.localtime, format: :long %>
 			</span>
 		</div>
 		<% if document.attachment.content_type =~ %r(image|pdf) %>
