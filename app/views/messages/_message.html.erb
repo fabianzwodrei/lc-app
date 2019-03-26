@@ -1,6 +1,10 @@
 <div class="row"><% if message.member_id != nil %>
     <div class="col-lg-1 hidden-lg-down media">
-        <%= image_tag message.member.avatar.url(:thumb), class: " d-flex mr-3 rounded", style: "min-width: 46px; max-width: 46px;" if message.member and message.member.avatar.exists? %>
+        <% if message.member and message.member.avatar.exists? %>
+            <%= image_tag message.member.avatar.url(:thumb), class: " d-flex mr-3 rounded", style: "min-width: 46px; max-width: 46px;"  %>
+        <% else %>
+            <div class=" d-flex mr-3 rounded" style="width: 46px; height: 46px; background-color: #eee"></div>
+        <% end -%>
     </div>
 <% end -%>
 <div class="col-lg-11 col-md-12 col-sm-12">
