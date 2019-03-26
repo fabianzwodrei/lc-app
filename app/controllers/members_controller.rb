@@ -15,19 +15,26 @@ class MembersController < ApplicationController
       end
 		end
 	end
+
+	def prepare_list
+		@query   = "(LOWER(first_name) LIKE '%#{params[:query].downcase}%' OR LOWER(last_name) LIKE '%#{params[:query].downcase}%')" unless params[:query].blank?
+		
+		@size    = controller_path.classify.constantize.where(@query).count
+		@limit   = 20
+		@offset  = params[:offset].blank? ? 0 : params[:offset].to_i
+		
+		@members = Member.where(@query).limit(@limit).offset(@offset)
+	end
  	
 	def index
-		if params[:query] # TODO is this still in use? since suggestions are done via suggest
-			@members = Member.where("LOWER(first_name) LIKE '%#{params[:query].downcase}%' or LOWER(last_name) LIKE '%#{params[:query].downcase}%'")
-		else
-			@members = Member.all # .limit(50) there can not be a limit unless we have pagination
-		end
+		prepare_list
 	end
 
 	def attendances
 	end
 
 	def annotations
+		prepare_list
 	end
 
 	def public

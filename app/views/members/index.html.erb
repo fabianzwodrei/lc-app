@@ -5,12 +5,15 @@
     </h2>
   </div>
   <div class="col-md-3">
-    <div class="mb-2" align="right"><%= render "common/plus", path: new_member_path if can? :create, Member %></div>
+      <div class="mb-2" align="right"><%= render "common/plus", path: new_member_path if can? :create, Member %></div>
   </div>
 </div>
+<%= render 'pagination_and_search' %>
+
 
 <div class="row">
 	<div class="col s12">
 		<%= render 'listing' %>
 	</div>
 </div>
+<%= render 'pagination' %>

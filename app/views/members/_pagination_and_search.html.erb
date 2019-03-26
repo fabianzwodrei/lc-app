@@ -1,0 +1,11 @@
+<% @ps = request.params; @ps.delete("controller"); @ps.delete("action") %>
+<div class="row">
+  <div class="offset-md-6 col-md-6" align="right">
+      <form>
+        <div class="form-group">
+          <input name="query" value="<%= params[:query] %>" placeholder="Suche + Enter drücken" class="form-control" >
+          <% @ps.each_pair { |name, val| next if name == "query" or name == "offset"; %> <input type="hidden" name="<%= name %>" value="<%= val %>"/> <% } %>          
+        </div>
+      </form>
+    </div>
+</div>

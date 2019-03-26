@@ -1,0 +1,11 @@
+<div class="row mt-3" align="center">
+  <div class="col">
+        <% if @offset > 0 and @offset > @limit-1 %>
+          <a href="<%= request.path + "?" + (@ps.merge(offset: @offset-@limit)).to_param %>" class="btn btn-primary btn-sm">zurück</a>
+        <% end -%>
+        <% if @offset < @size-@limit %>
+          <a href="<%= request.path + "?" + (@ps.merge(offset: @offset+@limit)).to_param %>" class="btn btn-primary btn-sm">weiter</a>
+        <% end -%>
+        <p class="small mt-3"><%= @offset+1 %>-<%= @offset+@members.count %> von <%= @size %></p>
+  </div>
+</div>
