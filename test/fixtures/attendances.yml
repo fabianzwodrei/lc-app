@@ -14,7 +14,7 @@ t3: # workshop D (Gesetzgebung) for tim
   event_id: 8
   passed: true
 
-t4: # workshop E for tim
+t4: # mandats workshop C for tim
   id: 4
   member_id: 2
   event_id: 9

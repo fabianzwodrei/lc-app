@@ -69,7 +69,7 @@ course_tim_3: # Gesetzgebung
   qualification_date: <%= Date.yesterday %>
   dates: ["2017-02-02"]
   where: "There"
-course_tim_4:
+course_tim_4: # Mandatsarbeit 
   id: 9
   type: "Course"
   title: "Tim4"

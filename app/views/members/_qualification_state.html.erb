@@ -107,6 +107,15 @@
 			</div>
 		</div>
 		<div class="row mb-2">
+			<div class="col-2" align="center">
+				<span class="oi oi-check" style="color: <%= mandatsarbeit.count == 0 ? "silver" : "black" %>;"></span></div>
+			<div class="col-10">
+				<span class="text-info">Schulung</span><br><i>"Mandatsarbeit"</i><br>
+				<% for mandatsarbeit_item in mandatsarbeit %>
+					<small class="text-muted pl-3"><span class="oi oi-check"></span> <%= mandatsarbeit_item.title %></small>
+				<% end %></div>
+		</div>
+		<div class="row mb-2">
 			<% item = valid_courses.pop() %>
 			<div class="col-2" align="center"><span class="oi oi-check" style="color: <%= item ? "black" : "silver" %>;"></span></div>
 			<div class="col-10">

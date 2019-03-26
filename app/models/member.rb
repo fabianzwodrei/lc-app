@@ -122,7 +122,7 @@ class Member < ActiveRecord::Base
   end
 
   def qualification_level
-    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops.count > 2
+    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops.count > 2 and passed_mandatsarbeit_courses.count > 0
       if passed_and_valid_gesetzgebung
         return 3
       end
