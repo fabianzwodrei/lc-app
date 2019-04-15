@@ -7,13 +7,15 @@
     ''
   end
 %>
-<div class=""><span class="oi oi-check text-success"></span> - Mitglied ist verfügbar</div>
-<div class=""><span class="oi oi-x text-danger"></span> - Mitglied derzeit nicht verfügbar</div>
-<div class=""><span class="oi oi-ban text-danger"></span> - Mitglied deaktiviert</div>
-<br>
+<button class="btn btn-sm btn-default" onclick="$('#listing_members_icons').show(); $(this).remove();">Symbolerklärung</button>
+<div id="listing_members_icons" style="display:none">
+  <div class=""><span class="oi oi-check text-success"></span> - Mitglied ist verfügbar</div>
+  <div class=""><span class="oi oi-x text-danger"></span> - Mitglied derzeit nicht verfügbar</div>
+  <div class=""><span class="oi oi-ban text-danger"></span> - Mitglied deaktiviert</div>
+</div>
 
 <% if !@members.blank? %>
-  <div id="accordion" role="tablist" class="accordion" aria-multiselectable="false">
+  <div id="accordion" role="tablist" class="accordion mt-3" aria-multiselectable="false">
     <% for member in @members %>
       <div class="card">
         <div class="card-header p-1 p-sm-3" role="tab" id="member-<%= member.id %>">
