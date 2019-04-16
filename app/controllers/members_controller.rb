@@ -18,12 +18,12 @@ class MembersController < ApplicationController
 
 	def prepare_list
 		@query   = "(LOWER(first_name) LIKE '%#{params[:query].downcase}%' OR LOWER(last_name) LIKE '%#{params[:query].downcase}%')" unless params[:query].blank?
+		@qualification_cached_filter = "qualification_cached = #{params[:qualification_cached].to_i}" unless params[:qualification_cached].blank?
 		
-		@size    = controller_path.classify.constantize.where(@query).count
+		@size    = controller_path.classify.constantize.where(@query).where(@qualification_cached_filter).count
 		@limit   = 20
 		@offset  = params[:offset].blank? ? 0 : params[:offset].to_i
 
-		@qualification_cached_filter = "qualification_cached = #{params[:qualification_cached].to_i}" unless params[:qualification_cached].blank?
 		
 		@members = Member.where(@query).where(@qualification_cached_filter).limit(@limit).offset(@offset)
 	end
