@@ -2,7 +2,7 @@ unread_conversations_job:
   cron: "0 6 * * * Europe/Amsterdam"
   class: "UnreadConversationsWorker"
   queue: default
- cache_qualifications_job:
+cache_qualifications_job:
   cron: "0 0 * * * Europe/Amsterdam"
   class: "UnreadConversationsWorker"
   queue: default
