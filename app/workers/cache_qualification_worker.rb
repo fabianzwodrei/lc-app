@@ -4,7 +4,7 @@ class CacheQualificationWorker
 	
 	sidekiq_throttle({
 		:concurrency => { :limit => 1 },
-		:threshold => { :limit => 50, :period => 1.hour }
+		:threshold => { :limit => 1000, :period => 1.hour }
 	})
 
 	def perform(member_id)
