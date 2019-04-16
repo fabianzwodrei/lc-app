@@ -107,6 +107,8 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'mandates assignments show correct member qualification_levels' do
+    members(:tim).cache_qualification()
+    members(:svenja).cache_qualification()
     assign_and_approve_mandate_for :tim
     assign_and_approve_mandate_for :svenja
     get mandate_url(mandates(:mandate_1)) + ".htmlp"
@@ -294,6 +296,7 @@ class MandatesControllerTest < ActionDispatch::IntegrationTest
 
   test 'can see & request review button and can request review' do
     assign_and_approve_mandate_for :tim
+    members(:tim).cache_qualification()
     update_mandate({ status: "active" })
     sign_in :tim
     visit_mandate_path

@@ -22,8 +22,10 @@ class MembersController < ApplicationController
 		@size    = controller_path.classify.constantize.where(@query).count
 		@limit   = 20
 		@offset  = params[:offset].blank? ? 0 : params[:offset].to_i
+
+		@qualification_cached_filter = "qualification_cached = #{params[:qualification_cached].to_i}" unless params[:qualification_cached].blank?
 		
-		@members = Member.where(@query).limit(@limit).offset(@offset)
+		@members = Member.where(@query).where(@qualification_cached_filter).limit(@limit).offset(@offset)
 	end
  	
 	def index

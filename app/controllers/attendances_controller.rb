@@ -20,6 +20,8 @@ class AttendancesController < ApplicationController
     attendance = Attendance.find params[:id]
     notice = attendance.update(passed:true) ? "'Kurs bestanden' gespeichert."
                                             : "'Kurs bestanden' konnte nicht gespeichert werden."
+
+    attendance.course.members.each { |m| m.cache_qualification() }
     redirect_to edit_course_url(attendance.course, anchor: "attendees"), notice: notice
   end
 
@@ -31,6 +33,8 @@ class AttendancesController < ApplicationController
     attendance = Attendance.find params[:id]
     notice = attendance.update(passed:false) ? "'Kurs bestanden' zurückgenommen."
                                              : "'Kurs bestanden' konnte nicht zurückgenommen werden."
+
+    attendance.course.members.each { |m| m.cache_qualification() }
     redirect_to edit_course_url(attendance.course, anchor: "attendees"), notice: notice
   end
 end

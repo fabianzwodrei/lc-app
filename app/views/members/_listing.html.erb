@@ -23,7 +23,7 @@
           <div class="d-flex flex-column flex-md-row ">
             <div class="px-1 col-md-4 bold member_full_name"><%= member.full_name %></div>
             <div class="px-1 col-md-2 small break-word">
-              <%= QUALIFICATION_LEVELS[member.qualification_level] %>
+              <%= QUALIFICATION_LEVELS[member.qualification_cached] %>
               <br><i><%= member.languages %></i>
               </div>
             <div class="px-1 col-md-1">

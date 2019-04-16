@@ -51,6 +51,10 @@ class Member < ActiveRecord::Base
     qualification_level == 3
   end
 
+  def cache_qualification
+    update qualification_cached: generate_qualification_level()
+  end
+
   def unread_conversations
     conversations = Array.new
     # mandate-conversations: 
@@ -109,10 +113,6 @@ class Member < ActiveRecord::Base
     passed_workshops.find_all { |c| c.is_workshop_mandatsarbeit } 
   end
 
-  # def passed_and_valid_workshops_not_gesetzgebung
-  #   passed_workshops.find_all { |c| !c.is_workshop_gesetzgebung and c.was_in_past_year }
-  # end
-
   def passed_and_valid_workshops
     passed_workshops.find_all { |c| c.was_in_past_year }
   end
@@ -122,19 +122,9 @@ class Member < ActiveRecord::Base
   end
 
   def qualification_level
-    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops.count > 2 and passed_mandatsarbeit_courses.count > 0
-      if passed_and_valid_gesetzgebung
-        return 3
-      end
-    end
-    if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_workshops_not_mandatsarbeit.count > 1
-      return 2
-    end
-    # Hospitant
-    if passed_mandatsarbeit_courses.count > 0
-      return 1
-    end
-    return 0 # Mitglied
+    result = generate_qualification_level()
+    update qualification_cached: result unless result == qualification_cached
+    return result
   end
 
   def stats
@@ -143,4 +133,22 @@ class Member < ActiveRecord::Base
     stats[:mandates_undone] = assignments.approved.joins(:mandate).where("status != 'done'").count
     stats
   end
+
+  private 
+    def generate_qualification_level
+      if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_and_valid_workshops.count > 2 and passed_mandatsarbeit_courses.count > 0
+        if passed_and_valid_gesetzgebung
+          return 3
+        end
+      end
+      if passed_lectures_B.count + passed_lectures_C.count > 0 and passed_mandatsarbeit_courses.count > 0 and passed_workshops_not_mandatsarbeit.count > 1
+        return 2
+      end
+      # Hospitant
+      if passed_mandatsarbeit_courses.count > 0
+        return 1
+      end
+      #Mitglied
+      return 0
+    end
 end

@@ -1,19 +1,17 @@
 <% @ps = request.params; @ps.delete("controller"); @ps.delete("action") %>
 <form>
     <div class="row">
-        <div class="col-md-6 mb-1">
-            <select class="form-control " autocomplete="off">
-                <option>Alle Qualifikationen</option>
-                <option>Hospitanten</option>
-                <option>Qualifizierte</option>
-                <option>Vollqualifizierte</option>
-            </select>
+        <div class="col-md-5 mb-1">
+            <%= select_tag("qualification_cached", options_for_select(QUALIFICATION_LEVELS.map.with_index { |e, i| [e, i] }, (params[:qualification_cached].blank? ? "" : params[:qualification_cached])), { include_blank: "Alle Qualifikationen", class: "form-control"}) %>
         </div>
         <div class="col-md-6" align="right">
             <div class="form-group form-row">
-                <input name="query" value="<%= params[:query] %>" placeholder="Suche + Enter drücken" class="form-control" >
-                <% @ps.each_pair { |name, val| next if name == "query" or name == "offset"; %> <input type="hidden" name="<%= name %>" value="<%= val %>"/> <% } %>
+                <input name="query" value="<%= params[:query] %>" placeholder="Name, optional" class="form-control" >
+                <% @ps.each_pair { |name, val| next if name == "query" or name == "offset" or name == "qualification_cached"; %> <input type="hidden" name="<%= name %>" value="<%= val %>"/> <% } %>
             </div>
+        </div>
+        <div class="col-md-1" align="right">
+            <button type="submit" class="btn btn-primary">Suche</button>
         </div>
     </div>
 </form>
