@@ -1,14 +1,14 @@
 language: ruby
-install:
-  - gem uninstall bundler
-  - gem install bundler --version '1.7.2'
 rvm:
   - 2.4.1
 services:
   - postgresql
   - redis-server
 
-before_install: cp config/travis-database.yml config/database.yml
+before_install:
+  - cp config/travis-database.yml config/database.yml
+  - gem uninstall bundler
+  - gem install bundler --version '1.7.2'
 before_script:
   - bundle exec rake db:drop RAILS_ENV=test
   - bundle exec rake db:create RAILS_ENV=test
