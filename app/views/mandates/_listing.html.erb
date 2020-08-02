@@ -2,7 +2,7 @@
   <div class="mandates_listing">
     <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
     		<% for mandate in mandates %>
-    			<div class="card">
+    			<div class="card" style="overflow: visible;">
 					  <div class="card-header" data-parent="#accordion" data-target="#mandate-<%= mandate.id %>" data-toggle="collapse" style="background-color: white" role="tab" id="mandate-<%= mandate.id %>-heading">
 					    <%= render 'mandates/heading', mandate: mandate %>
 
