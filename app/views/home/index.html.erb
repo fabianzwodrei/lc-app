@@ -11,9 +11,7 @@
       <div class="card mb-3">
         <div class="card-header h6">Deine Mandate</div>
         <div class="card-body p-0">
-          <% for mandate in current_member.mandates.approved.undone %>
-            <%= render "mandates/market/mandate", mandate: mandate, show_pencil: true, id_attribute: "your_mandates_approved_undone", show_assignments: true %>
-          <% end %>
+          <%= render "mandates/market/listing", show_unapply: false, id_attribute: "your_mandates_unapproved_undone", mandates: current_member.mandates.approved.undone %>
         </div>
       </div>
     <% end %>
@@ -22,9 +20,11 @@
       <div class="card mb-3">
         <div class="card-header h6">Deine Sachstandsanfragen</div>
         <div class="card-body p-0">
-          <% for inquiry in current_member.inquiries.undone %>
-            <%= render inquiry %>
-          <% end %>
+          <div class="accordion" id="inquiries_list" role="tablist" aria-multiselectable="true">
+            <% for inquiry in current_member.inquiries.undone %>
+              <%= render inquiry %>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>

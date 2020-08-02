@@ -49,7 +49,7 @@ end
 
 gem 'devise'
 
-gem 'bootstrap', "~> 4.3.1"
+gem 'bootstrap', "~> 4.5.0"
 gem 'bootstrap-datepicker-rails'
 
 gem 'cancancan'
