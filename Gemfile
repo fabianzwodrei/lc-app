@@ -1,8 +1,7 @@
 
 source 'https://rubygems.org'
 
-#ruby=ruby-2.3.1
-#ruby-gemset=rails5.0
+#ruby=ruby-2.4.1
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
