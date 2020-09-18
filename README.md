@@ -5,6 +5,7 @@
 
 ### Setup
  * Install Imagemagick
+ * Allow Imagemagick to read PDFs via `sudo vi /etc/ImageMagick-6/policy.xml`
  * Install Redis: `brew install redis` (on mac os x)
  * Run `bundle install`
  * Run `rails db:drop db:setup` 
