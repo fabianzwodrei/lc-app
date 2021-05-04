@@ -20,7 +20,8 @@ class Ability
       # Events
         # General Events
         # index-Event will affect inheriting classes like Courses, Consultations
-        can [:export, :show, :calendar, :index], Event 
+        can [:export, :show, :calendar], Event 
+        can :index, Event 
         cannot :index, Consultation
         cannot :index, Course
 
