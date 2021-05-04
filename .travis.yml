@@ -7,7 +7,6 @@ services:
 
 before_install:
   - cp config/travis-database.yml config/database.yml
-  - gem uninstall bundler
   - gem install bundler --version '2.2.13'
 before_script:
   - bundle exec rake db:drop RAILS_ENV=test
