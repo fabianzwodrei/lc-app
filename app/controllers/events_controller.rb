@@ -126,7 +126,7 @@ class EventsController < ApplicationController
         events = events.archived.offset(from).limit(Rails.configuration.x.page_items)
       else
         count = nil
-        events = events.active
+        events = events.active.order(Arel.sql("dates[1] DESC"))
       end
       return events, from, count
     end

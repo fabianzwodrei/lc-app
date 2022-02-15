@@ -1,6 +1,5 @@
 # original domain model name: Schulung
 class Course < Event
-  default_scope -> { order(Arel.sql("dates[1] DESC")) }
   before_destroy :check_for_attendances, :check_used_conversation
   before_create { |course|
     course.conversation = Conversation.new(private:false)
