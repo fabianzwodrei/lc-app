@@ -142,8 +142,6 @@ GEM
     raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-protection (2.1.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.6.2)
@@ -174,7 +172,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (3.3.5)
+    redis (4.6.0)
     redis-prescription (1.0.0)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -189,11 +187,10 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sidekiq (5.2.9)
-      connection_pool (~> 2.2, >= 2.2.2)
+    sidekiq (6.4.1)
+      connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 4.2)
+      redis (>= 4.2.0)
     sidekiq-cron (1.0.4)
       fugit (~> 1.1)
       sidekiq (>= 4.2.1)
@@ -253,9 +250,9 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (>= 4.3.9)
   rails (= 5.2.6.2)
-  redis (~> 3.0)
+  redis (>= 4.2.0)
   sass-rails
-  sidekiq
+  sidekiq (>= 6.4.0)
   sidekiq-cron (~> 1.0.0)
   sidekiq-throttled
   turbolinks (~> 5)
