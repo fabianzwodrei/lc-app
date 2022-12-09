@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.7.1'
+gem 'rails', '5.2.8.1'
 
 gem 'pg', "~> 0.18"
 # Use Puma as the app server
@@ -58,7 +58,7 @@ gem "paperclip", "~> 5.2.1"
 
 gem 'passenger'
 
-gem 'sidekiq', ">= 6.4.0"
+gem 'sidekiq', "= 6.4.2"
 gem "sidekiq-cron", "~> 1.0.0"
 gem "sidekiq-throttled"
 
