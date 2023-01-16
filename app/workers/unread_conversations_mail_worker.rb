@@ -8,7 +8,6 @@ class UnreadConversationsMailWorker
 		:threshold => { :limit => 50, :period => 1.hour }
 	})
 
-
 	def perform(member_id)
 		ApplicationMailer.unread_conversations(member_id).deliver 
 	end
