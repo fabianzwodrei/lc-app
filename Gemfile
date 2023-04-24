@@ -57,7 +57,7 @@ gem "paperclip", "~> 5.2.1"
 
 gem 'passenger'
 
-gem 'sidekiq', "6.5.6"
+gem 'sidekiq', "7.0.8"
 gem "sidekiq-cron"
 gem "sidekiq-throttled", "0.17.0"
 
